@@ -108,9 +108,12 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
         lbDelito = new javax.swing.JLabel();
         txArt = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        lbDescripcionDelito = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        lbJuzgado = new javax.swing.JLabel();
+        cbxJuzgados = new javax.swing.JComboBox<>();
+        lbDescripcionDelito1 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -728,15 +731,25 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lbDescripcionDelito.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        lbDescripcionDelito.setText("Delito:");
-        lbDescripcionDelito.setToolTipText("");
-
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jTextArea1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextArea1.setEnabled(false);
         jScrollPane2.setViewportView(jTextArea1);
+
+        lbJuzgado.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbJuzgado.setText("Juzgado:");
+        lbJuzgado.setToolTipText("");
+
+        cbxJuzgados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lbDescripcionDelito1.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbDescripcionDelito1.setText("Descripción:");
+        lbDescripcionDelito1.setToolTipText("");
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel19.setText("*");
 
         javax.swing.GroupLayout PanelComponentesLayout = new javax.swing.GroupLayout(PanelComponentes);
         PanelComponentes.setLayout(PanelComponentesLayout);
@@ -764,32 +777,39 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
                     .addGroup(PanelComponentesLayout.createSequentialGroup()
                         .addGap(430, 430, 430)
                         .addComponent(BotonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbLinea))
+                .addGap(67, 67, 67))
+            .addGroup(PanelComponentesLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
                         .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelComponentesLayout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
                                 .addComponent(lbTipoDelito))
                             .addGroup(PanelComponentesLayout.createSequentialGroup()
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
                                 .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbDescripcionDelito)
-                                    .addComponent(lbDelito))))
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbDescripcionDelito1)
+                                    .addComponent(lbDelito)
+                                    .addComponent(lbJuzgado))))
                         .addGap(18, 18, 18)
-                        .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbxTipoDelito, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(PanelComponentesLayout.createSequentialGroup()
-                                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbxTipoDelito, 0, 210, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cbxJuzgados, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBox1, 0, 210, Short.MAX_VALUE))
                                 .addGap(63, 63, 63)
                                 .addComponent(lbArt)
                                 .addGap(18, 18, 18)
-                                .addComponent(txArt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2)))
-                    .addComponent(lbLinea))
-                .addGap(67, 67, 67))
+                                .addComponent(txArt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelComponentesLayout.setVerticalGroup(
             PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -823,13 +843,17 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lbArt)
                         .addComponent(txArt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26)
                 .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lbDescripcionDelito))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(lbDescripcionDelito1)
+                        .addGap(84, 84, 84)
+                        .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxJuzgados, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbJuzgado)
+                            .addComponent(jLabel19)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jScrollPane1.setViewportView(PanelComponentes);
@@ -1051,6 +1075,7 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
     private javax.swing.JPanel PanelMenu;
     private javax.swing.JPanel PanelPersonas;
     private javax.swing.JPanel PanelSettings;
+    private javax.swing.JComboBox<String> cbxJuzgados;
     private javax.swing.JComboBox<String> cbxTipoDelito;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -1063,6 +1088,7 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -1093,7 +1119,8 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
     private javax.swing.JLabel lbBuscar;
     private javax.swing.JLabel lbCedula;
     private javax.swing.JLabel lbDelito;
-    private javax.swing.JLabel lbDescripcionDelito;
+    private javax.swing.JLabel lbDescripcionDelito1;
+    private javax.swing.JLabel lbJuzgado;
     private javax.swing.JLabel lbLinea;
     private javax.swing.JLabel lbNombreApellido;
     private javax.swing.JLabel lbTipoDelito;
