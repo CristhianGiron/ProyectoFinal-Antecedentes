@@ -46,7 +46,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/IconoTriangulo1.png"));
         setIconImage(iconoPropio);
         Image iconoEncabezado = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/IconoTriangulo1.png"));
-        Encabezado.setIcon(new ImageIcon(uti.img(iconoEncabezado, Encabezado.size())));
+        //Encabezado.setIcon(new ImageIcon(uti.img(iconoEncabezado, Encabezado.size())));
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(inicio, 3);
         inicio.setBounds(0, 35, 1000, 625);
@@ -65,8 +65,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Contenedor = new javax.swing.JPanel();
         panelMenuL = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        PanelNombre = new javax.swing.JPanel();
-        Encabezado = new javax.swing.JLabel();
         MenuDesplegable1 = new javax.swing.JPanel();
         Menu1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -132,23 +130,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
         jPanel2.setLayout(null);
-
-        PanelNombre.setBackground(new java.awt.Color(54, 70, 78));
-        PanelNombre.setOpaque(false);
-        PanelNombre.setLayout(null);
-
-        Encabezado.setFont(new java.awt.Font("Vivaldi", 1, 36)); // NOI18N
-        Encabezado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Encabezado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                EncabezadoMousePressed(evt);
-            }
-        });
-        PanelNombre.add(Encabezado);
-        Encabezado.setBounds(13, 0, 186, 110);
-
-        jPanel2.add(PanelNombre);
-        PanelNombre.setBounds(0, 0, 210, 110);
 
         MenuDesplegable1.setBackground(new java.awt.Color(25, 51, 89));
         MenuDesplegable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -871,10 +852,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
       // TODO add your handling code here:
     }//GEN-LAST:event_btnMenuMousePressed
-
-    private void EncabezadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EncabezadoMousePressed
-                // TODO add your handling code here:
-    }//GEN-LAST:event_EncabezadoMousePressed
     
     private void Menu5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MousePressed
         Contenedor.remove(inicio);
@@ -1043,7 +1020,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Contenedor;
-    private javax.swing.JLabel Encabezado;
     private javax.swing.JPanel Menu1;
     private javax.swing.JPanel Menu10;
     private javax.swing.JPanel Menu11;
@@ -1062,7 +1038,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel MenuDesplegable3;
     private javax.swing.JPanel MenuDesplegable4;
     private javax.swing.JPanel MenuDesplegable5;
-    private javax.swing.JPanel PanelNombre;
     private javax.swing.JLabel btnMenu;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

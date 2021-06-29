@@ -5,17 +5,41 @@
  */
 package Vista;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author hp
  */
 public class AgregarAntecedentes extends javax.swing.JPanel {
-
+boolean boolPanelMenu = false;
+    boolean boolPanelAntecedentes = false;
+    boolean boolPanelPersonas = false;
+    boolean boolPanelSettings = false;
+    File fichero;
     /**
      * Creates new form AgregarAntecedentes
      */
     public AgregarAntecedentes() {
         initComponents();
+        IconoBorrarArchivo.setVisible(false);
+        lbIconoArchivo.setVisible(false);
+        lbNombreArchivo.setVisible(false);
+        rbEnProceso.setEnabled(false);
+        rbEnProceso.setSelected(true);
     }
 
     /**
@@ -27,15 +51,13 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane4 = new javax.swing.JScrollPane();
         PanelComponentes = new javax.swing.JPanel();
         LabelTitulo = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
         lbTipoDelito = new javax.swing.JLabel();
         txtNombreApellido = new javax.swing.JTextField();
         lbLinea = new javax.swing.JLabel();
-        BotonBuscar = new javax.swing.JPanel();
-        lbBuscar = new javax.swing.JLabel();
-        IconoBuscar = new javax.swing.JLabel();
         lbNombreApellido = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -46,105 +68,146 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         cbxTipoDelito = new javax.swing.JComboBox<>();
         lbDelito = new javax.swing.JLabel();
         txArt = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbDelito = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         lbJuzgado = new javax.swing.JLabel();
         cbxJuzgados = new javax.swing.JComboBox<>();
         lbDescripcionDelito1 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        dcFechaInicioAudiencia = new com.toedter.calendar.JDateChooser();
+        lbFechaInicioAudiencia = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        lbFechaInicioAudiencia1 = new javax.swing.JLabel();
+        dcFechaFinalizacionAudiencia = new com.toedter.calendar.JDateChooser();
+        lbDuracionAudiencia = new javax.swing.JLabel();
+        txDuracionAudiencia = new javax.swing.JTextField();
+        lbIntancia = new javax.swing.JLabel();
+        txtIntancia = new javax.swing.JTextField();
+        lbNrAudiencia = new javax.swing.JLabel();
+        txtNrAudiencia = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        rbEnProceso = new javax.swing.JRadioButton();
+        rbFinalizado = new javax.swing.JRadioButton();
+        lbEstadoProceso = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        lbTipoCondena = new javax.swing.JLabel();
+        cbxTipoCondena = new javax.swing.JComboBox<>();
+        lbSentencia = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtSentencia = new javax.swing.JTextArea();
+        jPanel3 = new javax.swing.JPanel();
+        lbNombreArchivo = new javax.swing.JLabel();
+        lbIconoArchivo = new javax.swing.JLabel();
+        IconoBorrarArchivo = new javax.swing.JLabel();
+        botonSubir = new javax.swing.JPanel();
+        lbIconoSubir = new javax.swing.JLabel();
+        lbSubirArchivo = new javax.swing.JLabel();
+        botonBuscar = new javax.swing.JPanel();
+        IconoBuscar = new javax.swing.JLabel();
+        lbBuscar = new javax.swing.JLabel();
+        botonGuardar = new javax.swing.JPanel();
+        lbIconoGuardar = new javax.swing.JLabel();
+        lbGuardar = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1000, 610));
         setLayout(null);
 
-        PanelComponentes.setPreferredSize(new java.awt.Dimension(10, 313));
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(1072, 600));
+
+        PanelComponentes.setBackground(new java.awt.Color(255, 255, 255));
+        PanelComponentes.setPreferredSize(new java.awt.Dimension(600, 1090));
+        PanelComponentes.setVerifyInputWhenFocusTarget(false);
+        PanelComponentes.setLayout(null);
 
         LabelTitulo.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 24)); // NOI18N
         LabelTitulo.setText("AGREGAR ANTECEDENTES");
         LabelTitulo.setToolTipText("");
+        PanelComponentes.add(LabelTitulo);
+        LabelTitulo.setBounds(233, 11, 274, 32);
 
+        txtCedula.setBackground(new java.awt.Color(240, 240, 240));
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCedulaActionPerformed(evt);
             }
         });
+        PanelComponentes.add(txtCedula);
+        txtCedula.setBounds(50, 90, 219, 30);
 
         lbTipoDelito.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbTipoDelito.setText("Tipo de Delito:");
         lbTipoDelito.setToolTipText("");
+        PanelComponentes.add(lbTipoDelito);
+        lbTipoDelito.setBounds(70, 231, 87, 20);
 
+        txtNombreApellido.setBackground(new java.awt.Color(240, 240, 240));
         txtNombreApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreApellidoActionPerformed(evt);
             }
         });
+        PanelComponentes.add(txtNombreApellido);
+        txtNombreApellido.setBounds(465, 90, 319, 30);
 
-        lbLinea.setText("________________________________________________________________________________________________________________________________________________________________________");
-
-        BotonBuscar.setBackground(new java.awt.Color(18, 44, 82));
-
-        lbBuscar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
-        lbBuscar.setForeground(new java.awt.Color(204, 206, 223));
-        lbBuscar.setText("Buscar");
-        lbBuscar.setToolTipText("");
-
-        IconoBuscar.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        IconoBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar1.png"))); // NOI18N
-        IconoBuscar.setToolTipText("");
-
-        javax.swing.GroupLayout BotonBuscarLayout = new javax.swing.GroupLayout(BotonBuscar);
-        BotonBuscar.setLayout(BotonBuscarLayout);
-        BotonBuscarLayout.setHorizontalGroup(
-            BotonBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BotonBuscarLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(lbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(IconoBuscar)
-                .addContainerGap())
-        );
-        BotonBuscarLayout.setVerticalGroup(
-            BotonBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BotonBuscarLayout.createSequentialGroup()
-                .addGroup(BotonBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(IconoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        lbLinea.setText("___________________________________________________________________________________________________________________");
+        lbLinea.setMaximumSize(new java.awt.Dimension(600, 14));
+        lbLinea.setPreferredSize(new java.awt.Dimension(600, 14));
+        PanelComponentes.add(lbLinea);
+        lbLinea.setBounds(0, 191, 971, 20);
 
         lbNombreApellido.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbNombreApellido.setText("Nombre y Apellido");
         lbNombreApellido.setToolTipText("");
+        PanelComponentes.add(lbNombreApellido);
+        lbNombreApellido.setBounds(465, 50, 114, 20);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 0, 0));
         jLabel5.setText("*");
+        PanelComponentes.add(jLabel5);
+        jLabel5.setBounds(451, 52, 8, 17);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(204, 0, 0));
         jLabel6.setText("*");
+        PanelComponentes.add(jLabel6);
+        jLabel6.setBounds(60, 228, 10, 17);
 
         lbCedula.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbCedula.setText("Cédula");
         lbCedula.setToolTipText("");
+        PanelComponentes.add(lbCedula);
+        lbCedula.setBounds(50, 50, 42, 20);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 0, 0));
         jLabel11.setText("*");
+        PanelComponentes.add(jLabel11);
+        jLabel11.setBounds(40, 50, 10, 17);
 
         lbArt.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbArt.setText("Art:");
         lbArt.setToolTipText("");
+        PanelComponentes.add(lbArt);
+        lbArt.setBounds(448, 281, 21, 20);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(204, 0, 0));
         jLabel16.setText("*");
+        PanelComponentes.add(jLabel16);
+        jLabel16.setBounds(60, 278, 10, 17);
 
+        cbxTipoDelito.setBackground(new java.awt.Color(240, 240, 240));
         cbxTipoDelito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        PanelComponentes.add(cbxTipoDelito);
+        cbxTipoDelito.setBounds(175, 228, 210, 30);
 
         lbDelito.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbDelito.setText("Delito:");
         lbDelito.setToolTipText("");
+        PanelComponentes.add(lbDelito);
+        lbDelito.setBounds(76, 281, 38, 20);
 
         txArt.setText("N");
         txArt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -154,8 +217,13 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
                 txArtActionPerformed(evt);
             }
         });
+        PanelComponentes.add(txArt);
+        txArt.setBounds(487, 278, 49, 30);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbDelito.setBackground(new java.awt.Color(240, 240, 240));
+        cbDelito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        PanelComponentes.add(cbDelito);
+        cbDelito.setBounds(175, 278, 210, 30);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -163,129 +231,331 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         jTextArea1.setEnabled(false);
         jScrollPane2.setViewportView(jTextArea1);
 
+        PanelComponentes.add(jScrollPane2);
+        jScrollPane2.setBounds(175, 334, 361, 76);
+
         lbJuzgado.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbJuzgado.setText("Juzgado:");
         lbJuzgado.setToolTipText("");
+        PanelComponentes.add(lbJuzgado);
+        lbJuzgado.setBounds(76, 441, 53, 20);
 
+        cbxJuzgados.setBackground(new java.awt.Color(240, 240, 240));
         cbxJuzgados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        PanelComponentes.add(cbxJuzgados);
+        cbxJuzgados.setBounds(175, 438, 210, 30);
 
         lbDescripcionDelito1.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbDescripcionDelito1.setText("Descripción:");
         lbDescripcionDelito1.setToolTipText("");
+        PanelComponentes.add(lbDescripcionDelito1);
+        lbDescripcionDelito1.setBounds(76, 334, 73, 20);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(204, 0, 0));
         jLabel19.setText("*");
+        PanelComponentes.add(jLabel19);
+        jLabel19.setBounds(60, 443, 10, 17);
 
-        javax.swing.GroupLayout PanelComponentesLayout = new javax.swing.GroupLayout(PanelComponentes);
-        PanelComponentes.setLayout(PanelComponentesLayout);
-        PanelComponentesLayout.setHorizontalGroup(
-            PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelComponentesLayout.createSequentialGroup()
-                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(430, 430, 430)
-                        .addComponent(LabelTitulo))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(lbCedula)
-                        .addGap(568, 568, 568)
-                        .addComponent(jLabel5)
-                        .addGap(2, 2, 2)
-                        .addComponent(lbNombreApellido))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(401, 401, 401)
-                        .addComponent(txtNombreApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(430, 430, 430)
-                        .addComponent(BotonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbLinea))
-                .addGap(67, 67, 67))
-            .addGroup(PanelComponentesLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelComponentesLayout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(lbTipoDelito))
-                            .addGroup(PanelComponentesLayout.createSequentialGroup()
-                                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbDescripcionDelito1)
-                                    .addComponent(lbDelito)
-                                    .addComponent(lbJuzgado))))
-                        .addGap(18, 18, 18)
-                        .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbxTipoDelito, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PanelComponentesLayout.createSequentialGroup()
-                                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cbxJuzgados, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, 0, 210, Short.MAX_VALUE))
-                                .addGap(63, 63, 63)
-                                .addComponent(lbArt)
-                                .addGap(18, 18, 18)
-                                .addComponent(txArt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        PanelComponentesLayout.setVerticalGroup(
-            PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelComponentesLayout.createSequentialGroup()
-                .addComponent(LabelTitulo)
-                .addGap(18, 18, 18)
-                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(lbCedula)
-                    .addComponent(jLabel5)
-                    .addComponent(lbNombreApellido))
-                .addGap(20, 20, 20)
-                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombreApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(BotonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(lbLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbTipoDelito)
-                        .addComponent(cbxTipoDelito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20)
-                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel16)
-                    .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbDelito)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbArt)
-                        .addComponent(txArt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
-                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addComponent(lbDescripcionDelito1)
-                        .addGap(84, 84, 84)
-                        .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbxJuzgados, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbJuzgado)
-                            .addComponent(jLabel19)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        dcFechaInicioAudiencia.setDateFormatString("dd/MM/yyyy");
+        dcFechaInicioAudiencia.setIcon(new ImageIcon(getClass().getResource("/Vista/Iconos/IconoCalendario2.png")));
+        PanelComponentes.add(dcFechaInicioAudiencia);
+        dcFechaInicioAudiencia.setBounds(320, 476, 130, 30);
+
+        lbFechaInicioAudiencia.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbFechaInicioAudiencia.setText("Fecha de Inicio de la Audiencia:");
+        lbFechaInicioAudiencia.setToolTipText("");
+        PanelComponentes.add(lbFechaInicioAudiencia);
+        lbFechaInicioAudiencia.setBounds(76, 486, 188, 20);
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel20.setText("*");
+        PanelComponentes.add(jLabel20);
+        jLabel20.setBounds(60, 488, 10, 17);
+
+        lbFechaInicioAudiencia1.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbFechaInicioAudiencia1.setText("Fecha de Finalización de la Audiencia:");
+        lbFechaInicioAudiencia1.setToolTipText("");
+        PanelComponentes.add(lbFechaInicioAudiencia1);
+        lbFechaInicioAudiencia1.setBounds(76, 534, 226, 20);
+
+        dcFechaFinalizacionAudiencia.setDateFormatString("dd/MM/yyyy");
+        dcFechaFinalizacionAudiencia.setIcon(new ImageIcon(getClass().getResource("/Vista/Iconos/IconoCalendario2.png")));
+        PanelComponentes.add(dcFechaFinalizacionAudiencia);
+        dcFechaFinalizacionAudiencia.setBounds(320, 524, 130, 30);
+
+        lbDuracionAudiencia.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbDuracionAudiencia.setText("Duración:");
+        lbDuracionAudiencia.setToolTipText("");
+        PanelComponentes.add(lbDuracionAudiencia);
+        lbDuracionAudiencia.setBounds(497, 534, 58, 20);
+
+        txDuracionAudiencia.setText("N");
+        txDuracionAudiencia.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txDuracionAudiencia.setEnabled(false);
+        txDuracionAudiencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txDuracionAudienciaActionPerformed(evt);
+            }
+        });
+        PanelComponentes.add(txDuracionAudiencia);
+        txDuracionAudiencia.setBounds(573, 524, 49, 30);
+
+        lbIntancia.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbIntancia.setText("Intancia:");
+        lbIntancia.setToolTipText("");
+        PanelComponentes.add(lbIntancia);
+        lbIntancia.setBounds(76, 575, 49, 20);
+
+        txtIntancia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIntanciaActionPerformed(evt);
+            }
+        });
+        PanelComponentes.add(txtIntancia);
+        txtIntancia.setBounds(143, 572, 66, 30);
+
+        lbNrAudiencia.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbNrAudiencia.setText("Nr Audiencia:");
+        lbNrAudiencia.setToolTipText("");
+        PanelComponentes.add(lbNrAudiencia);
+        lbNrAudiencia.setBounds(320, 575, 81, 20);
+
+        txtNrAudiencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNrAudienciaActionPerformed(evt);
+            }
+        });
+        PanelComponentes.add(txtNrAudiencia);
+        txtNrAudiencia.setBounds(419, 572, 66, 30);
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel21.setText("*");
+        PanelComponentes.add(jLabel21);
+        jLabel21.setBounds(60, 577, 10, 17);
+
+        rbEnProceso.setBackground(new java.awt.Color(255, 255, 255));
+        rbEnProceso.setSelected(true);
+        rbEnProceso.setText("En Proceso");
+        rbEnProceso.setFocusPainted(false);
+        rbEnProceso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbEnProcesoActionPerformed(evt);
+            }
+        });
+        PanelComponentes.add(rbEnProceso);
+        rbEnProceso.setBounds(211, 621, 78, 22);
+
+        rbFinalizado.setBackground(new java.awt.Color(255, 255, 255));
+        rbFinalizado.setText("Finalizado");
+        rbFinalizado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbFinalizadoActionPerformed(evt);
+            }
+        });
+        PanelComponentes.add(rbFinalizado);
+        rbFinalizado.setBounds(307, 621, 73, 23);
+
+        lbEstadoProceso.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbEstadoProceso.setText("Estado del Proceso:");
+        lbEstadoProceso.setToolTipText("");
+        PanelComponentes.add(lbEstadoProceso);
+        lbEstadoProceso.setBounds(76, 620, 117, 20);
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel22.setText("*");
+        PanelComponentes.add(jLabel22);
+        jLabel22.setBounds(60, 622, 10, 17);
+
+        lbTipoCondena.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbTipoCondena.setText("Tipo de Condena:");
+        lbTipoCondena.setToolTipText("");
+        PanelComponentes.add(lbTipoCondena);
+        lbTipoCondena.setBounds(76, 665, 107, 20);
+
+        cbxTipoCondena.setBackground(new java.awt.Color(240, 240, 240));
+        cbxTipoCondena.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        PanelComponentes.add(cbxTipoCondena);
+        cbxTipoCondena.setBounds(201, 662, 210, 30);
+
+        lbSentencia.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbSentencia.setText("Sentencia:");
+        lbSentencia.setToolTipText("");
+        PanelComponentes.add(lbSentencia);
+        lbSentencia.setBounds(76, 710, 60, 20);
+
+        txtSentencia.setColumns(20);
+        txtSentencia.setRows(5);
+        jScrollPane3.setViewportView(txtSentencia);
+
+        PanelComponentes.add(jScrollPane3);
+        jScrollPane3.setBounds(76, 741, 335, 76);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lbNombreArchivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel3.add(lbNombreArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 317, 21));
+        jPanel3.add(lbIconoArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
+
+        IconoBorrarArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IconoBorrarArchivoMouseClicked(evt);
+            }
+        });
+        jPanel3.add(IconoBorrarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 20, -1));
+
+        PanelComponentes.add(jPanel3);
+        jPanel3.setBounds(224, 840, 331, 131);
+
+        botonSubir.setBackground(new java.awt.Color(18, 44, 82));
+        botonSubir.setPreferredSize(new java.awt.Dimension(140, 46));
+        botonSubir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonSubirMouseClicked(evt);
+            }
+        });
+
+        lbSubirArchivo.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lbSubirArchivo.setForeground(new java.awt.Color(204, 206, 223));
+        lbSubirArchivo.setText("Subir Archivo");
+
+        javax.swing.GroupLayout botonSubirLayout = new javax.swing.GroupLayout(botonSubir);
+        botonSubir.setLayout(botonSubirLayout);
+        botonSubirLayout.setHorizontalGroup(
+            botonSubirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonSubirLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbSubirArchivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(lbIconoSubir)
                 .addContainerGap())
         );
+        botonSubirLayout.setVerticalGroup(
+            botonSubirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonSubirLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(botonSubirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbIconoSubir)
+                    .addComponent(lbSubirArchivo))
+                .addGap(0, 0, 0))
+        );
 
-        add(PanelComponentes);
-        PanelComponentes.setBounds(0, 0, 1000, 610);
+        PanelComponentes.add(botonSubir);
+        botonSubir.setBounds(309, 989, 147, 22);
+
+        botonBuscar.setBackground(new java.awt.Color(18, 44, 82));
+        botonBuscar.setPreferredSize(new java.awt.Dimension(140, 46));
+        botonBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonBuscarMouseClicked(evt);
+            }
+        });
+
+        IconoBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar1.png"))); // NOI18N
+
+        lbBuscar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lbBuscar.setForeground(new java.awt.Color(204, 206, 223));
+        lbBuscar.setText("Buscar");
+
+        javax.swing.GroupLayout botonBuscarLayout = new javax.swing.GroupLayout(botonBuscar);
+        botonBuscar.setLayout(botonBuscarLayout);
+        botonBuscarLayout.setHorizontalGroup(
+            botonBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonBuscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(IconoBuscar)
+                .addContainerGap())
+        );
+        botonBuscarLayout.setVerticalGroup(
+            botonBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonBuscarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(botonBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(IconoBuscar)
+                    .addComponent(lbBuscar))
+                .addGap(0, 0, 0))
+        );
+
+        PanelComponentes.add(botonBuscar);
+        botonBuscar.setBounds(327, 163, 105, 22);
+
+        botonGuardar.setBackground(new java.awt.Color(18, 44, 82));
+        botonGuardar.setPreferredSize(new java.awt.Dimension(140, 46));
+        botonGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonGuardarMouseClicked(evt);
+            }
+        });
+
+        lbGuardar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lbGuardar.setForeground(new java.awt.Color(204, 206, 223));
+        lbGuardar.setText("Guardar");
+
+        javax.swing.GroupLayout botonGuardarLayout = new javax.swing.GroupLayout(botonGuardar);
+        botonGuardar.setLayout(botonGuardarLayout);
+        botonGuardarLayout.setHorizontalGroup(
+            botonGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonGuardarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbGuardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(lbIconoGuardar)
+                .addContainerGap())
+        );
+        botonGuardarLayout.setVerticalGroup(
+            botonGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonGuardarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(botonGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbIconoGuardar)
+                    .addComponent(lbGuardar))
+                .addGap(0, 0, 0))
+        );
+
+        PanelComponentes.add(botonGuardar);
+        botonGuardar.setBounds(328, 1057, 114, 22);
+
+        jScrollPane4.setViewportView(PanelComponentes);
+
+        add(jScrollPane4);
+        jScrollPane4.setBounds(0, 0, 1000, 610);
     }// </editor-fold>//GEN-END:initComponents
-
+    //Esconde de forma horizontal un panel
+    public void esconderHorizontal(JPanel panel, boolean dashboard){
+        if(dashboard == true){
+            panel.setPreferredSize(new Dimension(0, panel.getHeight()));//Esconde
+        }
+        else{
+            panel.setPreferredSize(new Dimension(213, panel.getHeight()));//Muestra
+        }
+        
+    }
+    
+    //Esconde de forma vertical un panel
+    public void esconderVertical(JPanel panel, boolean dashboard, JLabel boton){
+        if(dashboard == true){
+            panel.setPreferredSize(new Dimension(panel.getWidth(), 0));//Esconde
+            cambiarImagen(boton, "/Vista/Iconos/IconoTriangulo1.png");//Cambia el icono
+        }
+        else{
+            panel.setPreferredSize(new Dimension(panel.getWidth(), 92));//Muestra
+            cambiarImagen(boton, "/Vista/Iconos/IconoTriangulo2.png");//Cambia el icono
+        }
+        
+    }
+    
+    //Cambia la imagen de un icono ubicado en un JLabel
+    public void cambiarImagen(JLabel button, String direccionImagen){
+        ImageIcon img = new ImageIcon(getClass().getResource(direccionImagen));
+        button.setIcon(img);
+    }
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCedulaActionPerformed
@@ -298,33 +568,137 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txArtActionPerformed
 
+    private void txDuracionAudienciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txDuracionAudienciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txDuracionAudienciaActionPerformed
+
+    private void txtIntanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIntanciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIntanciaActionPerformed
+
+    private void txtNrAudienciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNrAudienciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNrAudienciaActionPerformed
+
+    private void rbEnProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEnProcesoActionPerformed
+        if (rbEnProceso.isSelected()) {
+            rbEnProceso.setEnabled(false);
+            rbFinalizado.setEnabled(true);
+            rbFinalizado.setSelected(false);
+        }
+    }//GEN-LAST:event_rbEnProcesoActionPerformed
+
+    private void rbFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFinalizadoActionPerformed
+        if (rbFinalizado.isSelected()) {
+            rbFinalizado.setEnabled(false);
+            rbEnProceso.setEnabled(true);
+            rbEnProceso.setSelected(false);
+        }
+    }//GEN-LAST:event_rbFinalizadoActionPerformed
+
+    private void IconoBorrarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoBorrarArchivoMouseClicked
+        IconoBorrarArchivo.setVisible(false);
+        lbIconoArchivo.setVisible(false);
+        lbNombreArchivo.setVisible(false);
+        lbNombreArchivo.setText("");
+        fichero = null;
+    }//GEN-LAST:event_IconoBorrarArchivoMouseClicked
+
+    private void botonSubirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSubirMouseClicked
+        JFileChooser fc = new JFileChooser();//Creamos el objeto JFileChooser
+        int seleccion = fc.showOpenDialog(this);//Abrimos la ventana, guardamos la opcion seleccionada por el usuario
+        if (seleccion == JFileChooser.APPROVE_OPTION) { //Si el usuario selecciona aceptar
+            IconoBorrarArchivo.setVisible(true);
+            lbIconoArchivo.setVisible(true);
+            fichero = fc.getSelectedFile();//Seleccionamos el fichero
+            lbNombreArchivo.setVisible(true);
+            lbNombreArchivo.setText(fichero.getName());//Escribimos el nombre del archivo
+        }
+    }//GEN-LAST:event_botonSubirMouseClicked
+
+    private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
+
+    }//GEN-LAST:event_botonBuscarMouseClicked
+
+    private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
+        JOptionPane.showMessageDialog(null, "Se ha guardado con éxito");
+    }//GEN-LAST:event_botonGuardarMouseClicked
+    
+     public void cambiarColor(JPanel panel, Color color){
+        panel.setBackground(color);
+    }
+    
+    public void clickmenu(JPanel panel, int numberbool){
+        if(numberbool == 1){
+            panel.setBackground(new Color(25, 29, 74));
+        }
+        else{
+            panel.setBackground(new Color(221,226,255));
+        }
+    }
+    
+   
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel BotonBuscar;
+    private javax.swing.JLabel IconoBorrarArchivo;
     private javax.swing.JLabel IconoBuscar;
     private javax.swing.JLabel LabelTitulo;
     private javax.swing.JPanel PanelComponentes;
+    private javax.swing.JPanel botonBuscar;
+    private javax.swing.JPanel botonGuardar;
+    private javax.swing.JPanel botonSubir;
+    private javax.swing.JComboBox<String> cbDelito;
     private javax.swing.JComboBox<String> cbxJuzgados;
+    private javax.swing.JComboBox<String> cbxTipoCondena;
     private javax.swing.JComboBox<String> cbxTipoDelito;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private com.toedter.calendar.JDateChooser dcFechaFinalizacionAudiencia;
+    private com.toedter.calendar.JDateChooser dcFechaInicioAudiencia;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbArt;
     private javax.swing.JLabel lbBuscar;
     private javax.swing.JLabel lbCedula;
     private javax.swing.JLabel lbDelito;
     private javax.swing.JLabel lbDescripcionDelito1;
+    private javax.swing.JLabel lbDuracionAudiencia;
+    private javax.swing.JLabel lbEstadoProceso;
+    private javax.swing.JLabel lbFechaInicioAudiencia;
+    private javax.swing.JLabel lbFechaInicioAudiencia1;
+    private javax.swing.JLabel lbGuardar;
+    private javax.swing.JLabel lbIconoArchivo;
+    private javax.swing.JLabel lbIconoGuardar;
+    private javax.swing.JLabel lbIconoSubir;
+    private javax.swing.JLabel lbIntancia;
     private javax.swing.JLabel lbJuzgado;
     private javax.swing.JLabel lbLinea;
     private javax.swing.JLabel lbNombreApellido;
+    private javax.swing.JLabel lbNombreArchivo;
+    private javax.swing.JLabel lbNrAudiencia;
+    private javax.swing.JLabel lbSentencia;
+    private javax.swing.JLabel lbSubirArchivo;
+    private javax.swing.JLabel lbTipoCondena;
     private javax.swing.JLabel lbTipoDelito;
+    private javax.swing.JRadioButton rbEnProceso;
+    private javax.swing.JRadioButton rbFinalizado;
     private javax.swing.JTextField txArt;
+    private javax.swing.JTextField txDuracionAudiencia;
     private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtIntancia;
     private javax.swing.JTextField txtNombreApellido;
+    private javax.swing.JTextField txtNrAudiencia;
+    private javax.swing.JTextArea txtSentencia;
     // End of variables declaration//GEN-END:variables
 }
