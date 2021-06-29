@@ -10,5 +10,5 @@ package Modelo;
  * @author hp
  */
 public class Condena {
-    
+   
 }
