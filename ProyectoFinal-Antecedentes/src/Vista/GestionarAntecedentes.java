@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import java.awt.Color;
+
 /**
  *
  * @author hp
