@@ -11,9 +11,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -963,6 +967,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         gestionarJuzgados.setBounds(0, 35, 1000, 625);
         indicador=6;        // TODO add your handling code here:
     }//GEN-LAST:event_Menu12MousePressed
+    
+    
     private void entered(JPanel item) {
         item.setOpaque(true);
         item.setBackground(new Color(18,77,123));
@@ -1015,6 +1021,21 @@ public class VistaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+//                 try {
+//                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//                } catch (ClassNotFoundException ex) {
+//                    Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//                     System.out.println("Error "+ ex);
+//                } catch (InstantiationException ex) {
+//                    Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//                    System.out.println("Error "+ ex);
+//                } catch (IllegalAccessException ex) {
+//                    Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//                    System.out.println("Error "+ ex);
+//                } catch (UnsupportedLookAndFeelException ex) {
+//                    Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//                    System.out.println("Error "+ ex);
+//                }
                 new VistaPrincipal().setVisible(true);
             }
         });
