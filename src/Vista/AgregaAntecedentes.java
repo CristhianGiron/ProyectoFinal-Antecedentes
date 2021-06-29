@@ -8,10 +8,17 @@ package Vista;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -23,11 +30,15 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
     boolean boolPanelAntecedentes = false;
     boolean boolPanelPersonas = false;
     boolean boolPanelSettings = false;
+    File fichero;
     /**
      * Creates new form VistaAntecedentes
      */
     public AgregaAntecedentes() {
         initComponents();
+        IconoBorrarArchivo.setVisible(false);
+        lbIconoArchivo.setVisible(false);
+        lbNombreArchivo.setVisible(false);
         rbEnProceso.setEnabled(false);
         rbEnProceso.setSelected(true); 
     }
@@ -97,9 +108,6 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
         lbTipoDelito = new javax.swing.JLabel();
         txtNombreApellido = new javax.swing.JTextField();
         lbLinea = new javax.swing.JLabel();
-        BotonBuscar = new javax.swing.JPanel();
-        lbBuscar = new javax.swing.JLabel();
-        IconoBuscar = new javax.swing.JLabel();
         lbNombreApellido = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -138,6 +146,19 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
         lbSentencia = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtSentencia = new javax.swing.JTextArea();
+        jPanel3 = new javax.swing.JPanel();
+        lbNombreArchivo = new javax.swing.JLabel();
+        lbIconoArchivo = new javax.swing.JLabel();
+        IconoBorrarArchivo = new javax.swing.JLabel();
+        botonSubir = new javax.swing.JPanel();
+        lbIconoSubir = new javax.swing.JLabel();
+        lbSubirArchivo = new javax.swing.JLabel();
+        botonBuscar = new javax.swing.JPanel();
+        IconoBuscar = new javax.swing.JLabel();
+        lbBuscar = new javax.swing.JLabel();
+        botonGuardar = new javax.swing.JPanel();
+        lbIconoGuardar = new javax.swing.JLabel();
+        lbGuardar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -678,7 +699,8 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
         jScrollPane4.setPreferredSize(new java.awt.Dimension(1072, 600));
 
         PanelComponentes.setBackground(new java.awt.Color(255, 255, 255));
-        PanelComponentes.setPreferredSize(new java.awt.Dimension(600, 900));
+        PanelComponentes.setPreferredSize(new java.awt.Dimension(600, 1090));
+        PanelComponentes.setVerifyInputWhenFocusTarget(false);
 
         LabelTitulo.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 24)); // NOI18N
         LabelTitulo.setText("AGREGAR ANTECEDENTES");
@@ -705,37 +727,6 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
         lbLinea.setText("___________________________________________________________________________________________________________________");
         lbLinea.setMaximumSize(new java.awt.Dimension(600, 14));
         lbLinea.setPreferredSize(new java.awt.Dimension(600, 14));
-
-        BotonBuscar.setBackground(new java.awt.Color(18, 44, 82));
-
-        lbBuscar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 14)); // NOI18N
-        lbBuscar.setForeground(new java.awt.Color(204, 206, 223));
-        lbBuscar.setText("Buscar");
-        lbBuscar.setToolTipText("");
-
-        IconoBuscar.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        IconoBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar1.png"))); // NOI18N
-        IconoBuscar.setToolTipText("");
-
-        javax.swing.GroupLayout BotonBuscarLayout = new javax.swing.GroupLayout(BotonBuscar);
-        BotonBuscar.setLayout(BotonBuscarLayout);
-        BotonBuscarLayout.setHorizontalGroup(
-            BotonBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BotonBuscarLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(lbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(IconoBuscar)
-                .addContainerGap())
-        );
-        BotonBuscarLayout.setVerticalGroup(
-            BotonBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BotonBuscarLayout.createSequentialGroup()
-                .addGroup(BotonBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(IconoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
 
         lbNombreApellido.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbNombreApellido.setText("Nombre y Apellido");
@@ -901,16 +892,139 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
         txtSentencia.setRows(5);
         jScrollPane3.setViewportView(txtSentencia);
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lbNombreArchivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel3.add(lbNombreArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 317, 21));
+
+        lbIconoArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/PDF file icon_page-0001.png"))); // NOI18N
+        jPanel3.add(lbIconoArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
+
+        IconoBorrarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoCerrar.png"))); // NOI18N
+        IconoBorrarArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IconoBorrarArchivoMouseClicked(evt);
+            }
+        });
+        jPanel3.add(IconoBorrarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 20, -1));
+
+        botonSubir.setBackground(new java.awt.Color(18, 44, 82));
+        botonSubir.setPreferredSize(new java.awt.Dimension(140, 46));
+        botonSubir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonSubirMouseClicked(evt);
+            }
+        });
+
+        lbIconoSubir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoSubir.png"))); // NOI18N
+
+        lbSubirArchivo.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lbSubirArchivo.setForeground(new java.awt.Color(204, 206, 223));
+        lbSubirArchivo.setText("Subir Archivo");
+
+        javax.swing.GroupLayout botonSubirLayout = new javax.swing.GroupLayout(botonSubir);
+        botonSubir.setLayout(botonSubirLayout);
+        botonSubirLayout.setHorizontalGroup(
+            botonSubirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonSubirLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbSubirArchivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(lbIconoSubir)
+                .addContainerGap())
+        );
+        botonSubirLayout.setVerticalGroup(
+            botonSubirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonSubirLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(botonSubirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbIconoSubir)
+                    .addComponent(lbSubirArchivo))
+                .addGap(0, 0, 0))
+        );
+
+        botonBuscar.setBackground(new java.awt.Color(18, 44, 82));
+        botonBuscar.setPreferredSize(new java.awt.Dimension(140, 46));
+        botonBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonBuscarMouseClicked(evt);
+            }
+        });
+
+        IconoBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar1.png"))); // NOI18N
+
+        lbBuscar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lbBuscar.setForeground(new java.awt.Color(204, 206, 223));
+        lbBuscar.setText("Buscar");
+
+        javax.swing.GroupLayout botonBuscarLayout = new javax.swing.GroupLayout(botonBuscar);
+        botonBuscar.setLayout(botonBuscarLayout);
+        botonBuscarLayout.setHorizontalGroup(
+            botonBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonBuscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(IconoBuscar)
+                .addContainerGap())
+        );
+        botonBuscarLayout.setVerticalGroup(
+            botonBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonBuscarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(botonBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(IconoBuscar)
+                    .addComponent(lbBuscar))
+                .addGap(0, 0, 0))
+        );
+
+        botonGuardar.setBackground(new java.awt.Color(18, 44, 82));
+        botonGuardar.setPreferredSize(new java.awt.Dimension(140, 46));
+        botonGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonGuardarMouseClicked(evt);
+            }
+        });
+
+        lbIconoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoGuardar.png"))); // NOI18N
+
+        lbGuardar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
+        lbGuardar.setForeground(new java.awt.Color(204, 206, 223));
+        lbGuardar.setText("Guardar");
+
+        javax.swing.GroupLayout botonGuardarLayout = new javax.swing.GroupLayout(botonGuardar);
+        botonGuardar.setLayout(botonGuardarLayout);
+        botonGuardarLayout.setHorizontalGroup(
+            botonGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonGuardarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbGuardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(lbIconoGuardar)
+                .addContainerGap())
+        );
+        botonGuardarLayout.setVerticalGroup(
+            botonGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonGuardarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(botonGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbIconoGuardar)
+                    .addComponent(lbGuardar))
+                .addGap(0, 0, 0))
+        );
+
         javax.swing.GroupLayout PanelComponentesLayout = new javax.swing.GroupLayout(PanelComponentes);
         PanelComponentes.setLayout(PanelComponentesLayout);
         PanelComponentesLayout.setHorizontalGroup(
             PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelComponentesLayout.createSequentialGroup()
-                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
                         .addGap(233, 233, 233)
                         .addComponent(LabelTitulo))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -919,22 +1033,19 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGap(6, 6, 6)
                         .addComponent(lbNombreApellido))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(196, 196, 196)
                         .addComponent(txtNombreApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(334, 334, 334)
-                        .addComponent(BotonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(lbTipoDelito)
                         .addGap(18, 18, 18)
                         .addComponent(cbxTipoDelito, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
@@ -945,46 +1056,27 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
                         .addComponent(lbArt)
                         .addGap(18, 18, 18)
                         .addComponent(txArt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addComponent(lbDescripcionDelito1)
                         .addGap(26, 26, 26)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(lbJuzgado)
-                        .addGap(46, 46, 46)
-                        .addComponent(cbxJuzgados, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(lbFechaInicioAudiencia)
                         .addGap(56, 56, 56)
                         .addComponent(dcFechaInicioAudiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
                         .addGap(76, 76, 76)
-                        .addComponent(lbFechaInicioAudiencia1)
+                        .addComponent(lbTipoCondena)
                         .addGap(18, 18, 18)
-                        .addComponent(dcFechaFinalizacionAudiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(lbDuracionAudiencia)
-                        .addGap(18, 18, 18)
-                        .addComponent(txDuracionAudiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(lbIntancia)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtIntancia, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(111, 111, 111)
-                        .addComponent(lbNrAudiencia)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNrAudiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                        .addComponent(cbxTipoCondena, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(lbSentencia))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
@@ -993,25 +1085,64 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
                         .addComponent(rbEnProceso)
                         .addGap(18, 18, 18)
                         .addComponent(rbFinalizado))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(lbTipoCondena)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbxTipoCondena, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(lbSentencia))
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
+                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                                        .addComponent(lbIntancia)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtIntancia, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(111, 111, 111)
+                                        .addComponent(lbNrAudiencia)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtNrAudiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                                        .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(PanelComponentesLayout.createSequentialGroup()
+                                                .addComponent(lbFechaInicioAudiencia1)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(dcFechaFinalizacionAudiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(47, 47, 47)
+                                                .addComponent(lbDuracionAudiencia)))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txDuracionAudiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelComponentesLayout.createSequentialGroup()
+                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(lbJuzgado)
+                                .addGap(46, 46, 46)
+                                .addComponent(cbxJuzgados, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(0, 31, Short.MAX_VALUE))
             .addGroup(PanelComponentesLayout.createSequentialGroup()
-                .addComponent(lbLinea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbLinea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                        .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelComponentesLayout.createSequentialGroup()
+                                .addGap(76, 76, 76)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelComponentesLayout.createSequentialGroup()
+                                .addGap(327, 327, 327)
+                                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(PanelComponentesLayout.createSequentialGroup()
+                .addGap(309, 309, 309)
+                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonSubir, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelComponentesLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelComponentesLayout.setVerticalGroup(
             PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelComponentesLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelComponentesLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addComponent(LabelTitulo)
                 .addGap(7, 7, 7)
@@ -1026,9 +1157,9 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
                 .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNombreApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addComponent(BotonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17)
                 .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1070,14 +1201,12 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
                         .addComponent(lbFechaInicioAudiencia))
                     .addComponent(dcFechaInicioAudiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dcFechaFinalizacionAudiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txDuracionAudiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelComponentesLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbFechaInicioAudiencia1)
-                            .addComponent(lbDuracionAudiencia))))
+                .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dcFechaFinalizacionAudiencia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txDuracionAudiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbDuracionAudiencia, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lbFechaInicioAudiencia1))
                 .addGap(18, 18, 18)
                 .addGroup(PanelComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelComponentesLayout.createSequentialGroup()
@@ -1112,8 +1241,14 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lbSentencia)
                 .addGap(11, 11, 11)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botonSubir, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jScrollPane4.setViewportView(PanelComponentes);
@@ -1124,6 +1259,7 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(PanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(IconoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 817, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1163,47 +1299,37 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public void cambiarColor(JPanel panel, Color color){
-        panel.setBackground(color);
-    }
-    
-    public void clickmenu(JPanel panel, int numberbool){
-        if(numberbool == 1){
-            panel.setBackground(new Color(25, 29, 74));
-        }
-        else{
-            panel.setBackground(new Color(221,226,255));
-        }
-    }
-    
+    //Esconde de forma horizontal un panel
     public void esconderHorizontal(JPanel panel, boolean dashboard){
         if(dashboard == true){
-            panel.setPreferredSize(new Dimension(0, panel.getHeight()));
+            panel.setPreferredSize(new Dimension(0, panel.getHeight()));//Esconde
         }
         else{
-            panel.setPreferredSize(new Dimension(213, panel.getHeight()));
+            panel.setPreferredSize(new Dimension(213, panel.getHeight()));//Muestra
         }
         
     }
     
+    //Esconde de forma vertical un panel
     public void esconderVertical(JPanel panel, boolean dashboard, JLabel boton){
         if(dashboard == true){
-            panel.setPreferredSize(new Dimension(panel.getWidth(), 0));
-            cambiarImagen(boton, "/Vista/Iconos/IconoTriangulo1.png");
+            panel.setPreferredSize(new Dimension(panel.getWidth(), 0));//Esconde
+            cambiarImagen(boton, "/Vista/Iconos/IconoTriangulo1.png");//Cambia el icono
         }
         else{
-            panel.setPreferredSize(new Dimension(panel.getWidth(), 92));
-            cambiarImagen(boton, "/Vista/Iconos/IconoTriangulo2.png");
+            panel.setPreferredSize(new Dimension(panel.getWidth(), 92));//Muestra
+            cambiarImagen(boton, "/Vista/Iconos/IconoTriangulo2.png");//Cambia el icono
         }
         
     }
     
+    //Cambia la imagen de un icono ubicado en un JLabel
     public void cambiarImagen(JLabel button, String direccionImagen){
         ImageIcon img = new ImageIcon(getClass().getResource(direccionImagen));
         button.setIcon(img);
     }
     
+    //Muestra o Esconde el menu al hacer click en el icono
     private void IconoMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoMenuMouseClicked
         if(boolPanelMenu == true){
             esconderHorizontal(PanelMenu, boolPanelMenu);
@@ -1225,6 +1351,7 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_IconoMenuMouseExited
 
+    //Muestra o Esconde los botones para gestionar los Antecedentes al hacer click
     private void IconoAntecedenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoAntecedenteMouseClicked
     if(boolPanelAntecedentes == true){
             esconderVertical(PanelAntecedentess, boolPanelAntecedentes, IconoTrianguloAntecedente);
@@ -1241,7 +1368,8 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
     private void IconoJuzgadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoJuzgadosMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_IconoJuzgadosMouseClicked
-
+    
+    //Muestra o Esconde los botones para gestionar la Cuenta o Cerrar Sesion al hacer click
     private void IconoSettingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoSettingsMouseClicked
         if(boolPanelSettings == true){
             esconderVertical(PanelSettings, boolPanelSettings, IconoTrianguloSettings);
@@ -1255,6 +1383,7 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_IconoSettingsMouseClicked
 
+    //Muestra o Esconde los botones para gestionar los datos de las Personas al hacer click
     private void IconoPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoPersonasMouseClicked
         if(boolPanelPersonas == true){
             esconderVertical(PanelPersonas, boolPanelPersonas, IconoTrianguloPersonas);
@@ -1292,6 +1421,7 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNrAudienciaActionPerformed
 
+    //Al seleccionar o marcar el Radio Button (En Proceso) deshabilita este y desmarca el otro Radio Button (Finalizado)
     private void rbEnProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEnProcesoActionPerformed
         if (rbEnProceso.isSelected()) {
             rbEnProceso.setEnabled(false);
@@ -1300,6 +1430,7 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rbEnProcesoActionPerformed
 
+    //Al seleccionar o marcar el Radio Button (Finalizado) deshabilita este y desmarca el otro Radio Button (En Proceso)
     private void rbFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFinalizadoActionPerformed
         if (rbFinalizado.isSelected()) {
             rbFinalizado.setEnabled(false);
@@ -1307,6 +1438,36 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
             rbEnProceso.setSelected(false);
         }
     }//GEN-LAST:event_rbFinalizadoActionPerformed
+
+    //Da la opcion al usuario de elegir el archivo que desea subir
+    private void botonSubirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSubirMouseClicked
+        JFileChooser fc = new JFileChooser();//Creamos el objeto JFileChooser        
+        int seleccion = fc.showOpenDialog(this);//Abrimos la ventana, guardamos la opcion seleccionada por el usuario        
+        if (seleccion == JFileChooser.APPROVE_OPTION) { //Si el usuario selecciona aceptar
+            IconoBorrarArchivo.setVisible(true);
+            lbIconoArchivo.setVisible(true);            
+            fichero = fc.getSelectedFile();//Seleccionamos el fichero
+            lbNombreArchivo.setVisible(true);            
+            lbNombreArchivo.setText(fichero.getName());//Escribimos el nombre del archivo
+        }
+    }//GEN-LAST:event_botonSubirMouseClicked
+
+    private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
+        
+    }//GEN-LAST:event_botonBuscarMouseClicked
+
+    //Ocualta los iconos del archivo, borrar archivo,donde se presenta el nombre del arhivo y vuelve al fichero nulo al borrar el archivo
+    private void IconoBorrarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoBorrarArchivoMouseClicked
+        IconoBorrarArchivo.setVisible(false);
+        lbIconoArchivo.setVisible(false);
+        lbNombreArchivo.setVisible(false);
+        lbNombreArchivo.setText("");
+        fichero = null;
+    }//GEN-LAST:event_IconoBorrarArchivoMouseClicked
+
+    private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
+        JOptionPane.showMessageDialog(null, "Se ha guardado con éxito");
+    }//GEN-LAST:event_botonGuardarMouseClicked
 
     
     /**
@@ -1340,15 +1501,27 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                //Le da un UI mejor cuando se selecciona subir archivo
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(AgregaAntecedentes.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(AgregaAntecedentes.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(AgregaAntecedentes.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(AgregaAntecedentes.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 new AgregaAntecedentes().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel BotonBuscar;
     private javax.swing.JPanel IconoAgregarAntecedente;
     private javax.swing.JPanel IconoAntecedente;
+    private javax.swing.JLabel IconoBorrarArchivo;
     private javax.swing.JLabel IconoBuscar;
     private javax.swing.JPanel IconoCerrarSesion;
     private javax.swing.JPanel IconoCuenta;
@@ -1369,6 +1542,9 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
     private javax.swing.JPanel PanelMenu;
     private javax.swing.JPanel PanelPersonas;
     private javax.swing.JPanel PanelSettings;
+    private javax.swing.JPanel botonBuscar;
+    private javax.swing.JPanel botonGuardar;
+    private javax.swing.JPanel botonSubir;
     private javax.swing.JComboBox<String> cbDelito;
     private javax.swing.JComboBox<String> cbxJuzgados;
     private javax.swing.JComboBox<String> cbxTipoCondena;
@@ -1413,6 +1589,7 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1426,12 +1603,18 @@ public class AgregaAntecedentes extends javax.swing.JFrame {
     private javax.swing.JLabel lbEstadoProceso;
     private javax.swing.JLabel lbFechaInicioAudiencia;
     private javax.swing.JLabel lbFechaInicioAudiencia1;
+    private javax.swing.JLabel lbGuardar;
+    private javax.swing.JLabel lbIconoArchivo;
+    private javax.swing.JLabel lbIconoGuardar;
+    private javax.swing.JLabel lbIconoSubir;
     private javax.swing.JLabel lbIntancia;
     private javax.swing.JLabel lbJuzgado;
     private javax.swing.JLabel lbLinea;
     private javax.swing.JLabel lbNombreApellido;
+    private javax.swing.JLabel lbNombreArchivo;
     private javax.swing.JLabel lbNrAudiencia;
     private javax.swing.JLabel lbSentencia;
+    private javax.swing.JLabel lbSubirArchivo;
     private javax.swing.JLabel lbTipoCondena;
     private javax.swing.JLabel lbTipoDelito;
     private javax.swing.JRadioButton rbEnProceso;
