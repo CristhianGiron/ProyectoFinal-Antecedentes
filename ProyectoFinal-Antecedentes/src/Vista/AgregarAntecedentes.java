@@ -610,7 +610,7 @@ boolean boolPanelMenu = false;
     }//GEN-LAST:event_IconoBorrarArchivoMouseClicked
 
     private void botonSubirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSubirMouseClicked
-        JFileChooser fc = new JFileChooser();//Creamos el objeto JFileChooser
+        necesario.RSFileChooser fc = new necesario.RSFileChooser();//Creamos el objeto JFileChooser
         int seleccion = fc.showOpenDialog(this);//Abrimos la ventana, guardamos la opcion seleccionada por el usuario
         if (seleccion == JFileChooser.APPROVE_OPTION) { //Si el usuario selecciona aceptar
             IconoBorrarArchivo.setVisible(true);
@@ -648,7 +648,6 @@ boolean boolPanelMenu = false;
     
    
     
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IconoBorrarArchivo;
