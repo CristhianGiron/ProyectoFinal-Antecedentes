@@ -12,7 +12,7 @@ import java.awt.event.MouseListener;
  *
  * @author hp
  */
-public class ControlAcces extends javax.swing.JFrame {
+public class ControlAcces extends javax.swing.JFrame  {
 
     /**
      * Creates new form ControlAcces
