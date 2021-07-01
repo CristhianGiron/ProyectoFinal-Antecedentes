@@ -397,21 +397,20 @@ public class GestionarPersonas extends javax.swing.JPanel {
     }//GEN-LAST:event_tablaPersonasMouseClicked
 
     private void tablaPersonasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPersonasMouseEntered
-         System.out.println("*****Ejecutando evento");
-        //capturo fila o columna dependiendo de mi necesidad
-        int fila = tablaPersonas.rowAtPoint(evt.getPoint());
-        int columna = tablaPersonas.columnAtPoint(evt.getPoint());
-
-        /*uso la columna para valiar si corresponde a la columna de perfil garantizando
-		 * que solo se produzca algo si selecciono una fila de esa columna
-         */
-        if (columna == Utilidades.PERFIL) {
-            //sabiendo que corresponde a la columna de perfil, envio la posicion de la fila seleccionada
-            tablaPersonas.setCursor(new Cursor(1) {
-            });
-        } else if (columna == Utilidades.EVENTO) {//se valida que sea la columna del otro evento
-            JOptionPane.showMessageDialog(null, "Evento del otro icono");
-        }
+//         System.out.println("*****Ejecutando evento");
+//        //capturo fila o columna dependiendo de mi necesidad
+//        int fila = tablaPersonas.rowAtPoint(evt.getPoint());
+//        int columna = tablaPersonas.columnAtPoint(evt.getPoint());
+//
+//        /*uso la columna para valiar si corresponde a la columna de perfil garantizando
+//		 * que solo se produzca algo si selecciono una fila de esa columna
+//         */
+//        if (columna == Utilidades.PERFIL) {
+//            //sabiendo que corresponde a la columna de perfil, envio la posicion de la fila seleccionada
+//            tablaPersonas.setCursor(new Cursor(0));
+//        } else if (columna == Utilidades.EVENTO) {//se valida que sea la columna del otro evento
+//            JOptionPane.showMessageDialog(null, "Evento del otro icono");
+//        }
     }//GEN-LAST:event_tablaPersonasMouseEntered
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
@@ -435,8 +434,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void tablaPersonasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPersonasMouseExited
-        tablaPersonas.setCursor(new Cursor(4) {
-        });// TODO add your handling code here:
+        //tablaPersonas.setCursor(new Cursor(3));// TODO add your handling code here:
     }//GEN-LAST:event_tablaPersonasMouseExited
 
 
