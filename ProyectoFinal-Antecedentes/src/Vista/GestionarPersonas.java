@@ -17,7 +17,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
     public GestionarPersonas() {
         initComponents();
     }
-
+    //versiones
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
