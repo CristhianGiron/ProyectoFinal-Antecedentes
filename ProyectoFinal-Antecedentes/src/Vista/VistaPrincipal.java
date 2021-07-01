@@ -29,6 +29,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VistaPrincipal
      */
+    
    ControladorAnimaciones animacion = new ControladorAnimaciones();
    AgregarAntecedentes agregarAntecedentes=new AgregarAntecedentes();
    AgregarJuzgados agregarJuzgados= new AgregarJuzgados();
