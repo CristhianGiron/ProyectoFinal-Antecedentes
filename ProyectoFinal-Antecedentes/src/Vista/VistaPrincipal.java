@@ -5,8 +5,8 @@
  */
 package Vista;
 
-import Utiles.ControladorAnimaciones;
-import Utiles.Utiles;
+import Vista.Utiles.ControladorAnimaciones;
+import Vista.Utiles.Utiles;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;

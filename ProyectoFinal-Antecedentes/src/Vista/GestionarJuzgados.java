@@ -27,6 +27,7 @@ public class GestionarJuzgados extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setBackground(new java.awt.Color(190, 190, 190));
         setLayout(null);
     }// </editor-fold>//GEN-END:initComponents
 
