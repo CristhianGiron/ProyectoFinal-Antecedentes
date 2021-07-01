@@ -1,4 +1,4 @@
-package Vista.Utiles.TablaPersonas;
+package Vista.Utiles;
 
 import java.awt.Color;
 import java.awt.Component;

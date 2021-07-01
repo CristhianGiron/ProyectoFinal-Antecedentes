@@ -101,14 +101,15 @@ boolean boolPanelMenu = false;
         lbIconoArchivo = new javax.swing.JLabel();
         IconoBorrarArchivo = new javax.swing.JLabel();
         botonSubir = new javax.swing.JPanel();
-        lbIconoSubir = new javax.swing.JLabel();
         lbSubirArchivo = new javax.swing.JLabel();
+        lbIconoSubir = new javax.swing.JLabel();
         botonBuscar = new javax.swing.JPanel();
         IconoBuscar = new javax.swing.JLabel();
         lbBuscar = new javax.swing.JLabel();
         botonGuardar = new javax.swing.JPanel();
         lbIconoGuardar = new javax.swing.JLabel();
         lbGuardar = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1000, 610));
         setLayout(null);
@@ -405,8 +406,11 @@ boolean boolPanelMenu = false;
 
         lbNombreArchivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel3.add(lbNombreArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 317, 21));
+
+        lbIconoArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/PDF file icon_page-0001.png"))); // NOI18N
         jPanel3.add(lbIconoArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
 
+        IconoBorrarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoCerrar.png"))); // NOI18N
         IconoBorrarArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 IconoBorrarArchivoMouseClicked(evt);
@@ -429,6 +433,8 @@ boolean boolPanelMenu = false;
         lbSubirArchivo.setForeground(new java.awt.Color(204, 206, 223));
         lbSubirArchivo.setText("Subir Archivo");
 
+        lbIconoSubir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoSubir.png"))); // NOI18N
+
         javax.swing.GroupLayout botonSubirLayout = new javax.swing.GroupLayout(botonSubir);
         botonSubir.setLayout(botonSubirLayout);
         botonSubirLayout.setHorizontalGroup(
@@ -436,18 +442,17 @@ boolean boolPanelMenu = false;
             .addGroup(botonSubirLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbSubirArchivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(lbIconoSubir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(lbIconoSubir, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         botonSubirLayout.setVerticalGroup(
             botonSubirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonSubirLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(botonSubirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbIconoSubir)
-                    .addComponent(lbSubirArchivo))
-                .addGap(0, 0, 0))
+            .addGroup(botonSubirLayout.createSequentialGroup()
+                .addGroup(botonSubirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbSubirArchivo)
+                    .addComponent(lbIconoSubir, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         PanelComponentes.add(botonSubir);
@@ -499,6 +504,8 @@ boolean boolPanelMenu = false;
             }
         });
 
+        lbIconoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoGuardar.png"))); // NOI18N
+
         lbGuardar.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 16)); // NOI18N
         lbGuardar.setForeground(new java.awt.Color(204, 206, 223));
         lbGuardar.setText("Guardar");
@@ -510,7 +517,7 @@ boolean boolPanelMenu = false;
             .addGroup(botonGuardarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(lbIconoGuardar)
                 .addContainerGap())
         );
@@ -526,6 +533,12 @@ boolean boolPanelMenu = false;
 
         PanelComponentes.add(botonGuardar);
         botonGuardar.setBounds(328, 1057, 114, 22);
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel23.setText("*");
+        PanelComponentes.add(jLabel23);
+        jLabel23.setBounds(200, 840, 10, 17);
 
         jScrollPane4.setViewportView(PanelComponentes);
 
@@ -669,6 +682,7 @@ boolean boolPanelMenu = false;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;

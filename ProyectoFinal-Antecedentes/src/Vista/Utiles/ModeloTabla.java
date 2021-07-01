@@ -1,4 +1,4 @@
-package Vista.Utiles.TablaPersonas;
+package Vista.Utiles;
 
 import javax.swing.table.DefaultTableModel;
 

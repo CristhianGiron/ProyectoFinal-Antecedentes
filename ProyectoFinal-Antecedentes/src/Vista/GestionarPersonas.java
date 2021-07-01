@@ -7,10 +7,10 @@ package Vista;
 
 import Modelo.Persona;
 import Modelo.Persona;
-import Vista.Utiles.TablaPersonas.GestionCeldas;
-import Vista.Utiles.TablaPersonas.GestionEncabezadoTabla;
-import Vista.Utiles.TablaPersonas.GestionEvento;
-import Vista.Utiles.TablaPersonas.ModeloTabla;
+import Vista.Utiles.GestionCeldas;
+import Vista.Utiles.GestionEncabezadoTabla;
+import Vista.Utiles.GestionEvento;
+import Vista.Utiles.ModeloTabla;
 import Vista.Utiles.TablaPersonas.Utilidades;
 import Vista.Utiles.Utiles;
 import java.awt.Color;

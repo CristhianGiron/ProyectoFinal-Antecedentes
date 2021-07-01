@@ -44,6 +44,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
    Utiles uti=new Utiles();
     public VistaPrincipal() {
         initComponents();
+        
         Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/IconoTriangulo1.png"));
         setIconImage(iconoPropio);
         Image iconoEncabezado = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/IconoTriangulo1.png"));
@@ -602,6 +603,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panelMenuL.setBounds(0, 35, 230, 600);
 
         jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         Contenedor.add(jButton1);
         jButton1.setBounds(-7, 30, 1010, 610);
 
@@ -956,6 +962,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void btnMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseEntered
         labelcolor(btnMenu);
     }//GEN-LAST:event_btnMenuMouseEntered
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
         public void cortina(){
         if(panelMenuL.getSize().width ==0){
             jButton1.setVisible(true);
