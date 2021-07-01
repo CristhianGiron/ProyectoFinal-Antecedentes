@@ -118,6 +118,11 @@ boolean boolPanelMenu = false;
         PanelComponentes.setBackground(new java.awt.Color(255, 255, 255));
         PanelComponentes.setPreferredSize(new java.awt.Dimension(600, 1090));
         PanelComponentes.setVerifyInputWhenFocusTarget(false);
+        PanelComponentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelComponentesMouseExited(evt);
+            }
+        });
         PanelComponentes.setLayout(null);
 
         LabelTitulo.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 24)); // NOI18N
@@ -605,7 +610,7 @@ boolean boolPanelMenu = false;
     }//GEN-LAST:event_IconoBorrarArchivoMouseClicked
 
     private void botonSubirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSubirMouseClicked
-        JFileChooser fc = new JFileChooser();//Creamos el objeto JFileChooser
+        necesario.RSFileChooser fc = new necesario.RSFileChooser();//Creamos el objeto JFileChooser
         int seleccion = fc.showOpenDialog(this);//Abrimos la ventana, guardamos la opcion seleccionada por el usuario
         if (seleccion == JFileChooser.APPROVE_OPTION) { //Si el usuario selecciona aceptar
             IconoBorrarArchivo.setVisible(true);
@@ -623,6 +628,10 @@ boolean boolPanelMenu = false;
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
         JOptionPane.showMessageDialog(null, "Se ha guardado con éxito");
     }//GEN-LAST:event_botonGuardarMouseClicked
+
+    private void PanelComponentesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelComponentesMouseExited
+        txtNombreApellido.setFocusable(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelComponentesMouseExited
     
      public void cambiarColor(JPanel panel, Color color){
         panel.setBackground(color);
@@ -639,7 +648,6 @@ boolean boolPanelMenu = false;
     
    
     
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IconoBorrarArchivo;

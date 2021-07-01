@@ -5,12 +5,13 @@
  */
 package Vista;
 
+import java.awt.Color;
+
 /**
  *
  * @author hp
  */
 public class GestionarAntecedentes extends javax.swing.JPanel {
-
     /**
      * Creates new form GestionarAntecedentes
      */

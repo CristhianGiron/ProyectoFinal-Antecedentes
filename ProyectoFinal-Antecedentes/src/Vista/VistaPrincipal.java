@@ -5,8 +5,8 @@
  */
 package Vista;
 
-import Utiles.ControladorAnimaciones;
-import Utiles.Utiles;
+import Vista.Utiles.ControladorAnimaciones;
+import Vista.Utiles.Utiles;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -14,6 +14,7 @@ import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -64,6 +65,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         Contenedor = new javax.swing.JPanel();
+        btnMenu = new javax.swing.JLabel();
         panelMenuL = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         MenuDesplegable1 = new javax.swing.JPanel();
@@ -109,15 +111,34 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Menu15 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        btnMenu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Contenedor.setBackground(new java.awt.Color(204, 204, 255));
         Contenedor.setMinimumSize(new java.awt.Dimension(1000, 625));
         Contenedor.setLayout(null);
+
+        btnMenu.setBackground(new java.awt.Color(18, 44, 82));
+        btnMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/icons8-menu-30.png"))); // NOI18N
+        btnMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenu.setOpaque(true);
+        btnMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMenuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMenuMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnMenuMousePressed(evt);
+            }
+        });
+        Contenedor.add(btnMenu);
+        btnMenu.setBounds(230, 35, 40, 30);
 
         jPanel2.setBackground(new java.awt.Color(18, 44, 82));
         jPanel2.setMinimumSize(new java.awt.Dimension(230, 700));
@@ -581,6 +602,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Contenedor.add(panelMenuL);
         panelMenuL.setBounds(0, 35, 230, 600);
 
+        jButton1.setContentAreaFilled(false);
+        Contenedor.add(jButton1);
+        jButton1.setBounds(-7, 30, 1010, 610);
+
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setBackground(new java.awt.Color(18, 44, 82));
@@ -589,25 +614,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         Contenedor.add(jPanel3);
         jPanel3.setBounds(0, 0, 1000, 35);
-
-        btnMenu.setBackground(new java.awt.Color(18, 44, 82));
-        btnMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/icons8-menu-30.png"))); // NOI18N
-        btnMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnMenu.setOpaque(true);
-        btnMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMenuMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMenuMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnMenuMousePressed(evt);
-            }
-        });
-        Contenedor.add(btnMenu);
-        btnMenu.setBounds(230, 35, 40, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -624,58 +630,258 @@ public class VistaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseEntered
-        labelcolor(btnMenu);
-    }//GEN-LAST:event_btnMenuMouseEntered
+    private void jPanel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2MouseExited
 
-    private void btnMenuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseExited
-        resetlabelcolor(btnMenu);
-    }//GEN-LAST:event_btnMenuMouseExited
-    private void Menu1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MouseEntered
+    private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
+        //        animacion.animacionItems(Menu1, MenuDesplegable1, visto,heightitem,50,2, 1);
+        //        animacion.animacionItems(Menu4, MenuDesplegable2, visto1,heightitem,50,2, 1);
+        //        animacion.animacionItems(Menu7, MenuDesplegable3, visto2,heightitem,50,2, 1);
+        //        animacion.animacionItems(Menu10, MenuDesplegable4, visto3,heightitem,50,2, 1);
+        //        animacion.animacionItems(Menu13, MenuDesplegable5, visto4,heightitem,50,2, 1);
+        //        animacion.animacionItems(Menu16, MenuDesplegable6, visto5,heightitem,50,2, 1);
+        //        animacion.animacionItems(Menu19, MenuDesplegable7, visto6,heightitem,50,2, 1);
 
-        entered(Menu1);
-    }//GEN-LAST:event_Menu1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2MouseEntered
 
-    private void Menu1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MouseExited
-        exited(Menu1, MenuDesplegable1, heightitem, 50);
-    }//GEN-LAST:event_Menu1MouseExited
+    private void Menu15MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu15MouseExited
+        exited(Menu15, MenuDesplegable5, heightitem, 50);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu15MouseExited
 
-    private void Menu1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MousePressed
-       
+    private void Menu15MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu15MouseEntered
+        entered(Menu15);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu15MouseEntered
+
+    private void Menu14MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu14MouseExited
+        exited(Menu14, MenuDesplegable5, heightitem, 50);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu14MouseExited
+
+    private void Menu14MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu14MouseEntered
+        entered(Menu14);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu14MouseEntered
+
+    private void Menu13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu13MousePressed
+
         if (MenuDesplegable2.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu4);
         } else if (MenuDesplegable3.getSize().height == heightitem) {
             animacion.colorColapse(Menu7);
         } else if (MenuDesplegable4.getSize().height == heightitem+100) {
             animacion.colorColapse(Menu10);
-        } else if (MenuDesplegable5.getSize().height == heightitem+50) {
-            animacion.colorColapse(Menu13);
+        } else if (MenuDesplegable1.getSize().height == heightitem-50) {
+            animacion.colorColapse(Menu1);
         } else {
+            animacion.animacionItems(Menu13, MenuDesplegable5, visto4, heightitem-50, 50, 2, 0);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Menu13MousePressed
+
+    private void Menu13MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu13MouseExited
+        exited(Menu13, MenuDesplegable5, heightitem, 50);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu13MouseExited
+
+    private void Menu13MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu13MouseEntered
+        entered(Menu13);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu13MouseEntered
+
+    private void Menu12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu12MousePressed
+        Contenedor.remove(inicio);
         Contenedor.remove(agregarAntecedentes);
-        Contenedor.remove(agregarJuzgados);
         Contenedor.remove(agregarPersonas);
+        Contenedor.remove(agregarJuzgados);
+        Contenedor.remove(gestionarAntecedentes);
+        Contenedor.remove(gestionarPersonas);
+        repaint();
+        animacion.animacionPanelMenu(panelMenuL, btnMenu);
+        Contenedor.add(gestionarJuzgados, 3);
+        gestionarJuzgados.setBounds(0, 35, 1000, 625);
+        indicador=6;
+        cortina();// TODO add your handling code here:
+    }//GEN-LAST:event_Menu12MousePressed
+
+    private void Menu12MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu12MouseExited
+        exited(Menu12, MenuDesplegable4, heightitem, 50);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu12MouseExited
+
+    private void Menu12MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu12MouseEntered
+        entered(Menu12);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu12MouseEntered
+
+    private void Menu11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu11MousePressed
+        Contenedor.remove(inicio);
+        Contenedor.remove(agregarAntecedentes);
+        Contenedor.remove(agregarPersonas);
+        Contenedor.remove(gestionarAntecedentes);
         Contenedor.remove(gestionarJuzgados);
         Contenedor.remove(gestionarPersonas);
         repaint();
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
-        Contenedor.add(inicio, 3);
-        inicio.setBounds(0, 35, 1000, 625);
-        indicador=2; 
+        Contenedor.add(agregarJuzgados, 3);
+        agregarJuzgados.setBounds(0, 35, 1000, 625);
+        indicador=6;
+        cortina();// TODO add your handling code here:
+    }//GEN-LAST:event_Menu11MousePressed
+
+    private void Menu11MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu11MouseExited
+        exited(Menu11, MenuDesplegable4, heightitem, 50);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu11MouseExited
+
+    private void Menu11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu11MouseEntered
+        entered(Menu11);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu11MouseEntered
+
+    private void Menu10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu10MousePressed
+        //agregar retardo=================
+        if (MenuDesplegable2.getSize().height == heightitem-50) {
+            animacion.colorColapse(Menu4);
+        } else if (MenuDesplegable3.getSize().height == heightitem) {
+            animacion.colorColapse(Menu7);
+        } else if (MenuDesplegable1.getSize().height == heightitem-50) {
+            animacion.colorColapse(Menu1);
+        } else if (MenuDesplegable5.getSize().height == heightitem+50) {
+            animacion.colorColapse(Menu13);
+        } else {
+            animacion.animacionItems(Menu10, MenuDesplegable4, visto3, heightitem-50, 50, 2, 0);
+            animacion.animacionItemsLocalizacion(MenuDesplegable5,posicion+180, posicion+280, 2, 0);
         }
 
-    }//GEN-LAST:event_Menu1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Menu10MousePressed
 
-    private void Menu4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu4MouseEntered
+    private void Menu10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu10MouseExited
+        exited(Menu10, MenuDesplegable4, heightitem, 50);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu10MouseExited
 
-        entered(Menu4);
-    }//GEN-LAST:event_Menu4MouseEntered
+    private void Menu10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu10MouseEntered
 
-    private void Menu4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu4MouseExited
-        exited(Menu4, MenuDesplegable2, heightitem-50, 50);
-    }//GEN-LAST:event_Menu4MouseExited
+        entered(Menu10);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu10MouseEntered
+
+    private void Menu9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu9MousePressed
+        Contenedor.remove(inicio);
+        Contenedor.remove(agregarAntecedentes);
+        Contenedor.remove(agregarPersonas);
+        Contenedor.remove(agregarJuzgados);
+        Contenedor.remove(gestionarAntecedentes);
+        Contenedor.remove(gestionarJuzgados);
+        repaint();
+        animacion.animacionPanelMenu(panelMenuL, btnMenu);
+        Contenedor.add(gestionarPersonas, 3);
+        gestionarPersonas.setBounds(0, 35, 1000, 625);
+        indicador=6;
+        cortina();        // TODO add your handling code here:
+    }//GEN-LAST:event_Menu9MousePressed
+
+    private void Menu9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu9MouseExited
+        exited(Menu9, MenuDesplegable3, heightitem, 50);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu9MouseExited
+
+    private void Menu9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu9MouseEntered
+        entered(Menu9);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu9MouseEntered
+
+    private void Menu8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu8MousePressed
+        Contenedor.remove(inicio);
+        Contenedor.remove(agregarAntecedentes);
+        Contenedor.remove(agregarJuzgados);
+        Contenedor.remove(gestionarAntecedentes);
+        Contenedor.remove(gestionarPersonas);
+        Contenedor.remove(gestionarJuzgados);
+        repaint();
+        animacion.animacionPanelMenu(panelMenuL, btnMenu);
+        Contenedor.add(agregarPersonas, 3);
+        agregarPersonas.setBounds(0, 35, 1000, 625);
+        indicador=5;
+        cortina();        // TODO add your handling code here:
+    }//GEN-LAST:event_Menu8MousePressed
+
+    private void Menu8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu8MouseExited
+        exited(Menu8, MenuDesplegable3, heightitem, 50);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu8MouseExited
+
+    private void Menu8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu8MouseEntered
+        entered(Menu8);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu8MouseEntered
+
+    private void Menu7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu7MousePressed
+
+        if (MenuDesplegable2.getSize().height == heightitem-50) {
+            animacion.colorColapse(Menu4);
+        } else if (MenuDesplegable1.getSize().height == heightitem-50) {
+            animacion.colorColapse(Menu1);
+        } else if (MenuDesplegable4.getSize().height == heightitem+100) {
+            animacion.colorColapse(Menu10);
+        } else if (MenuDesplegable5.getSize().height == heightitem+50) {
+            animacion.colorColapse(Menu13);
+        } else {
+            animacion.animacionItems(Menu7, MenuDesplegable3, visto2, heightitem-50, 50, 2, 0);
+            //animacion.animacionItemsLocalizacion(MenuDesplegable2,160,heightitem,2,0);
+            //animacion.animacionItemsLocalizacion(MenuDesplegable3,210,310,2,0);
+            animacion.animacionItemsLocalizacion(MenuDesplegable4,posicion+120, posicion+220, 2, 0);
+            animacion.animacionItemsLocalizacion(MenuDesplegable5,posicion+180, posicion+280, 2, 0);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Menu7MousePressed
+
+    private void Menu7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu7MouseExited
+        exited(Menu7, MenuDesplegable3, heightitem-50, 50);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu7MouseExited
+
+    private void Menu7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu7MouseEntered
+
+        entered(Menu7);// TODO add your handling code here:
+    }//GEN-LAST:event_Menu7MouseEntered
+
+    private void Menu6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu6MousePressed
+        Contenedor.remove(inicio);
+        Contenedor.remove(agregarAntecedentes);
+        Contenedor.remove(agregarJuzgados);
+        Contenedor.remove(gestionarPersonas);
+        Contenedor.remove(agregarPersonas);
+        Contenedor.remove(gestionarJuzgados);
+        repaint();
+        animacion.animacionPanelMenu(panelMenuL, btnMenu);
+        Contenedor.add(gestionarAntecedentes, 3);
+        gestionarAntecedentes.setBounds(0, 35, 1000, 625);
+        indicador=4;
+        cortina();// TODO add your handling code here:
+    }//GEN-LAST:event_Menu6MousePressed
+
+    private void Menu6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu6MouseExited
+        exited(Menu6, MenuDesplegable2, heightitem-50, 50);
+    }//GEN-LAST:event_Menu6MouseExited
+
+    private void Menu6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu6MouseEntered
+        entered(Menu6);
+    }//GEN-LAST:event_Menu6MouseEntered
+
+    private void Menu5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MousePressed
+        Contenedor.remove(inicio);
+        Contenedor.remove(agregarJuzgados);
+        Contenedor.remove(agregarPersonas);
+        Contenedor.remove(gestionarAntecedentes);
+        Contenedor.remove(gestionarJuzgados);
+        Contenedor.remove(gestionarPersonas);
+        repaint();
+        animacion.animacionPanelMenu(panelMenuL, btnMenu);
+        Contenedor.add(agregarAntecedentes, 3);
+        agregarAntecedentes.setBounds(0, 35, 1000, 625);
+        indicador=3;
+        cortina();// TODO add your handling code here:
+    }//GEN-LAST:event_Menu5MousePressed
+
+    private void Menu5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MouseExited
+        exited(Menu5, MenuDesplegable2, heightitem-50, 50);
+    }//GEN-LAST:event_Menu5MouseExited
+
+    private void Menu5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MouseEntered
+        entered(Menu5);
+    }//GEN-LAST:event_Menu5MouseEntered
 
     private void Menu4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu4MousePressed
-       
+
         if (MenuDesplegable1.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu1);
         } else if (MenuDesplegable3.getSize().height == heightitem) {
@@ -692,260 +898,75 @@ public class VistaPrincipal extends javax.swing.JFrame {
             animacion.animacionItemsLocalizacion(MenuDesplegable4,posicion+120, posicion+220, 2, 0);
             animacion.animacionItemsLocalizacion(MenuDesplegable5,posicion+180, posicion+280, 2, 0);
         }
-
     }//GEN-LAST:event_Menu4MousePressed
 
-    private void Menu5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MouseEntered
-        entered(Menu5);
-    }//GEN-LAST:event_Menu5MouseEntered
+    private void Menu4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu4MouseExited
+        exited(Menu4, MenuDesplegable2, heightitem-50, 50);
+    }//GEN-LAST:event_Menu4MouseExited
 
-    private void Menu5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MouseExited
-        exited(Menu5, MenuDesplegable2, heightitem-50, 50);
-    }//GEN-LAST:event_Menu5MouseExited
+    private void Menu4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu4MouseEntered
 
-    private void Menu6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu6MouseEntered
-        entered(Menu6);
-    }//GEN-LAST:event_Menu6MouseEntered
+        entered(Menu4);
+    }//GEN-LAST:event_Menu4MouseEntered
 
-    private void Menu6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu6MouseExited
-        exited(Menu6, MenuDesplegable2, heightitem-50, 50);
-    }//GEN-LAST:event_Menu6MouseExited
-    
-    private void Menu7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu7MouseEntered
+    private void Menu1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MousePressed
 
-        entered(Menu7);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu7MouseEntered
-
-    private void Menu7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu7MouseExited
-        exited(Menu7, MenuDesplegable3, heightitem-50, 50);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu7MouseExited
-
-    private void Menu7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu7MousePressed
-        
-        if (MenuDesplegable2.getSize().height == heightitem-50) {
-            animacion.colorColapse(Menu4);
-        } else if (MenuDesplegable1.getSize().height == heightitem-50) {
-            animacion.colorColapse(Menu1);
-        } else if (MenuDesplegable4.getSize().height == heightitem+100) {
-            animacion.colorColapse(Menu10);
-        } else if (MenuDesplegable5.getSize().height == heightitem+50) {
-            animacion.colorColapse(Menu13);
-        } else {
-            animacion.animacionItems(Menu7, MenuDesplegable3, visto2, heightitem-50, 50, 2, 0);
-            //animacion.animacionItemsLocalizacion(MenuDesplegable2,160,heightitem,2,0);
-            //animacion.animacionItemsLocalizacion(MenuDesplegable3,210,310,2,0);
-            animacion.animacionItemsLocalizacion(MenuDesplegable4,posicion+120, posicion+220, 2, 0);
-            animacion.animacionItemsLocalizacion(MenuDesplegable5,posicion+180, posicion+280, 2, 0);
-            }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Menu7MousePressed
-
-    private void Menu8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu8MouseEntered
-        entered(Menu8);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu8MouseEntered
-
-    private void Menu8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu8MouseExited
-        exited(Menu8, MenuDesplegable3, heightitem, 50);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu8MouseExited
-
-    private void Menu9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu9MouseEntered
-        entered(Menu9);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu9MouseEntered
-
-    private void Menu9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu9MouseExited
-        exited(Menu9, MenuDesplegable3, heightitem, 50);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu9MouseExited
-
-    private void Menu10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu10MouseEntered
-       
-        entered(Menu10);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu10MouseEntered
-
-    private void Menu10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu10MouseExited
-        exited(Menu10, MenuDesplegable4, heightitem, 50);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu10MouseExited
-
-    private void Menu10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu10MousePressed
-        //agregar retardo=================
-        if (MenuDesplegable2.getSize().height == heightitem-50) {
-            animacion.colorColapse(Menu4);
-        } else if (MenuDesplegable3.getSize().height == heightitem) {
-            animacion.colorColapse(Menu7);
-        } else if (MenuDesplegable1.getSize().height == heightitem-50) {
-            animacion.colorColapse(Menu1);
-        } else if (MenuDesplegable5.getSize().height == heightitem+50) {
-            animacion.colorColapse(Menu13);
-        } else {
-            animacion.animacionItems(Menu10, MenuDesplegable4, visto3, heightitem-50, 50, 2, 0);
-            animacion.animacionItemsLocalizacion(MenuDesplegable5,posicion+180, posicion+280, 2, 0);
-        } 
-        
-
-       
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Menu10MousePressed
-
-    private void Menu11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu11MouseEntered
-        entered(Menu11);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu11MouseEntered
-
-    private void Menu11MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu11MouseExited
-        exited(Menu11, MenuDesplegable4, heightitem, 50);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu11MouseExited
-
-    private void Menu12MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu12MouseEntered
-        entered(Menu12);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu12MouseEntered
-
-    private void Menu12MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu12MouseExited
-        exited(Menu12, MenuDesplegable4, heightitem, 50);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu12MouseExited
-
-    private void jPanel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel2MouseExited
-
-    private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
-//        animacion.animacionItems(Menu1, MenuDesplegable1, visto,heightitem,50,2, 1);
-//        animacion.animacionItems(Menu4, MenuDesplegable2, visto1,heightitem,50,2, 1);
-//        animacion.animacionItems(Menu7, MenuDesplegable3, visto2,heightitem,50,2, 1);
-//        animacion.animacionItems(Menu10, MenuDesplegable4, visto3,heightitem,50,2, 1);   
-//        animacion.animacionItems(Menu13, MenuDesplegable5, visto4,heightitem,50,2, 1);  
-//        animacion.animacionItems(Menu16, MenuDesplegable6, visto5,heightitem,50,2, 1);
-//        animacion.animacionItems(Menu19, MenuDesplegable7, visto6,heightitem,50,2, 1);  
-
-// TODO add your handling code here:
-    }//GEN-LAST:event_jPanel2MouseEntered
-
-    private void Menu13MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu13MouseEntered
-        entered(Menu13);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu13MouseEntered
-
-    private void Menu13MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu13MouseExited
-        exited(Menu13, MenuDesplegable5, heightitem, 50);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu13MouseExited
-
-    private void Menu13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu13MousePressed
-       
         if (MenuDesplegable2.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu4);
         } else if (MenuDesplegable3.getSize().height == heightitem) {
             animacion.colorColapse(Menu7);
         } else if (MenuDesplegable4.getSize().height == heightitem+100) {
             animacion.colorColapse(Menu10);
-        } else if (MenuDesplegable1.getSize().height == heightitem-50) {
-            animacion.colorColapse(Menu1);
+        } else if (MenuDesplegable5.getSize().height == heightitem+50) {
+            animacion.colorColapse(Menu13);
         } else {
-            animacion.animacionItems(Menu13, MenuDesplegable5, visto4, heightitem-50, 50, 2, 0);
+            Contenedor.remove(agregarAntecedentes);
+            Contenedor.remove(agregarJuzgados);
+            Contenedor.remove(agregarPersonas);
+            Contenedor.remove(gestionarJuzgados);
+            Contenedor.remove(gestionarPersonas);
+            repaint();
+            animacion.animacionPanelMenu(panelMenuL, btnMenu);
+            Contenedor.add(inicio, 3);
+            inicio.setBounds(0, 35, 1000, 625);
+            indicador=2;
+            cortina();
         }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Menu13MousePressed
+    }//GEN-LAST:event_Menu1MousePressed
 
-    private void Menu14MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu14MouseEntered
-        entered(Menu14);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu14MouseEntered
+    private void Menu1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MouseExited
+        exited(Menu1, MenuDesplegable1, heightitem, 50);
+    }//GEN-LAST:event_Menu1MouseExited
 
-    private void Menu14MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu14MouseExited
-        exited(Menu14, MenuDesplegable5, heightitem, 50);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu14MouseExited
+    private void Menu1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MouseEntered
+
+        entered(Menu1);
+    }//GEN-LAST:event_Menu1MouseEntered
 
     private void btnMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMousePressed
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
-      // TODO add your handling code here:
+        System.out.println("dimension definitiva> "+panelMenuL.getSize().width);
+        cortina();
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnMenuMousePressed
-    
-    private void Menu5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MousePressed
-        Contenedor.remove(inicio);
-        Contenedor.remove(agregarJuzgados);
-        Contenedor.remove(agregarPersonas);
-        Contenedor.remove(gestionarAntecedentes);
-        Contenedor.remove(gestionarJuzgados);
-        Contenedor.remove(gestionarPersonas);
-        repaint();
-        animacion.animacionPanelMenu(panelMenuL, btnMenu);
-        Contenedor.add(agregarAntecedentes, 3);
-        agregarAntecedentes.setBounds(0, 35, 1000, 625);
-        indicador=3;           // TODO add your handling code here:
-    }//GEN-LAST:event_Menu5MousePressed
 
-    private void Menu6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu6MousePressed
-        Contenedor.remove(inicio);
-        Contenedor.remove(agregarAntecedentes);
-        Contenedor.remove(agregarJuzgados);
-        Contenedor.remove(gestionarPersonas);
-        Contenedor.remove(agregarPersonas);
-        Contenedor.remove(gestionarJuzgados);
-        repaint();
-        animacion.animacionPanelMenu(panelMenuL, btnMenu);
-        Contenedor.add(gestionarAntecedentes, 3);
-        gestionarAntecedentes.setBounds(0, 35, 1000, 625);
-        indicador=4;        // TODO add your handling code here:
-    }//GEN-LAST:event_Menu6MousePressed
+    private void btnMenuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseExited
+        resetlabelcolor(btnMenu);
+    }//GEN-LAST:event_btnMenuMouseExited
 
-    private void Menu8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu8MousePressed
-        Contenedor.remove(inicio);
-        Contenedor.remove(agregarAntecedentes);
-        Contenedor.remove(agregarJuzgados);
-        Contenedor.remove(gestionarAntecedentes);
-        Contenedor.remove(gestionarPersonas);
-        Contenedor.remove(gestionarJuzgados);
-        repaint();
-        animacion.animacionPanelMenu(panelMenuL, btnMenu);
-        Contenedor.add(agregarPersonas, 3);
-        agregarPersonas.setBounds(0, 35, 1000, 625);
-        indicador=5;         // TODO add your handling code here:
-    }//GEN-LAST:event_Menu8MousePressed
+    private void btnMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseEntered
+        labelcolor(btnMenu);
+    }//GEN-LAST:event_btnMenuMouseEntered
+        public void cortina(){
+        if(panelMenuL.getSize().width ==0){
+            jButton1.setVisible(true);
 
-    private void Menu9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu9MousePressed
-        Contenedor.remove(inicio);
-        Contenedor.remove(agregarAntecedentes);
-        Contenedor.remove(agregarPersonas);
-        Contenedor.remove(agregarJuzgados);
-        Contenedor.remove(gestionarAntecedentes);
-        Contenedor.remove(gestionarJuzgados);
-        repaint();
-        animacion.animacionPanelMenu(panelMenuL, btnMenu);
-        Contenedor.add(gestionarPersonas, 3);
-        gestionarPersonas.setBounds(0, 35, 1000, 625);
-        indicador=6;         // TODO add your handling code here:
-    }//GEN-LAST:event_Menu9MousePressed
-
-    private void Menu15MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu15MouseExited
-        exited(Menu15, MenuDesplegable5, heightitem, 50);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu15MouseExited
-
-    private void Menu15MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu15MouseEntered
-        entered(Menu15);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu15MouseEntered
-
-    private void Menu11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu11MousePressed
-        Contenedor.remove(inicio);
-        Contenedor.remove(agregarAntecedentes);
-        Contenedor.remove(agregarPersonas);
-        Contenedor.remove(gestionarAntecedentes);
-        Contenedor.remove(gestionarJuzgados);
-        Contenedor.remove(gestionarPersonas);
-        repaint();
-        animacion.animacionPanelMenu(panelMenuL, btnMenu);
-        Contenedor.add(agregarJuzgados, 3);
-        agregarJuzgados.setBounds(0, 35, 1000, 625);
-        indicador=6;        // TODO add your handling code here:
-    }//GEN-LAST:event_Menu11MousePressed
-
-    private void Menu12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu12MousePressed
-        Contenedor.remove(inicio);
-        Contenedor.remove(agregarAntecedentes);
-        Contenedor.remove(agregarPersonas);
-        Contenedor.remove(agregarJuzgados);
-        Contenedor.remove(gestionarAntecedentes);
-        Contenedor.remove(gestionarPersonas);
-        repaint();
-        animacion.animacionPanelMenu(panelMenuL, btnMenu);
-        Contenedor.add(gestionarJuzgados, 3);
-        gestionarJuzgados.setBounds(0, 35, 1000, 625);
-        indicador=6;        // TODO add your handling code here:
-    }//GEN-LAST:event_Menu12MousePressed
-    
+        }else if(panelMenuL.getSize().width ==230){
+            jButton1.setVisible(false);
+            
+            System.out.println("false");
+        }
+    }    
     
     private void entered(JPanel item) {
         item.setOpaque(true);
@@ -1040,6 +1061,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel MenuDesplegable4;
     private javax.swing.JPanel MenuDesplegable5;
     private javax.swing.JLabel btnMenu;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
