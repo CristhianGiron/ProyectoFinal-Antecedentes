@@ -437,7 +437,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
         //tablaPersonas.setCursor(new Cursor(3));// TODO add your handling code here:
     }//GEN-LAST:event_tablaPersonasMouseExited
 
-
+//vista en desarrollo
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LimpiarBuscadorCedula1;
     private javax.swing.JLabel LimpiarBuscadorNombre;
