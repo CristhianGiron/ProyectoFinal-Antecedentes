@@ -1,5 +1,8 @@
 package Vista.Utiles.TablaPersonas;
-
+/**
+ * Enums utilitarios
+ * @author hp
+ */
 public class Utilidades {
 
 	public static final int CEDULA=0;

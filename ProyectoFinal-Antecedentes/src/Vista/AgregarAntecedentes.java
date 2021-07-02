@@ -111,13 +111,15 @@ boolean boolPanelMenu = false;
         lbGuardar = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
 
+        setMinimumSize(new java.awt.Dimension(1000, 610));
         setPreferredSize(new java.awt.Dimension(1000, 610));
         setLayout(null);
 
         jScrollPane4.setPreferredSize(new java.awt.Dimension(1072, 600));
 
         PanelComponentes.setBackground(new java.awt.Color(255, 255, 255));
-        PanelComponentes.setPreferredSize(new java.awt.Dimension(600, 1090));
+        PanelComponentes.setMinimumSize(new java.awt.Dimension(1000, 1100));
+        PanelComponentes.setPreferredSize(new java.awt.Dimension(1000, 1100));
         PanelComponentes.setVerifyInputWhenFocusTarget(false);
         PanelComponentes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {

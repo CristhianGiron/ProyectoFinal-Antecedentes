@@ -22,7 +22,7 @@ import javax.swing.table.JTableHeader;
 public class GestionarJuzgados extends javax.swing.JPanel {
 
     /**
-     * Creates new form GestionarJuzgados
+     * Creates new form AgregarJuzgados
      */
     
     ArrayList<Juzgado> listaJuzgado;
