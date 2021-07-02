@@ -9,12 +9,12 @@ package Vista;
  *
  * @author hp
  */
-public class AgregarJuzgados extends javax.swing.JPanel {
+public class Cuenta extends javax.swing.JPanel {
 
     /**
-     * Creates new form AgregarJuzgados
+     * Creates new form Cuenta
      */
-    public AgregarJuzgados() {
+    public Cuenta() {
         initComponents();
     }
 
@@ -27,10 +27,20 @@ public class AgregarJuzgados extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(1000, 610));
         setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
+        jLabel1.setText("Aqui el contenido");
+        add(jLabel1);
+        jLabel1.setBounds(350, 200, 410, 113);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

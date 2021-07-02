@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 /**
  * Esta clase permite gestionar la tabla y los eventos realizados sobre ella
  * cada celda seria un objeto personalizable
- * @author CHENAO
+ * @author hp
  *
  */
 public class GestionEvento extends DefaultTableCellRenderer{

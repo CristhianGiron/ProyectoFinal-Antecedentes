@@ -2,7 +2,10 @@ package Vista.Utiles.TablaPersonas;
 
 import javax.swing.table.DefaultTableModel;
 
-
+/**
+ * 
+ * @author hp
+ */
 public class ModeloTabla extends DefaultTableModel{
 	
 	String[] titulos;

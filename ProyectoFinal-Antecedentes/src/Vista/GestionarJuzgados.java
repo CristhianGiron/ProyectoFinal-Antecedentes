@@ -12,7 +12,7 @@ package Vista;
 public class GestionarJuzgados extends javax.swing.JPanel {
 
     /**
-     * Creates new form GestionarJuzgados
+     * Creates new form AgregarJuzgados
      */
     public GestionarJuzgados() {
         initComponents();
@@ -27,7 +27,7 @@ public class GestionarJuzgados extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(190, 190, 190));
+        setMinimumSize(new java.awt.Dimension(1000, 610));
         setLayout(null);
     }// </editor-fold>//GEN-END:initComponents
 

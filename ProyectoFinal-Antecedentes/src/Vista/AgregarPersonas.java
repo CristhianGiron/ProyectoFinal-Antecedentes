@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Vista;
+import java.awt.Color;
 import javax.swing.ImageIcon;
 /**
  *
@@ -48,14 +49,16 @@ public class AgregarPersonas extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
         cbEstadoCivil = new javax.swing.JComboBox<>();
-        jTextField8 = new javax.swing.JTextField();
         cbTipoIdentificacion = new javax.swing.JComboBox<>();
         cbSexo = new javax.swing.JComboBox<>();
         rSFotoCircle1 = new rojerusan.RSFotoCircle();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(1000, 610));
+        setPreferredSize(new java.awt.Dimension(1000, 610));
         setLayout(null);
         add(jSeparator1);
         jSeparator1.setBounds(10, 50, 980, 10);
@@ -72,7 +75,7 @@ public class AgregarPersonas extends javax.swing.JPanel {
             }
         });
         add(jTextField1);
-        jTextField1.setBounds(70, 150, 290, 30);
+        jTextField1.setBounds(150, 150, 290, 30);
 
         jTextField3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
@@ -81,7 +84,7 @@ public class AgregarPersonas extends javax.swing.JPanel {
             }
         });
         add(jTextField3);
-        jTextField3.setBounds(70, 330, 290, 30);
+        jTextField3.setBounds(150, 330, 290, 30);
 
         jTextField4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
@@ -90,34 +93,34 @@ public class AgregarPersonas extends javax.swing.JPanel {
             }
         });
         add(jTextField4);
-        jTextField4.setBounds(70, 90, 290, 30);
+        jTextField4.setBounds(150, 90, 290, 30);
 
         jLabel2.setForeground(new java.awt.Color(49, 49, 49));
         jLabel2.setText("Cell");
         add(jLabel2);
-        jLabel2.setBounds(70, 310, 290, 14);
+        jLabel2.setBounds(150, 310, 290, 14);
 
         jLabel3.setForeground(new java.awt.Color(49, 49, 49));
         jLabel3.setText("Estado Civil");
         add(jLabel3);
-        jLabel3.setBounds(390, 130, 290, 14);
+        jLabel3.setBounds(530, 130, 290, 14);
 
         jLabel4.setForeground(new java.awt.Color(49, 49, 49));
         jLabel4.setText("Apellidos");
         add(jLabel4);
-        jLabel4.setBounds(70, 130, 290, 14);
+        jLabel4.setBounds(150, 130, 290, 14);
 
         dcFechaFinalizacionAudiencia.setBackground(new java.awt.Color(255, 255, 255));
         dcFechaFinalizacionAudiencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         dcFechaFinalizacionAudiencia.setDateFormatString("dd/MM/yyyy");
         dcFechaFinalizacionAudiencia.setIcon(new ImageIcon(getClass().getResource("/Vista/Iconos/IconoCalendario2.png")));
         add(dcFechaFinalizacionAudiencia);
-        dcFechaFinalizacionAudiencia.setBounds(70, 210, 290, 30);
+        dcFechaFinalizacionAudiencia.setBounds(150, 210, 290, 30);
 
         jLabel5.setForeground(new java.awt.Color(49, 49, 49));
         jLabel5.setText("Fecha de nacimiento");
         add(jLabel5);
-        jLabel5.setBounds(70, 190, 290, 14);
+        jLabel5.setBounds(150, 190, 290, 14);
 
         jTextField5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
@@ -126,17 +129,17 @@ public class AgregarPersonas extends javax.swing.JPanel {
             }
         });
         add(jTextField5);
-        jTextField5.setBounds(70, 270, 290, 30);
+        jTextField5.setBounds(150, 270, 290, 30);
 
         jLabel6.setForeground(new java.awt.Color(49, 49, 49));
         jLabel6.setText("E-mail");
         add(jLabel6);
-        jLabel6.setBounds(70, 250, 290, 14);
+        jLabel6.setBounds(150, 250, 290, 14);
 
         jLabel7.setForeground(new java.awt.Color(49, 49, 49));
         jLabel7.setText("Dirección");
         add(jLabel7);
-        jLabel7.setBounds(70, 370, 290, 14);
+        jLabel7.setBounds(150, 370, 290, 14);
 
         jTextField6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
@@ -145,12 +148,12 @@ public class AgregarPersonas extends javax.swing.JPanel {
             }
         });
         add(jTextField6);
-        jTextField6.setBounds(70, 390, 290, 30);
+        jTextField6.setBounds(150, 390, 290, 30);
 
         jLabel8.setForeground(new java.awt.Color(49, 49, 49));
         jLabel8.setText("Identificación");
         add(jLabel8);
-        jLabel8.setBounds(70, 430, 290, 14);
+        jLabel8.setBounds(150, 430, 290, 14);
 
         jTextField7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jTextField7.addActionListener(new java.awt.event.ActionListener() {
@@ -159,77 +162,98 @@ public class AgregarPersonas extends javax.swing.JPanel {
             }
         });
         add(jTextField7);
-        jTextField7.setBounds(70, 530, 290, 30);
+        jTextField7.setBounds(150, 480, 290, 30);
 
         cbEstadoCivil.setBackground(new java.awt.Color(240, 240, 240));
         cbEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado Civil" }));
         add(cbEstadoCivil);
-        cbEstadoCivil.setBounds(390, 150, 290, 30);
-
-        jTextField8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
-            }
-        });
-        add(jTextField8);
-        jTextField8.setBounds(70, 450, 290, 30);
+        cbEstadoCivil.setBounds(530, 150, 290, 30);
 
         cbTipoIdentificacion.setBackground(new java.awt.Color(240, 240, 240));
         cbTipoIdentificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo de Identificacion" }));
         add(cbTipoIdentificacion);
-        cbTipoIdentificacion.setBounds(70, 500, 290, 30);
+        cbTipoIdentificacion.setBounds(150, 450, 290, 30);
 
         cbSexo.setBackground(new java.awt.Color(240, 240, 240));
         cbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sexo" }));
         add(cbSexo);
-        cbSexo.setBounds(390, 90, 290, 30);
+        cbSexo.setBounds(530, 90, 290, 30);
 
         rSFotoCircle1.setColorBorde(new java.awt.Color(204, 204, 204));
         add(rSFotoCircle1);
-        rSFotoCircle1.setBounds(450, 210, 130, 130);
+        rSFotoCircle1.setBounds(590, 210, 130, 130);
 
         jLabel9.setForeground(new java.awt.Color(49, 49, 49));
         jLabel9.setText("Nombre");
         add(jLabel9);
-        jLabel9.setBounds(70, 70, 290, 14);
+        jLabel9.setBounds(150, 70, 290, 14);
 
         jLabel10.setForeground(new java.awt.Color(49, 49, 49));
         jLabel10.setText("Sexo");
         add(jLabel10);
-        jLabel10.setBounds(390, 70, 290, 14);
+        jLabel10.setBounds(530, 70, 290, 14);
+
+        btnGuardar.setBackground(new java.awt.Color(18, 44, 82));
+        btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnGuardar.setText("Guardar");
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.setOpaque(true);
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnGuardarMousePressed(evt);
+            }
+        });
+        add(btnGuardar);
+        btnGuardar.setBounds(620, 460, 120, 40);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField7ActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
+        btnGuardar.setBackground(new Color(18,79,82));
+    }//GEN-LAST:event_btnGuardarMouseEntered
+
+    private void btnGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseExited
+        btnGuardar.setBackground(new Color(18,44,82));
+    }//GEN-LAST:event_btnGuardarMouseExited
+
+    private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
+
+    }//GEN-LAST:event_btnGuardarMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnGuardar;
     private javax.swing.JComboBox<String> cbEstadoCivil;
     private javax.swing.JComboBox<String> cbSexo;
     private javax.swing.JComboBox<String> cbTipoIdentificacion;
@@ -251,7 +275,6 @@ public class AgregarPersonas extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private rojerusan.RSFotoCircle rSFotoCircle1;
     // End of variables declaration//GEN-END:variables
 }

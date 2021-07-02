@@ -129,13 +129,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
 
         filasTabla = tablaPersonas.getRowCount();
         columnasTabla = tablaPersonas.getColumnCount();
-
-        //se asigna el tipo de dato que tendr�n las celdas de cada columna definida respectivamente para validar su personalizaci�n
-//		tablaPersonas.getColumnModel().getColumn(Utilidades.EDAD).setCellRenderer(new GestionCeldas("numerico"));
-//		tablaPersonas.getColumnModel().getColumn(Utilidades.NOTA1).setCellRenderer(new GestionCeldas("numerico"));
-//		tablaPersonas.getColumnModel().getColumn(Utilidades.NOTA2).setCellRenderer(new GestionCeldas("numerico"));
-//		tablaPersonas.getColumnModel().getColumn(Utilidades.NOTA3).setCellRenderer(new GestionCeldas("numerico"));
-//		tablaPersonas.getColumnModel().getColumn(Utilidades.PROMEDIO).setCellRenderer(new GestionCeldas("numerico"));
         tablaPersonas.getColumnModel().getColumn(Utilidades.PERFIL).setCellRenderer(new GestionCeldas("icono"));
         tablaPersonas.getColumnModel().getColumn(Utilidades.EVENTO).setCellRenderer(new GestionCeldas("icono"));
 
@@ -221,29 +214,36 @@ public class GestionarPersonas extends javax.swing.JPanel {
         jTextField8 = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(1000, 610));
+        setPreferredSize(new java.awt.Dimension(1000, 610));
         setLayout(null);
 
         btnBuscarCedula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnBuscarCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar2.png"))); // NOI18N
+        btnBuscarCedula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(btnBuscarCedula);
         btnBuscarCedula.setBounds(290, 80, 20, 30);
 
         LimpiarBuscadorCedula1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         LimpiarBuscadorCedula1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LimpiarBuscadorCedula1.setText("X");
+        LimpiarBuscadorCedula1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(LimpiarBuscadorCedula1);
         LimpiarBuscadorCedula1.setBounds(265, 80, 20, 30);
 
         LimpiarBuscadorNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         LimpiarBuscadorNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LimpiarBuscadorNombre.setText("X");
+        LimpiarBuscadorNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(LimpiarBuscadorNombre);
         LimpiarBuscadorNombre.setBounds(670, 80, 20, 30);
 
         btnBuscarNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnBuscarNombre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar2.png"))); // NOI18N
+        btnBuscarNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(btnBuscarNombre);
         btnBuscarNombre.setBounds(695, 80, 20, 30);
 
@@ -346,7 +346,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel9.setText("Gestionar Personas");
         add(jLabel9);
-        jLabel9.setBounds(50, 10, 320, 40);
+        jLabel9.setBounds(70, 10, 320, 40);
         add(jSeparator1);
         jSeparator1.setBounds(10, 50, 980, 10);
 
@@ -377,6 +377,27 @@ public class GestionarPersonas extends javax.swing.JPanel {
         jLabel11.setText("Nombre");
         add(jLabel11);
         jLabel11.setBounds(430, 65, 290, 10);
+
+        btnGuardar.setBackground(new java.awt.Color(18, 44, 82));
+        btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnGuardar.setText("Guardar");
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.setOpaque(true);
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnGuardarMousePressed(evt);
+            }
+        });
+        add(btnGuardar);
+        btnGuardar.setBounds(620, 500, 120, 40);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablaPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPersonasMouseClicked
@@ -393,49 +414,48 @@ public class GestionarPersonas extends javax.swing.JPanel {
             validarSeleccionMouse(fila);
         } else if (columna == Utilidades.EVENTO) {//se valida que sea la columna del otro evento
             JOptionPane.showMessageDialog(null, "Evento del otro icono");
-        }  //To change body of generated methods, choose Tools | Templates.// TODO add your handling code here:
+        }
     }//GEN-LAST:event_tablaPersonasMouseClicked
 
     private void tablaPersonasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPersonasMouseEntered
-//         System.out.println("*****Ejecutando evento");
-//        //capturo fila o columna dependiendo de mi necesidad
-//        int fila = tablaPersonas.rowAtPoint(evt.getPoint());
-//        int columna = tablaPersonas.columnAtPoint(evt.getPoint());
-//
-//        /*uso la columna para valiar si corresponde a la columna de perfil garantizando
-//		 * que solo se produzca algo si selecciono una fila de esa columna
-//         */
-//        if (columna == Utilidades.PERFIL) {
-//            //sabiendo que corresponde a la columna de perfil, envio la posicion de la fila seleccionada
-//            tablaPersonas.setCursor(new Cursor(0));
-//        } else if (columna == Utilidades.EVENTO) {//se valida que sea la columna del otro evento
-//            JOptionPane.showMessageDialog(null, "Evento del otro icono");
-//        }
+
     }//GEN-LAST:event_tablaPersonasMouseEntered
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField7ActionPerformed
 
     private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField8ActionPerformed
 
     private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void tablaPersonasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPersonasMouseExited
-        //tablaPersonas.setCursor(new Cursor(3));// TODO add your handling code here:
+
     }//GEN-LAST:event_tablaPersonasMouseExited
+
+    private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
+        btnGuardar.setBackground(new Color(18,79,82));
+    }//GEN-LAST:event_btnGuardarMouseEntered
+
+    private void btnGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseExited
+        btnGuardar.setBackground(new Color(18,44,82));
+    }//GEN-LAST:event_btnGuardarMouseExited
+
+    private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
+
+    }//GEN-LAST:event_btnGuardarMousePressed
 
 //vista en desarrollo
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -443,6 +463,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
     private javax.swing.JLabel LimpiarBuscadorNombre;
     private javax.swing.JLabel btnBuscarCedula;
     private javax.swing.JLabel btnBuscarNombre;
+    private javax.swing.JLabel btnGuardar;
     private javax.swing.JComboBox<String> cbEstadoCivil;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

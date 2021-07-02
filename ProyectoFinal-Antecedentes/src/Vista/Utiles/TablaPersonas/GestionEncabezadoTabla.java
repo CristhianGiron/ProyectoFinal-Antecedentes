@@ -13,7 +13,7 @@ import javax.swing.table.TableCellRenderer;
 /**
  * Permite personalizar el encabezado de la tabla para definir el color que tendr� en las 
  * columnas
- * @author CHENAO
+ * @author hp
  *
  */
 public class GestionEncabezadoTabla  implements TableCellRenderer {

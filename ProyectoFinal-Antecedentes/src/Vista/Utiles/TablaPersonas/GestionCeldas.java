@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 /**
  * Esta clase permite gestionar la tabla y los eventos realizados sobre ella
  * cada celda seria un objeto personalizable
- * @author CHENAO
+ * @author hp
  *
  */
 public class GestionCeldas extends DefaultTableCellRenderer{
@@ -43,7 +43,16 @@ public class GestionCeldas extends DefaultTableCellRenderer{
 		this.tipo=tipo;
                 label.setOpaque(true);
 	}
-
+        /**
+         * Metodo abstracto de DefaultTableCellRenderer para modificar el estilo de las celdads de una tabla
+         * @param table
+         * @param value
+         * @param selected
+         * @param focused
+         * @param row
+         * @param column
+         * @return 
+         */
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused, int row, int column) {
 		

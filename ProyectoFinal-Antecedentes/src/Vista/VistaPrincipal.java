@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Vista.Acces.ControlAcceso;
 import Vista.Utiles.ControladorAnimaciones;
 import Vista.Utiles.Utiles;
 import java.awt.Color;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -29,25 +31,26 @@ public class VistaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VistaPrincipal
      */
+
    ControladorAnimaciones animacion = new ControladorAnimaciones();
    AgregarAntecedentes agregarAntecedentes=new AgregarAntecedentes();
-   AgregarJuzgados agregarJuzgados= new AgregarJuzgados();
+   GestionarJuzgados gestionarJuzgados= new GestionarJuzgados();
    AgregarPersonas agregarPersonas=new AgregarPersonas();
    GestionarAntecedentes gestionarAntecedentes= new GestionarAntecedentes();
-   GestionarJuzgados gestionarJuzgados=new GestionarJuzgados();
    GestionarPersonas gestionarPersonas=new GestionarPersonas();
+   Cuenta cuenta=new Cuenta();
    Inicio inicio=new Inicio();
-   
+   Color InitSesion;
    int heightitem=200;
    int posicion=170;
    int indicador;
    Utiles uti=new Utiles();
+
     public VistaPrincipal() {
         initComponents();
         Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/IconoTriangulo1.png"));
         setIconImage(iconoPropio);
         Image iconoEncabezado = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/IconoTriangulo1.png"));
-        //Encabezado.setIcon(new ImageIcon(uti.img(iconoEncabezado, Encabezado.size())));
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(inicio, 3);
         inicio.setBounds(0, 35, 1000, 625);
@@ -97,9 +100,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Menu11 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        Menu12 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         MenuDesplegable5 = new javax.swing.JPanel();
         Menu13 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
@@ -112,9 +112,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         Contenedor.setBackground(new java.awt.Color(204, 204, 255));
         Contenedor.setMinimumSize(new java.awt.Dimension(1000, 625));
@@ -456,36 +458,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         MenuDesplegable4.add(Menu11);
         Menu11.setBounds(0, 50, 230, 50);
 
-        Menu12.setBackground(new java.awt.Color(18, 44, 82));
-        Menu12.setOpaque(false);
-        Menu12.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Menu12MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                Menu12MouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Menu12MousePressed(evt);
-            }
-        });
-        Menu12.setLayout(null);
-
-        jLabel25.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setText("Gestionar");
-        Menu12.add(jLabel25);
-        jLabel25.setBounds(40, 0, 170, 50);
-
-        jLabel26.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("●");
-        Menu12.add(jLabel26);
-        jLabel26.setBounds(0, 0, 40, 50);
-
-        MenuDesplegable4.add(Menu12);
-        Menu12.setBounds(0, 100, 230, 50);
-
         jPanel2.add(MenuDesplegable4);
         MenuDesplegable4.setBounds(0, 290, 230, 50);
 
@@ -536,6 +508,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 Menu14MouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Menu14MousePressed(evt);
+            }
         });
         Menu14.setLayout(null);
 
@@ -562,6 +537,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 Menu15MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Menu15MousePressed(evt);
             }
         });
         Menu15.setLayout(null);
@@ -607,6 +585,23 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("IniciarCesion");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel1MousePressed(evt);
+            }
+        });
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 10, -1, 20));
+
         jLabel2.setBackground(new java.awt.Color(18, 44, 82));
         jLabel2.setOpaque(true);
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 40));
@@ -630,85 +625,54 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseExited
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jPanel2MouseExited
 
     private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
-        //        animacion.animacionItems(Menu1, MenuDesplegable1, visto,heightitem,50,2, 1);
-        //        animacion.animacionItems(Menu4, MenuDesplegable2, visto1,heightitem,50,2, 1);
-        //        animacion.animacionItems(Menu7, MenuDesplegable3, visto2,heightitem,50,2, 1);
-        //        animacion.animacionItems(Menu10, MenuDesplegable4, visto3,heightitem,50,2, 1);
-        //        animacion.animacionItems(Menu13, MenuDesplegable5, visto4,heightitem,50,2, 1);
-        //        animacion.animacionItems(Menu16, MenuDesplegable6, visto5,heightitem,50,2, 1);
-        //        animacion.animacionItems(Menu19, MenuDesplegable7, visto6,heightitem,50,2, 1);
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_jPanel2MouseEntered
 
     private void Menu15MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu15MouseExited
-        exited(Menu15, MenuDesplegable5, heightitem, 50);// TODO add your handling code here:
+        exited(Menu15, MenuDesplegable5, heightitem, 50);
     }//GEN-LAST:event_Menu15MouseExited
 
     private void Menu15MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu15MouseEntered
-        entered(Menu15);// TODO add your handling code here:
+        entered(Menu15);
     }//GEN-LAST:event_Menu15MouseEntered
 
     private void Menu14MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu14MouseExited
-        exited(Menu14, MenuDesplegable5, heightitem, 50);// TODO add your handling code here:
+        exited(Menu14, MenuDesplegable5, heightitem, 50);
     }//GEN-LAST:event_Menu14MouseExited
 
     private void Menu14MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu14MouseEntered
-        entered(Menu14);// TODO add your handling code here:
+        entered(Menu14);
     }//GEN-LAST:event_Menu14MouseEntered
 
     private void Menu13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu13MousePressed
-
+        //Desplega un subitems al presionar un item en el menu y controla su comportamiento
         if (MenuDesplegable2.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu4);
-        } else if (MenuDesplegable3.getSize().height == heightitem) {
+        } else if (MenuDesplegable3.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu7);
-        } else if (MenuDesplegable4.getSize().height == heightitem+100) {
+        } else if (MenuDesplegable4.getSize().height == heightitem-100) {
             animacion.colorColapse(Menu10);
         } else if (MenuDesplegable1.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu1);
         } else {
             animacion.animacionItems(Menu13, MenuDesplegable5, visto4, heightitem-50, 50, 2, 0);
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_Menu13MousePressed
 
     private void Menu13MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu13MouseExited
-        exited(Menu13, MenuDesplegable5, heightitem, 50);// TODO add your handling code here:
+        exited(Menu13, MenuDesplegable5, heightitem, 50);
     }//GEN-LAST:event_Menu13MouseExited
 
     private void Menu13MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu13MouseEntered
-        entered(Menu13);// TODO add your handling code here:
+        entered(Menu13);
     }//GEN-LAST:event_Menu13MouseEntered
 
-    private void Menu12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu12MousePressed
-        Contenedor.remove(inicio);
-        Contenedor.remove(agregarAntecedentes);
-        Contenedor.remove(agregarPersonas);
-        Contenedor.remove(agregarJuzgados);
-        Contenedor.remove(gestionarAntecedentes);
-        Contenedor.remove(gestionarPersonas);
-        repaint();
-        animacion.animacionPanelMenu(panelMenuL, btnMenu);
-        Contenedor.add(gestionarJuzgados, 3);
-        gestionarJuzgados.setBounds(0, 35, 1000, 625);
-        indicador=6;
-        cortina();// TODO add your handling code here:
-    }//GEN-LAST:event_Menu12MousePressed
-
-    private void Menu12MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu12MouseExited
-        exited(Menu12, MenuDesplegable4, heightitem, 50);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu12MouseExited
-
-    private void Menu12MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu12MouseEntered
-        entered(Menu12);// TODO add your handling code here:
-    }//GEN-LAST:event_Menu12MouseEntered
-
     private void Menu11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu11MousePressed
+        //Adiciona un JPANEL al contenedor y remueve el que anterior estaba ocupando ese espacio en el contenedor
         Contenedor.remove(inicio);
         Contenedor.remove(agregarAntecedentes);
         Contenedor.remove(agregarPersonas);
@@ -717,10 +681,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Contenedor.remove(gestionarPersonas);
         repaint();
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
-        Contenedor.add(agregarJuzgados, 3);
-        agregarJuzgados.setBounds(0, 35, 1000, 625);
+        Contenedor.add(gestionarJuzgados, 3);
+        gestionarJuzgados.setBounds(0, 35, 1000, 625);
         indicador=6;
-        cortina();// TODO add your handling code here:
+        cortina();
     }//GEN-LAST:event_Menu11MousePressed
 
     private void Menu11MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu11MouseExited
@@ -733,91 +697,90 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     private void Menu10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu10MousePressed
         //agregar retardo=================
+        //Desplega un subitems al presionar un item en el menu y controla su comportamiento
         if (MenuDesplegable2.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu4);
-        } else if (MenuDesplegable3.getSize().height == heightitem) {
+        } else if (MenuDesplegable3.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu7);
         } else if (MenuDesplegable1.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu1);
-        } else if (MenuDesplegable5.getSize().height == heightitem+50) {
+        } else if (MenuDesplegable5.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu13);
         } else {
-            animacion.animacionItems(Menu10, MenuDesplegable4, visto3, heightitem-50, 50, 2, 0);
-            animacion.animacionItemsLocalizacion(MenuDesplegable5,posicion+180, posicion+280, 2, 0);
+            animacion.animacionItems(Menu10, MenuDesplegable4, visto3, heightitem-100,50, 2, 0);
+            animacion.animacionItemsLocalizacion(MenuDesplegable5,posicion+180, posicion+230, 2, 0);
         }
-
-        // TODO add your handling code here:
     }//GEN-LAST:event_Menu10MousePressed
 
     private void Menu10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu10MouseExited
-        exited(Menu10, MenuDesplegable4, heightitem, 50);// TODO add your handling code here:
+        exited(Menu10, MenuDesplegable4, heightitem, 50);
     }//GEN-LAST:event_Menu10MouseExited
 
     private void Menu10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu10MouseEntered
 
-        entered(Menu10);// TODO add your handling code here:
+        entered(Menu10);
     }//GEN-LAST:event_Menu10MouseEntered
 
     private void Menu9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu9MousePressed
+        
+        if (rootPaneCheckingEnabled) {
+            
+        }
         Contenedor.remove(inicio);
         Contenedor.remove(agregarAntecedentes);
         Contenedor.remove(agregarPersonas);
-        Contenedor.remove(agregarJuzgados);
-        Contenedor.remove(gestionarAntecedentes);
         Contenedor.remove(gestionarJuzgados);
+        Contenedor.remove(gestionarAntecedentes);
         repaint();
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(gestionarPersonas, 3);
         gestionarPersonas.setBounds(0, 35, 1000, 625);
         indicador=6;
-        cortina();        // TODO add your handling code here:
+        cortina();
     }//GEN-LAST:event_Menu9MousePressed
 
     private void Menu9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu9MouseExited
-        exited(Menu9, MenuDesplegable3, heightitem, 50);// TODO add your handling code here:
+        exited(Menu9, MenuDesplegable3, heightitem, 50);
     }//GEN-LAST:event_Menu9MouseExited
 
     private void Menu9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu9MouseEntered
-        entered(Menu9);// TODO add your handling code here:
+        entered(Menu9);
     }//GEN-LAST:event_Menu9MouseEntered
 
     private void Menu8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu8MousePressed
         Contenedor.remove(inicio);
         Contenedor.remove(agregarAntecedentes);
-        Contenedor.remove(agregarJuzgados);
+        Contenedor.remove(gestionarJuzgados);
         Contenedor.remove(gestionarAntecedentes);
         Contenedor.remove(gestionarPersonas);
-        Contenedor.remove(gestionarJuzgados);
         repaint();
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(agregarPersonas, 3);
         agregarPersonas.setBounds(0, 35, 1000, 625);
         indicador=5;
-        cortina();        // TODO add your handling code here:
+        cortina();
     }//GEN-LAST:event_Menu8MousePressed
 
     private void Menu8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu8MouseExited
-        exited(Menu8, MenuDesplegable3, heightitem, 50);// TODO add your handling code here:
+        exited(Menu8, MenuDesplegable3, heightitem, 50);
     }//GEN-LAST:event_Menu8MouseExited
 
     private void Menu8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu8MouseEntered
-        entered(Menu8);// TODO add your handling code here:
+        entered(Menu8);
     }//GEN-LAST:event_Menu8MouseEntered
 
     private void Menu7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu7MousePressed
-
+        //Desplega un subitems al presionar un item en el menu y controla su comportamiento
         if (MenuDesplegable2.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu4);
         } else if (MenuDesplegable1.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu1);
-        } else if (MenuDesplegable4.getSize().height == heightitem+100) {
+        } else if (MenuDesplegable4.getSize().height == heightitem-100) {
             animacion.colorColapse(Menu10);
-        } else if (MenuDesplegable5.getSize().height == heightitem+50) {
+        } else if (MenuDesplegable5.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu13);
         } else {
             animacion.animacionItems(Menu7, MenuDesplegable3, visto2, heightitem-50, 50, 2, 0);
-            //animacion.animacionItemsLocalizacion(MenuDesplegable2,160,heightitem,2,0);
-            //animacion.animacionItemsLocalizacion(MenuDesplegable3,210,310,2,0);
             animacion.animacionItemsLocalizacion(MenuDesplegable4,posicion+120, posicion+220, 2, 0);
             animacion.animacionItemsLocalizacion(MenuDesplegable5,posicion+180, posicion+280, 2, 0);
         }
@@ -825,27 +788,26 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_Menu7MousePressed
 
     private void Menu7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu7MouseExited
-        exited(Menu7, MenuDesplegable3, heightitem-50, 50);// TODO add your handling code here:
+        exited(Menu7, MenuDesplegable3, heightitem-50, 50);
     }//GEN-LAST:event_Menu7MouseExited
 
     private void Menu7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu7MouseEntered
 
-        entered(Menu7);// TODO add your handling code here:
+        entered(Menu7);
     }//GEN-LAST:event_Menu7MouseEntered
 
     private void Menu6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu6MousePressed
         Contenedor.remove(inicio);
         Contenedor.remove(agregarAntecedentes);
-        Contenedor.remove(agregarJuzgados);
+        Contenedor.remove(gestionarJuzgados);
         Contenedor.remove(gestionarPersonas);
         Contenedor.remove(agregarPersonas);
-        Contenedor.remove(gestionarJuzgados);
         repaint();
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(gestionarAntecedentes, 3);
         gestionarAntecedentes.setBounds(0, 35, 1000, 625);
         indicador=4;
-        cortina();// TODO add your handling code here:
+        cortina();
     }//GEN-LAST:event_Menu6MousePressed
 
     private void Menu6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu6MouseExited
@@ -858,17 +820,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     private void Menu5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MousePressed
         Contenedor.remove(inicio);
-        Contenedor.remove(agregarJuzgados);
+        Contenedor.remove(gestionarJuzgados);
         Contenedor.remove(agregarPersonas);
         Contenedor.remove(gestionarAntecedentes);
-        Contenedor.remove(gestionarJuzgados);
         Contenedor.remove(gestionarPersonas);
         repaint();
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(agregarAntecedentes, 3);
         agregarAntecedentes.setBounds(0, 35, 1000, 625);
         indicador=3;
-        cortina();// TODO add your handling code here:
+        cortina();
     }//GEN-LAST:event_Menu5MousePressed
 
     private void Menu5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MouseExited
@@ -880,14 +841,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_Menu5MouseEntered
 
     private void Menu4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu4MousePressed
-
+        //Desplega un subitems al presionar un item en el menu y controla su comportamiento
         if (MenuDesplegable1.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu1);
-        } else if (MenuDesplegable3.getSize().height == heightitem) {
+        } else if (MenuDesplegable3.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu7);
-        } else if (MenuDesplegable4.getSize().height == heightitem+100) {
+        } else if (MenuDesplegable4.getSize().height == heightitem-100) {
             animacion.colorColapse(Menu10);
-        } else if (MenuDesplegable5.getSize().height == heightitem+50) {
+        } else if (MenuDesplegable5.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu13);
         } else {
             animacion.animacionItems(Menu4, MenuDesplegable2, visto1, heightitem-50, 50, 2, 0);
@@ -909,20 +870,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_Menu4MouseEntered
 
     private void Menu1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MousePressed
-
+        //Desplega un subitems al presionar un item en el menu y controla su comportamiento
         if (MenuDesplegable2.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu4);
-        } else if (MenuDesplegable3.getSize().height == heightitem) {
+        } else if (MenuDesplegable3.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu7);
-        } else if (MenuDesplegable4.getSize().height == heightitem+100) {
+        } else if (MenuDesplegable4.getSize().height == heightitem-100) {
             animacion.colorColapse(Menu10);
-        } else if (MenuDesplegable5.getSize().height == heightitem+50) {
+        } else if (MenuDesplegable5.getSize().height == heightitem-50) {
             animacion.colorColapse(Menu13);
         } else {
             Contenedor.remove(agregarAntecedentes);
-            Contenedor.remove(agregarJuzgados);
-            Contenedor.remove(agregarPersonas);
             Contenedor.remove(gestionarJuzgados);
+            Contenedor.remove(agregarPersonas);
             Contenedor.remove(gestionarPersonas);
             repaint();
             animacion.animacionPanelMenu(panelMenuL, btnMenu);
@@ -946,7 +906,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         System.out.println("dimension definitiva> "+panelMenuL.getSize().width);
         cortina();
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnMenuMousePressed
 
     private void btnMenuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseExited
@@ -956,7 +915,51 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void btnMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseEntered
         labelcolor(btnMenu);
     }//GEN-LAST:event_btnMenuMouseEntered
+
+    private void Menu14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu14MousePressed
+        //if (acces.setRet()) { posibles ideas
+            Contenedor.remove(inicio);
+        Contenedor.remove(agregarPersonas);
+        Contenedor.remove(gestionarAntecedentes);
+        Contenedor.remove(gestionarJuzgados);
+        Contenedor.remove(gestionarPersonas);
+        Contenedor.remove(agregarAntecedentes);
+        repaint();
+        animacion.animacionPanelMenu(panelMenuL, btnMenu);
+        Contenedor.add(cuenta, 3);
+        cuenta.setBounds(0, 35, 1000, 625);
+        indicador=3;
+        cortina();
+       // }
+        
+    }//GEN-LAST:event_Menu14MousePressed
+    private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
+        InitSesion=jLabel1.getForeground();
+        jLabel1.setForeground(Color.GREEN);
+    }//GEN-LAST:event_jLabel1MouseEntered
+
+    private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
+        jLabel1.setForeground(InitSesion);
+    }//GEN-LAST:event_jLabel1MouseExited
+    ControlAcceso acces=new ControlAcceso();
+    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        
+        acces.setVisible(true);
+        acces.setLocationRelativeTo(this);
+    }//GEN-LAST:event_jLabel1MousePressed
+
+    private void Menu15MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu15MousePressed
+        int accion=JOptionPane.showConfirmDialog(null, "Cerrar Cesión"); 
+        System.out.println("Acciones al cerrer el sistema: "+ accion);
+        if (accion==0) {
+            System.out.println("Cerrar cesion");
+        }else{
+            System.out.println("No hace nada");
+        }
+    }//GEN-LAST:event_Menu15MousePressed
         public void cortina(){
+        //metodo que agrega una especie de cortina que bloque cualquier accion del
+        //usuario sobre el lienso del contenedor cuando el menu esta desplegado evitando problemas
         if(panelMenuL.getSize().width ==0){
             jButton1.setVisible(true);
 
@@ -968,11 +971,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }    
     
     private void entered(JPanel item) {
+        //metodo que controla lo que sucede cuado el mause es colocado sobre un item o subitem del menu
         item.setOpaque(true);
         item.setBackground(new Color(18,77,123));
     }
 
     private void exited(JPanel item, JPanel menu, int max, int min) {
+        //metodo que controla lo que sucede cuado el mause es retirado de sobre un item o subitem del menu
         if (menu.getSize().height == min) {
             item.setOpaque(true);
         } else if (menu.getSize().height == max) {
@@ -982,10 +987,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
 
     private void labelcolor(JLabel label) {
+        //cambia de color a un JLabel
         label.setBackground(new java.awt.Color(53, 162, 107));
     }
 
     private void resetlabelcolor(JLabel label) {
+        //restablece de color a un JLabel
         label.setBackground(new java.awt.Color(18,44,82));
     }
 
@@ -1019,21 +1026,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//                 try {
-//                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//                } catch (ClassNotFoundException ex) {
-//                    Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//                     System.out.println("Error "+ ex);
-//                } catch (InstantiationException ex) {
-//                    Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//                    System.out.println("Error "+ ex);
-//                } catch (IllegalAccessException ex) {
-//                    Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//                    System.out.println("Error "+ ex);
-//                } catch (UnsupportedLookAndFeelException ex) {
-//                    Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//                    System.out.println("Error "+ ex);
-//                }
+//           
                 new VistaPrincipal().setVisible(true);
             }
         });
@@ -1044,7 +1037,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel Menu1;
     private javax.swing.JPanel Menu10;
     private javax.swing.JPanel Menu11;
-    private javax.swing.JPanel Menu12;
     private javax.swing.JPanel Menu13;
     private javax.swing.JPanel Menu14;
     private javax.swing.JPanel Menu15;
@@ -1061,6 +1053,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel MenuDesplegable5;
     private javax.swing.JLabel btnMenu;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1075,8 +1068,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;

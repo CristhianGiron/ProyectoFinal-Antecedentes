@@ -37,7 +37,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Utiles {
 
     static Connection conexion;
-
+    
     public Utiles() {
         IniciarConexion();
     }
