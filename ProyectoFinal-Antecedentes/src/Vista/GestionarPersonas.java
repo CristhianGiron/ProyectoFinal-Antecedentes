@@ -9,22 +9,16 @@ import Modelo.Persona;
 import Modelo.Persona;
 import Vista.Utiles.GestionCeldas;
 import Vista.Utiles.GestionEncabezadoTabla;
-import Vista.Utiles.GestionEvento;
 import Vista.Utiles.ModeloTabla;
 import Vista.Utiles.TablaPersonas.Utilidades;
-import Vista.Utiles.Utiles;
+import ControlAdminDatos.Utiles.Utiles;
+import Vista.Utiles.TablaPersonas.ConvertirEnums;
+import Vista.Utiles.TablaPersonas.EstadoCivil;
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
 
 /**
@@ -44,12 +38,13 @@ public class GestionarPersonas extends javax.swing.JPanel {
     private int filasTabla;
     private int columnasTabla;
     Utiles uti = new Utiles();
-
+    ConvertirEnums enums=new ConvertirEnums();
     public GestionarPersonas() {
         initComponents();
         //tablaSeguimiento.addKeyListener(this)
         construirTabla();
         jScrollPane1.getViewport().setBackground(Color.white);
+        cbEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(enums.convertEstadoCivil(EstadoCivil.values())));
         //modelo.setRowCount(0);
         
     }
@@ -59,7 +54,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
         listaPersonas = consultarListaPersonas();
 
         ArrayList<String> titulosList = new ArrayList<>();
-
         titulosList.add("Cedula");
         titulosList.add("Nombre");
         titulosList.add("Apellido");
@@ -87,10 +81,10 @@ public class GestionarPersonas extends javax.swing.JPanel {
     private ArrayList<Persona> consultarListaPersonas() {
         ArrayList<Persona> lista = new ArrayList<>();
 
-        lista.add(new Persona(1234L, "1111111", "David ", "Enao", "Ingeniero", "sadh", "dfsfs", "099", "sdgds@", true));
-        lista.add(new Persona(1234L, "1111111", "David ", "Enao", "Ingeniero", "sadh", "dfsfs", "xvdxc", "sdgds", true));
-        lista.add(new Persona(1234L, "1111111", "David ", "Enao", "Ingeniero", "sadh", "dfsfs", "xvdxc", "sdgds", true));
-        lista.add(new Persona(1234L, "1111111", "David ", "Enao", "Ingeniero", "sadh", "dfsfs", "xvdxc", "sdgds", true));
+        lista.add(new Persona(1234L, "1111111", "David ", "Enao", "Ingeniero", "sadh", "dfsfs", "099", "sdgds@", true,1L));
+        lista.add(new Persona(1234L, "1111111", "David ", "Enao", "Ingeniero", "sadh", "dfsfs", "xvdxc", "sdgds", true,2L));
+        lista.add(new Persona(1234L, "1111111", "David ", "Enao", "Ingeniero", "sadh", "dfsfs", "xvdxc", "sdgds", true,1L));
+        lista.add(new Persona(1234L, "1111111", "David ", "Enao", "Ingeniero", "sadh", "dfsfs", "xvdxc", "sdgds", true,2L));
 
         return lista;
     }

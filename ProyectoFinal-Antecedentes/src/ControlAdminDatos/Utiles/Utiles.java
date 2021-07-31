@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista.Utiles;
+package ControlAdminDatos.Utiles;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -37,9 +37,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Utiles {
 
     static Connection conexion;
-    
+    static boolean estado=true;
     public Utiles() {
-        IniciarConexion();
+        if (estado) {
+            IniciarConexion();
+            estado=false;
+        }
+        
     }
 
     /**
@@ -59,7 +63,7 @@ public class Utiles {
         String Driver = "com.mysql.cj.jdbc.Driver";
         String Usuario = "root";
         String Contraseña = "12345";
-        String NombreDB = "bddagricola";
+        String NombreDB = "sistemaco_penal";
         String Puerto = "3306";
         String TimeZone = "?useUnicode=true&use"
                 + "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false"

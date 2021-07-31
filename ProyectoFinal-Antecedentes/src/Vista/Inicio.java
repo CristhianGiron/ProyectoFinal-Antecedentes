@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import java.awt.Color;
+
 /**
  *
  * @author hp
@@ -39,6 +41,7 @@ public class Inicio extends javax.swing.JPanel {
         txtInformacion = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1000, 610));
@@ -111,6 +114,20 @@ public class Inicio extends javax.swing.JPanel {
         jLabel9.setBounds(50, 10, 320, 40);
         add(jSeparator1);
         jSeparator1.setBounds(10, 50, 980, 10);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setText("Ayuda");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel1MouseExited(evt);
+            }
+        });
+        add(jLabel1);
+        jLabel1.setBounds(930, 20, 50, 20);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
@@ -121,12 +138,23 @@ public class Inicio extends javax.swing.JPanel {
  
     }//GEN-LAST:event_jTextField9ActionPerformed
 
+    private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0,0,255)));
+        jLabel1.setForeground(new Color(0,0,255));        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel1MouseEntered
+
+    private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0,0,0)));
+        jLabel1.setForeground(new Color(51,51,51));  // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel1MouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LimpiarBuscadorCedula1;
     private javax.swing.JLabel LimpiarBuscadorNombre;
     private javax.swing.JLabel btnBuscarCedula;
     private javax.swing.JLabel btnBuscarNombre;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel9;

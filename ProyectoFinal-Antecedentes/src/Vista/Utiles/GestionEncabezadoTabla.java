@@ -18,6 +18,10 @@ import javax.swing.table.TableCellRenderer;
  *
  */
 public class GestionEncabezadoTabla  implements TableCellRenderer {
+    int numeroColumnas;
+//    public GestionEncabezadoTabla(int column) {
+//        numeroColumnas=column;
+//    }
     
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -32,7 +36,7 @@ public class GestionEncabezadoTabla  implements TableCellRenderer {
         }
         System.out.println("column : "+column);
         //jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(221, 211, 211)));
-        if (column<8) {
+        if (column<table.getColumnCount()-2) {
           jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(255, 255, 255)));  
         }
         
@@ -41,7 +45,7 @@ public class GestionEncabezadoTabla  implements TableCellRenderer {
         jcomponent.setBackground( new Color(65,65,65) );
         jcomponent.setToolTipText("Tabla Seguimiento");
         jcomponent.setForeground(Color.white);
-        
+        System.out.println("Numero de columnas: "+ table.getColumnCount());
         return jcomponent;
     }
 

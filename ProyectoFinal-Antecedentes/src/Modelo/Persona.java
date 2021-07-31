@@ -15,11 +15,12 @@ public class Persona {
 	private String mail;
         private Boolean estado;
         private Image imagen;
+        private Long idRol;
         
     public Persona(){
         
     }
-    public Persona(Long idPersona, String cedula, String nombre, String apellido, String fechaNacimiento, String direccion, String estadoCivil, String telefono, String mail, Boolean estado, Image imagen) {
+    public Persona(Long idPersona, String cedula, String nombre, String apellido, String fechaNacimiento, String direccion, String estadoCivil, String telefono, String mail, Boolean estado, Image imagen,Long idRol) {
         this.idPersona = idPersona;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -31,8 +32,9 @@ public class Persona {
         this.mail = mail;
         this.estado = estado;
         this.imagen = imagen;
+        this.idRol=idRol;
     }
-    public Persona(Long idPersona, String cedula, String nombre, String apellido, String fechaNacimiento, String direccion, String estadoCivil, String telefono, String mail, Boolean estado) {
+    public Persona(Long idPersona, String cedula, String nombre, String apellido, String fechaNacimiento, String direccion, String estadoCivil, String telefono, String mail, Boolean estado,Long idRol) {
         this.idPersona = idPersona;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -43,6 +45,7 @@ public class Persona {
         this.telefono = telefono;
         this.mail = mail;
         this.estado = estado;
+        this.idRol=idRol;
     }
 
     public Long getIdPersona() {
@@ -132,7 +135,12 @@ public class Persona {
     public void setImagen(Image imagen) {
         this.imagen = imagen;
     }
-	
+    public Long getIdRol(){
+        return idRol;
+    }
+    public void setIdRol(Long idRol){
+       this.idRol=idRol; 
+    }
     
 	
 	

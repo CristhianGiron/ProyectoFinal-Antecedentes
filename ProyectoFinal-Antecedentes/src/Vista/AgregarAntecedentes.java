@@ -134,7 +134,6 @@ boolean boolPanelMenu = false;
         PanelComponentes.add(LabelTitulo);
         LabelTitulo.setBounds(233, 11, 274, 32);
 
-        txtCedula.setBackground(new java.awt.Color(240, 240, 240));
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCedulaActionPerformed(evt);
@@ -149,7 +148,6 @@ boolean boolPanelMenu = false;
         PanelComponentes.add(lbTipoDelito);
         lbTipoDelito.setBounds(70, 231, 87, 20);
 
-        txtNombreApellido.setBackground(new java.awt.Color(240, 240, 240));
         txtNombreApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreApellidoActionPerformed(evt);
@@ -576,14 +574,6 @@ boolean boolPanelMenu = false;
         ImageIcon img = new ImageIcon(getClass().getResource(direccionImagen));
         button.setIcon(img);
     }
-    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCedulaActionPerformed
-
-    private void txtNombreApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreApellidoActionPerformed
-
     private void txArtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txArtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txArtActionPerformed
@@ -647,6 +637,14 @@ boolean boolPanelMenu = false;
     private void PanelComponentesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelComponentesMouseExited
         txtNombreApellido.setFocusable(true);        // TODO add your handling code here:
     }//GEN-LAST:event_PanelComponentesMouseExited
+
+    private void txtNombreApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreApellidoActionPerformed
+
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaActionPerformed
     
      public void cambiarColor(JPanel panel, Color color){
         panel.setBackground(color);
