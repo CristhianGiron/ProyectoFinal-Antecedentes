@@ -46,7 +46,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         lbNombreArchivo.setVisible(false);
         rbEnProceso.setEnabled(false);
         rbEnProceso.setSelected(true);
-        construirTabla();
+        //construirTabla();
     }
 
     private void construirTabla() {
@@ -113,10 +113,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     
     private ArrayList<Juzgado> consultarListaJuzgado(){
         ArrayList<Juzgado> lista = new ArrayList<>();
-        lista.add(new Juzgado(123, "n1", "d1"));
-        lista.add(new Juzgado(234, "n2", "d3"));
-        lista.add(new Juzgado(345, "n3", "d4"));
-        lista.add(new Juzgado(456, "n4", "d5"));
+        
 
         return lista;
     }

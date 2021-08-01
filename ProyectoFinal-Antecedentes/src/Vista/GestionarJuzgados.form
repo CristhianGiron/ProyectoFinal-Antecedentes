@@ -162,6 +162,9 @@
                       <Dimension value="[200, 100]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaJuzgadosMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

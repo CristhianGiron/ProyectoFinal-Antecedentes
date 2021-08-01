@@ -6,6 +6,7 @@
 package ControlAdminDatos;
 
 import ControlAdminDatos.Utiles.Utiles;
+import Controlador.Conexion;
 import Modelo.Persona;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,11 +25,11 @@ public class PersonaDao implements Dao<Persona> {
 
     Statement stmt;
     PreparedStatement stmt1;
-    Utiles uti = new Utiles();
+    Conexion con = new Conexion();
     static Connection cnx;
 
     public PersonaDao() {
-        cnx = uti.getConexion();
+        cnx = con.getConexion();
 
     }
 
@@ -112,7 +113,7 @@ public class PersonaDao implements Dao<Persona> {
     }
 
     @Override
-    public void destroy(Integer id) {
+    public void destroy(Long id) {
         int i = 0;
         try {
             String insertar = "UPDATE `sistemaco_penal`.`personas` SET `estado` ='F' WHERE `idpersona` =" + id;
@@ -124,7 +125,7 @@ public class PersonaDao implements Dao<Persona> {
     }
 
     @Override
-    public Persona find(Integer id) {
+    public Persona find(Long id) {
         Persona persona = null;
         try {
             //Cargar la lista de cuentas

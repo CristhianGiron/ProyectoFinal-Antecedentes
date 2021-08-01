@@ -12,8 +12,9 @@ package Vista.Utiles.TablaJuzgados;
 public class UtilidadesTablaJuzgado {
     public static final int NOMBRE = 0;
     public static final int DIRECCION = 1;
-    public static final int PERFIL = 2;
-    public static final int EVENTO = 3;
+    public static final int ESTADO = 2;
+    public static final int BORRAR = 3;
+    public static final int EDITAR = 4;
     
     public static int filaSeleccionada;
 }

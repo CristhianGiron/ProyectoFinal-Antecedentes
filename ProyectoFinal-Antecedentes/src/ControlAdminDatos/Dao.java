@@ -22,9 +22,9 @@ public interface Dao<T> {
 
     public abstract void edit(T object);
 
-    public abstract void destroy(Integer id);
+    public abstract void destroy(Long id);
 
-    public abstract T find(Integer id);
+    public abstract T find(Long id);
 
     public abstract int getCount();
 }

@@ -22,7 +22,6 @@ public class InicioSesion extends javax.swing.JPanel {
         btnRegistrar.addMouseListener(aL);
         btnOk.addMouseListener(aM);
         jLabel7.addMouseListener(aM);
-        
     }
 
     /**

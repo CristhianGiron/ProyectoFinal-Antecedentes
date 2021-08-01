@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import ControlAdminDatos.JuzgadoDao;
+import Controlador.Utilidades.UtilidadesJuzgado;
 import Modelo.Juzgado;
 import Vista.Utiles.GestionCeldas;
 import Vista.Utiles.GestionEncabezadoTabla;
@@ -13,6 +15,7 @@ import Vista.Utiles.TablaJuzgados.UtilidadesTablaJuzgado;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
 
 /**
@@ -24,35 +27,33 @@ public class GestionarJuzgados extends javax.swing.JPanel {
     /**
      * Creates new form AgregarJuzgados
      */
-    
     ArrayList<Juzgado> listaJuzgado;
     ModeloTabla modelo;
-    private int filasTabla;
-    private int columnasTabla;
-    
+
+    private JuzgadoDao jd = new JuzgadoDao();
+    private Juzgado jzEditar = new Juzgado();
+    private boolean sePuedeEditar;
+
     public GestionarJuzgados() {
         initComponents();
-        construirTabla();
+        listaJuzgado = jd.findJuzgadoEntities(true);
+        sePuedeEditar = false;
+        if (listaJuzgado.size() > 0) {
+            construirTabla();
+        }
     }
-    
-    private ArrayList<Juzgado> consultarListaJuzgado(){
-        ArrayList<Juzgado> lista = new ArrayList<>();
-        lista.add(new Juzgado(123, "n1", "d1"));
-        lista.add(new Juzgado(234, "n2", "d3"));
-        lista.add(new Juzgado(345, "n3", "d4"));
-        lista.add(new Juzgado(456, "n4", "d5"));
 
-        return lista;
+    public void vaciarTxt() {
+        txtNombreJuzgado.setText("");
+        txtDireccion.setText("");
     }
-    
+
     private void construirTabla() {
-
-        listaJuzgado = consultarListaJuzgado();
-
         ArrayList<String> titulosList = new ArrayList<>();
 
         titulosList.add("Nombre");
         titulosList.add("Dirección");
+        titulosList.add("Estado");
         titulosList.add(" ");
         titulosList.add(" ");
 
@@ -68,18 +69,15 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         construirTabla(titulos, data);
 
     }
-    
+
     private void construirTabla(String[] titulos, Object[][] data) {
         modelo = new ModeloTabla(data, titulos);
         //se asigna el modelo a la tabla
         tablaJuzgados.setModel(modelo);
 
-        filasTabla = tablaJuzgados.getRowCount();
-        columnasTabla = tablaJuzgados.getColumnCount();
-
         //se asigna el tipo de dato que tendrón las celdas de cada columna definida respectivamente para validar su personalización;
-        tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.PERFIL).setCellRenderer(new GestionCeldas("icono"));
-        tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.EVENTO).setCellRenderer(new GestionCeldas("icono"));
+        tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.BORRAR).setCellRenderer(new GestionCeldas("icono"));
+        tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.EDITAR).setCellRenderer(new GestionCeldas("icono"));
 
         //se recorre y asigna el resto de celdas que serian las que almacenen datos de tipo texto
         for (int i = 0; i < titulos.length - 2; i++) {//se resta 2 porque las ultimas 2 columnas se definen arriba
@@ -92,19 +90,17 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         //Se define el tamaño de largo para cada columna y su contenido
         tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.NOMBRE).setPreferredWidth(250);
         tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.DIRECCION).setPreferredWidth(250);
-        tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.PERFIL).setPreferredWidth(35);
-        tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.EVENTO).setPreferredWidth(35);
-        
+        tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.ESTADO).setPreferredWidth(250);
+        tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.BORRAR).setPreferredWidth(35);
+        tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.EDITAR).setPreferredWidth(35);
 
         //personaliza el encabezado
         JTableHeader jtableHeader = tablaJuzgados.getTableHeader();
         jtableHeader.setDefaultRenderer(new GestionEncabezadoTabla());
         tablaJuzgados.setTableHeader(jtableHeader);
-
+        tablaJuzgados.setAutoscrolls(true);
     }
-    
-    
-    
+
     private Object[][] obtenerMatrizDatos(ArrayList<String> titulosList) {
 
         /*se crea la matriz donde las filas son dinamicas pues corresponde
@@ -112,18 +108,19 @@ public class GestionarJuzgados extends javax.swing.JPanel {
 		 * correspondiendo a las columnas definidas por defecto
          */
         String informacion[][] = new String[listaJuzgado.size()][titulosList.size()];
-        for (int x = 0; x < informacion.length ; x++) {
+        for (int x = 0; x < informacion.length; x++) {
 
-            informacion[x][UtilidadesTablaJuzgado.NOMBRE] = listaJuzgado.get(x).getNombreJuzgado()+ "";
-            informacion[x][UtilidadesTablaJuzgado.DIRECCION] = listaJuzgado.get(x).getDireccionJuzgado()+ "";
+            informacion[x][UtilidadesTablaJuzgado.NOMBRE] = listaJuzgado.get(x).getNombreJuzgado() + "";
+            informacion[x][UtilidadesTablaJuzgado.DIRECCION] = listaJuzgado.get(x).getDireccionJuzgado() + "";
+            informacion[x][UtilidadesTablaJuzgado.ESTADO] = listaJuzgado.get(x).getEstadoJuzgado() + "";
             //se asignan las plabras clave para que en la clase GestionCeldas se use para asignar el icono correspondiente
-            informacion[x][UtilidadesTablaJuzgado.PERFIL] = "PERFIL";
-            informacion[x][UtilidadesTablaJuzgado.EVENTO] = "EVENTO";
+            informacion[x][UtilidadesTablaJuzgado.BORRAR] = "PERFIL";
+            informacion[x][UtilidadesTablaJuzgado.EDITAR] = "EVENTO";
         }
-        
+
         return informacion;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -152,7 +149,7 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         lbIconoGuardar = new javax.swing.JLabel();
         lbGuardar = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(190, 190, 190));
+        setMinimumSize(new java.awt.Dimension(1000, 610));
         setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -174,6 +171,11 @@ public class GestionarJuzgados extends javax.swing.JPanel {
             }
         ));
         tablaJuzgados.setPreferredSize(new java.awt.Dimension(200, 100));
+        tablaJuzgados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaJuzgadosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaJuzgados);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoJuzgados2.png"))); // NOI18N
@@ -358,7 +360,18 @@ public class GestionarJuzgados extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNombreJuzgadoActionPerformed
 
     private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
-
+        if ((txtNombreJuzgado.getText().length() > 0 && txtDireccion.getText().length() > 0) || (txtDireccion.getText().length() > 0)) {
+            JOptionPane.showMessageDialog(null, "Solo se puede buscar por el nombre del Juzgado");
+        }else if(txtNombreJuzgado.getText().length() > 0){
+            int pos = UtilidadesJuzgado.obtenerJuzgadoContenido(listaJuzgado, txtNombreJuzgado.getText());
+            Juzgado aux = listaJuzgado.get(pos);
+            jzEditar = jd.find(aux.getIdJuzgado());
+            txtNombreJuzgado.setText(jzEditar.getNombreJuzgado());
+            txtDireccion.setText(jzEditar.getDireccionJuzgado());
+            sePuedeEditar = true;
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe llenar el campo del Nombre");
+        }  
     }//GEN-LAST:event_botonBuscarMouseClicked
 
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
@@ -366,8 +379,46 @@ public class GestionarJuzgados extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDireccionActionPerformed
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
-        JOptionPane.showMessageDialog(null, "Se ha guardado con éxito");
+        if (txtNombreJuzgado.getText().length() > 0 && txtDireccion.getText().length() > 0) {
+            if (sePuedeEditar) {
+                sePuedeEditar = false;
+                Juzgado aux = new Juzgado(jzEditar.getIdJuzgado(), txtNombreJuzgado.getText(), txtDireccion.getText(), jzEditar.getEstadoJuzgado());
+                System.out.println(aux.toString());
+                jd.edit(aux); 
+                jzEditar = new Juzgado();
+            } else {
+                Juzgado aux = new Juzgado(Long.valueOf(listaJuzgado.size() + 1), txtNombreJuzgado.getText(), txtDireccion.getText(), "Activado");
+                jd.create(aux);
+            }
+            listaJuzgado = jd.findJuzgadoEntities(true);
+            vaciarTxt();
+            construirTabla();
+        }else{
+            JOptionPane.showMessageDialog(null, "Llene todos los parametros");
+        }
     }//GEN-LAST:event_botonGuardarMouseClicked
+
+    private void tablaJuzgadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJuzgadosMouseClicked
+        //capturo fila o columna dependiendo de mi necesidad
+        int fila = tablaJuzgados.rowAtPoint(evt.getPoint());
+        int columna = tablaJuzgados.columnAtPoint(evt.getPoint());
+
+        /*uso la columna para valiar si corresponde a la columna de perfil garantizando
+		 * que solo se produzca algo si selecciono una fila de esa columna
+         */
+        if (columna == UtilidadesTablaJuzgado.BORRAR) {
+            Juzgado aux = listaJuzgado.get(fila);
+            jd.destroy(aux.getIdJuzgado());
+        } else if (columna == UtilidadesTablaJuzgado.EDITAR) {//se valida que sea la columna del otro evento
+            Juzgado aux = listaJuzgado.get(fila);
+            jzEditar = jd.find(aux.getIdJuzgado());
+            txtNombreJuzgado.setText(jzEditar.getNombreJuzgado());
+            txtDireccion.setText(jzEditar.getDireccionJuzgado());
+            sePuedeEditar = true;
+        }
+        listaJuzgado = jd.findJuzgadoEntities(true);
+        construirTabla();
+    }//GEN-LAST:event_tablaJuzgadosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
