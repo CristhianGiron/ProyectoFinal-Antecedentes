@@ -59,11 +59,11 @@ public class PersonaDao implements Dao<Persona> {
             if (rs.next()) {
                 do {
                     Boolean Bool = false;
-                    if (rs.getString(10).contains("T")) {
+                    if (rs.getString(11).contains("T")) {
                         Bool = true;
                     }
                     
-                    list.add(new Persona(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), Bool,uti.imagen(rs.getBlob(11),rs.getString(2)),rs.getLong(12)));
+                    list.add(new Persona(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),rs.getString(8), rs.getString(9), rs.getString(10), Bool,uti.imagen(rs.getBlob(12),rs.getString(2)),rs.getLong(13)));
                 } while (rs.next());
             }
         } catch (SQLException ex) {
@@ -81,8 +81,9 @@ public class PersonaDao implements Dao<Persona> {
     public void create(Persona persona) {
         int i = 0;
         try {
-            String insertar = "INSERT INTO `sistemaco_penal`.`personas` (`idpersona`, `cedula`, `nombre`, `apellido`, `fechaNacimiento`, `direccion`, `estadoCivil`, `telefono`, `mail`, `estado`,imagen,idRol) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
+            String insertar = "INSERT INTO `sistemaco_penal`.`personas` (`idpersona`, `cedula`, `nombre`, `apellido`, `fechaNacimiento`, `direccion`, `estadoCivil`, sexo, `telefono`, `mail`, `estado`,imagen,idRol) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)";
             PreparedStatement stmt = (PreparedStatement) cnx.prepareStatement(insertar);
+            System.out.println("idPersona que da fallo: "+persona.getIdPersona());
             stmt.setLong(1, persona.getIdPersona());
             stmt.setString(2, persona.getCedula());
             stmt.setString(3, persona.getNombre());
@@ -90,14 +91,15 @@ public class PersonaDao implements Dao<Persona> {
             stmt.setString(5, persona.getFechaNacimiento());
             stmt.setString(6, persona.getDireccion());
             stmt.setString(7, persona.getEstadoCivil());
-            stmt.setString(8, persona.getTelefono());
-            stmt.setString(9, persona.getMail());
-            stmt.setString(10, "T");
-            stmt.setBinaryStream(11,uti.imagen(persona.getFile()));
-            stmt.setLong(12, persona.getIdRol());
+            stmt.setString(8, persona.getEstadoCivil());
+            stmt.setString(9, persona.getTelefono());
+            stmt.setString(10, persona.getMail());
+            stmt.setString(11, "T");
+            stmt.setBinaryStream(12,uti.imagen(persona.getFile()));
+            stmt.setLong(13, persona.getIdRol());
             i = stmt.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Error al guardar en la base de datos: " + ex);
+            System.out.println("Error al guardar en la base de datos: Persona" + ex);
         } catch (IOException ex) {
             Logger.getLogger(PersonaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -143,15 +145,17 @@ public class PersonaDao implements Dao<Persona> {
             ResultSet rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.personas where estado='T' and idpersona=" + id);
             if (rs.next()) {
                 Boolean Bool=false;
-                if (rs.getString(10).contains("T")) {
+                if (rs.getString(11).contains("T")) {
                     System.out.println("Revision estado");
                     Bool = true;
                 }
-                persona = new Persona(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), Bool,rs.getLong(11));
+                persona = new Persona(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),rs.getString(8), rs.getString(9), rs.getString(10), Bool,uti.imagen(rs.getBlob(12),rs.getString(2)),rs.getLong(13));
                 return persona;
             }
         } catch (SQLException ex) {
             System.out.println("Error relizando la busqueda en la base de datos: " + ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PersonaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return persona;
     }

@@ -44,15 +44,15 @@ public class ControlAcceso extends javax.swing.JFrame {
     public void salir() {
         this.dispose();
     }
-//    public static boolean estado;
-//    public void retorna(){
-//        estado=sesion.setPase();
-//        
-//    }
-//    public boolean setRet(){ //posible idea
-//        return estado;  
-//    } 
-//    
+    public static boolean estado;
+    public void retorna(){
+        estado=sesion.setPase();
+        
+    }
+    public boolean setRet(){ //posible idea
+        return estado;  
+    } 
+    
 
     class eventoCerrar implements MouseListener {
 

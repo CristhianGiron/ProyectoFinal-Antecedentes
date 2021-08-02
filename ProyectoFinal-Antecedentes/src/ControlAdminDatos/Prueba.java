@@ -46,7 +46,7 @@ public class Prueba {
         pe.destroy(4L);
         pe.destroy(5L);
         pe.destroy(6L);
-        pe.create(new Persona(0L, "11123", "Julia", "alarcon", "2021-4-5", "Shiris", "Casado", "099874", "asfasf", Boolean.TRUE, 1L));
+        //pe.create(new Persona(0L, "11123", "Julia", "alarcon", "2021-4-5", "Shiris", "Casado","", "099874", "asfasf", Boolean.TRUE, 1L));
         // TODO code application logic here
     }
 

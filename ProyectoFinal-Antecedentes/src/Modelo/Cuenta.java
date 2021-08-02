@@ -9,23 +9,23 @@ package Modelo;
  *
  * @author hp
  */
-public class cesion {
-    Long idCesion;
+public class Cuenta {
+    Long idCuenta;
     String usuario;
     String clave;
     Long idPersona;
     
-    public void cesion(Long idCesion, String usuario, String clave,Long isPersona){
-        this.idCesion=idCesion;
+    public void Cuenta(Long idCuenta, String usuario, String clave,Long isPersona){
+        this.idCuenta=idCuenta;
         this.usuario=usuario;
         this.clave=clave;
         this.idPersona=idPersona;  
     }
-    public Long getIdCesion(){
-        return idCesion;
+    public Long getIdCuenta(){
+        return idCuenta;
     }
-    public void setIdCesion(){
-        this.idCesion=idCesion;
+    public void setIdCuenta(Long idCuenta){
+        this.idCuenta=idCuenta;
     }
     public String getUsuario(){
         return usuario;
@@ -42,7 +42,7 @@ public class cesion {
     public Long getIdPersona(){
         return idPersona;
     }
-    public void setIdPersona(){
+    public void setIdPersona(Long idPersona){
         this.idPersona=idPersona;
     }
 }

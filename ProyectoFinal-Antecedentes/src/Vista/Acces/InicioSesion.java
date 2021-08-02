@@ -5,8 +5,24 @@
  */
 package Vista.Acces;
 
+import Controlador.ControladorCuenta;
+import static Controlador.ControladorDeEncriptado.createSecretKey;
+import static Controlador.ControladorDeEncriptado.encrypt;
+import Controlador.MantenerCokie;
+import Modelo.Cuenta;
 import java.awt.Color;
 import java.awt.event.MouseListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  *
@@ -17,12 +33,14 @@ public class InicioSesion extends javax.swing.JPanel {
     /**
      * Creates new form InicioCesion
      */
+    ControladorCuenta ctrc = new ControladorCuenta();
+
     public InicioSesion(MouseListener aL, MouseListener aM) {
         initComponents();
         btnRegistrar.addMouseListener(aL);
         btnOk.addMouseListener(aM);
         jLabel7.addMouseListener(aM);
-        
+
     }
 
     /**
@@ -156,16 +174,26 @@ public class InicioSesion extends javax.swing.JPanel {
     private void btnOkMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseExited
         btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/btn.png")));// TODO add your handling code here:
     }//GEN-LAST:event_btnOkMouseExited
-//    public static boolean prueba; // posible idea
-//    public Boolean setPase(){
-//        
-//        return prueba;
-//        
-//    }
-    private void btnOkMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMousePressed
+    public static boolean prueba; // posible idea
 
-//            prueba=true;  //posible idea
-             
+    public Boolean setPase() {
+
+        return prueba;
+
+    }
+    private void btnOkMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMousePressed
+        try {
+            if (ctrc.buscarCuenta(txtUsuario.getText(), ctrc.encriptar(txtContraseña.getPassword()))) {
+                MantenerCokie ctr=new MantenerCokie();
+                ctr.addCokie(ctrc.buscarPersonaCuenta(ctrc.agregarCuenta().getIdPersona()),"Cesion");
+            }
+            
+        } catch (GeneralSecurityException ex) {
+            Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnOkMousePressed
 
     private void btnRegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseEntered
@@ -191,7 +219,7 @@ public class InicioSesion extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel7MouseExited
 
     private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
-  
+
     }//GEN-LAST:event_jLabel7MousePressed
 
     private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed

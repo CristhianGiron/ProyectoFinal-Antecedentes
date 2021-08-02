@@ -267,6 +267,7 @@ public class AgregarPersonas extends javax.swing.JPanel {
         ctr.agregarPersona().setFechaNacimiento(fech.getFecha(dcFechaN));
         ctr.agregarPersona().setDireccion(txtDireccion.getText());
         ctr.agregarPersona().setEstadoCivil(cbEstadoCivil.getSelectedItem().toString());
+        ctr.agregarPersona().setSexo(cbSexo.getSelectedItem().toString());
         ctr.agregarPersona().setTelefono(txtTelefono.getText());
         ctr.agregarPersona().setMail(txtMail.getText());
         ctr.agregarPersona().setFile(new File(foto.getRutaImagen()));

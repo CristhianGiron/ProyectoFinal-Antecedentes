@@ -5,9 +5,20 @@
  */
 package Vista.Acces;
 
+import Controlador.ControladorCuenta;
+import Controlador.ControladorPersona;
+import Vista.Utiles.TablaPersonas.ConvertirEnums;
+import Vista.Utiles.TablaPersonas.Sexo;
+import Vista.Utiles.UtilesFecha;
 import java.awt.Color;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.security.GeneralSecurityException;
+import java.security.SecureRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+
 /**
  *
  * @author hp
@@ -17,10 +28,13 @@ public class Registro extends javax.swing.JPanel {
     /**
      * Creates new form Registro1
      */
+    UtilesFecha fech = new UtilesFecha();
+
     public Registro(MouseListener aL) {
+        ConvertirEnums enums = new ConvertirEnums();
         initComponents();
-         cbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino", "Otro" }));
-         btnRegresar.addMouseListener(aL);
+        cbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(enums.convertSexo(Sexo.values())));
+        btnRegresar.addMouseListener(aL);
     }
 
     /**
@@ -32,22 +46,30 @@ public class Registro extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtUsuario1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtUsuario2 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtUsuario3 = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        dcFechaInicioAudiencia = new com.toedter.calendar.JDateChooser();
+        fechaNa = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
         cbSexo = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         btnOk = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JLabel();
+        foto = new rojerusan.RSFotoCircle();
+        jLabel12 = new javax.swing.JLabel();
+        txtCedula = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        txtMail = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        txtClave = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -55,76 +77,68 @@ public class Registro extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(609, 400));
         setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/juridicalogin.jpg"))); // NOI18N
-        add(jLabel1);
-        jLabel1.setBounds(0, 0, 293, 400);
-
         txtUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
         add(txtUsuario);
-        txtUsuario.setBounds(300, 68, 280, 30);
+        txtUsuario.setBounds(10, 90, 280, 30);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Usuario");
         add(jLabel5);
-        jLabel5.setBounds(300, 50, 170, 15);
-
-        txtUsuario1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        add(txtUsuario1);
-        txtUsuario1.setBounds(300, 128, 280, 30);
+        jLabel5.setBounds(10, 70, 170, 15);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("Contraseña");
         add(jLabel6);
-        jLabel6.setBounds(300, 110, 170, 15);
+        jLabel6.setBounds(10, 130, 170, 15);
 
-        txtUsuario2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        add(txtUsuario2);
-        txtUsuario2.setBounds(300, 188, 280, 30);
+        txtNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        add(txtNombre);
+        txtNombre.setBounds(10, 210, 280, 30);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
         jLabel7.setText("Nombre");
         add(jLabel7);
-        jLabel7.setBounds(300, 170, 170, 15);
+        jLabel7.setBounds(10, 190, 170, 15);
 
-        txtUsuario3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        add(txtUsuario3);
-        txtUsuario3.setBounds(300, 248, 280, 30);
+        txtApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        add(txtApellido);
+        txtApellido.setBounds(10, 270, 280, 30);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));
         jLabel8.setText("Sexo");
         add(jLabel8);
-        jLabel8.setBounds(300, 290, 100, 15);
+        jLabel8.setBounds(10, 310, 100, 15);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setText("Registro");
         add(jLabel2);
-        jLabel2.setBounds(300, 10, 170, 30);
+        jLabel2.setBounds(10, 10, 170, 30);
 
-        dcFechaInicioAudiencia.setDateFormatString("dd/MM/yyyy");
-        dcFechaInicioAudiencia.setIcon(new ImageIcon(getClass().getResource("/Vista/Iconos/IconoCalendario2.png")));
-        add(dcFechaInicioAudiencia);
-        dcFechaInicioAudiencia.setBounds(410, 308, 170, 30);
+        fechaNa.setDateFormatString("dd/MM/yyyy");
+        fechaNa.setIcon(new ImageIcon(getClass().getResource("/Vista/Iconos/IconoCalendario2.png")));
+        add(fechaNa);
+        fechaNa.setBounds(120, 330, 170, 30);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
         jLabel9.setText("Apellido");
         add(jLabel9);
-        jLabel9.setBounds(300, 230, 170, 15);
+        jLabel9.setBounds(10, 250, 170, 15);
 
         cbSexo.setBackground(new java.awt.Color(240, 240, 240));
         cbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(cbSexo);
-        cbSexo.setBounds(300, 308, 100, 30);
+        cbSexo.setBounds(10, 330, 100, 30);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
         jLabel10.setText("Fecha de nacimiento");
         add(jLabel10);
-        jLabel10.setBounds(410, 290, 170, 15);
+        jLabel10.setBounds(120, 310, 170, 15);
 
         btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/btn.png"))); // NOI18N
         btnOk.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -156,6 +170,57 @@ public class Registro extends javax.swing.JPanel {
         });
         add(btnRegresar);
         btnRegresar.setBounds(560, 10, 21, 30);
+        add(foto);
+        foto.setBounds(440, 30, 80, 80);
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel12.setText("Cedula");
+        add(jLabel12);
+        jLabel12.setBounds(310, 110, 170, 15);
+
+        txtCedula.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        add(txtCedula);
+        txtCedula.setBounds(310, 130, 280, 30);
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel13.setText("Direccion");
+        add(jLabel13);
+        jLabel13.setBounds(310, 170, 170, 15);
+
+        txtDireccion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        add(txtDireccion);
+        txtDireccion.setBounds(310, 190, 280, 30);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel14.setText("Telefono");
+        add(jLabel14);
+        jLabel14.setBounds(310, 230, 170, 15);
+
+        txtTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        add(txtTelefono);
+        txtTelefono.setBounds(310, 250, 280, 30);
+
+        txtMail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        add(txtMail);
+        txtMail.setBounds(310, 310, 280, 30);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel15.setText("E-Mail");
+        add(jLabel15);
+        jLabel15.setBounds(310, 290, 170, 15);
+
+        txtClave.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClaveActionPerformed(evt);
+            }
+        });
+        add(txtClave);
+        txtClave.setBounds(10, 150, 280, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseEntered
@@ -167,34 +232,79 @@ public class Registro extends javax.swing.JPanel {
     }//GEN-LAST:event_btnOkMouseExited
 
     private void btnOkMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMousePressed
-                // TODO add your handling code here:
+        try {                                   
+            ControladorPersona ctr = new ControladorPersona();
+            ControladorCuenta ctrc = new ControladorCuenta();
+            ctr.newPersona();
+            SecureRandom sc = new SecureRandom();
+            Integer secure = sc.nextInt(10);
+            Long generator=secure.longValue();
+            ctr.agregarPersona().setIdPersona(generator);
+            ctr.agregarPersona().setCedula(txtCedula.getText());
+            ctr.agregarPersona().setNombre(txtNombre.getText());
+            ctr.agregarPersona().setApellido(txtApellido.getText());
+            ctr.agregarPersona().setFechaNacimiento(fech.getFecha(fechaNa));
+            ctr.agregarPersona().setDireccion(txtDireccion.getText());
+            ctr.agregarPersona().setSexo(cbSexo.getSelectedItem().toString());
+            ctr.agregarPersona().setTelefono(txtTelefono.getText());
+            ctr.agregarPersona().setMail(txtMail.getText());
+            ctr.agregarPersona().setFile(new File(foto.getRutaImagen()));
+            ctr.agregarPersona().setEstado(Boolean.TRUE);
+            ctr.agregarPersona().setIdRol(1L);
+            ctr.guardarPersona();
+            ctrc.newCuenta();
+            ctrc.agregarCuenta().setIdCuenta(1L);
+            ctrc.agregarCuenta().setClave(ctrc.encriptar(txtClave.getPassword()));
+            ctrc.agregarCuenta().setUsuario(txtUsuario.getText());
+            ctrc.agregarCuenta().setIdPersona(generator);
+            ctrc.guardarCuenta();
+            
+            // TODO add your handling code here:
+        } catch (GeneralSecurityException ex) {
+            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+                      // TODO add your handling code here:
     }//GEN-LAST:event_btnOkMousePressed
 
     private void btnRegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseEntered
-          btnRegresar.setForeground(new Color(102,196,67));// TODO add your handling code here:
+        btnRegresar.setForeground(new Color(102, 196, 67));// TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarMouseEntered
 
     private void btnRegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseExited
-        btnRegresar.setForeground(new Color(102,204,102));// TODO add your handling code here:
+        btnRegresar.setForeground(new Color(102, 204, 102));// TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarMouseExited
+
+    private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
+
+    }//GEN-LAST:event_txtClaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnOk;
     private javax.swing.JLabel btnRegresar;
     private javax.swing.JComboBox<String> cbSexo;
-    private com.toedter.calendar.JDateChooser dcFechaInicioAudiencia;
-    private javax.swing.JLabel jLabel1;
+    private com.toedter.calendar.JDateChooser fechaNa;
+    private rojerusan.RSFotoCircle foto;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtCedula;
+    private javax.swing.JPasswordField txtClave;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtMail;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtUsuario;
-    private javax.swing.JTextField txtUsuario1;
-    private javax.swing.JTextField txtUsuario2;
-    private javax.swing.JTextField txtUsuario3;
     // End of variables declaration//GEN-END:variables
 }

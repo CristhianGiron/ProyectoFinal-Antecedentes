@@ -11,6 +11,7 @@ public class Persona {
 	private String fechaNacimiento;
 	private String direccion;
 	private String estadoCivil;
+        private String sexo;
 	private String telefono;
 	private String mail;
         private Boolean estado;
@@ -20,7 +21,7 @@ public class Persona {
     public Persona(){
         
     }
-    public Persona(Long idPersona, String cedula, String nombre, String apellido, String fechaNacimiento, String direccion, String estadoCivil, String telefono, String mail, Boolean estado, File imagen,Long idRol) {
+    public Persona(Long idPersona, String cedula, String nombre, String apellido, String fechaNacimiento, String direccion, String estadoCivil,String sexo, String telefono, String mail, Boolean estado, File imagen,Long idRol) {
         this.idPersona = idPersona;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -28,25 +29,14 @@ public class Persona {
         this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
         this.estadoCivil = estadoCivil;
+        this.sexo = sexo;
         this.telefono = telefono;
         this.mail = mail;
         this.estado = estado;
         this.imagen = imagen;
         this.idRol=idRol;
     }
-    public Persona(Long idPersona, String cedula, String nombre, String apellido, String fechaNacimiento, String direccion, String estadoCivil, String telefono, String mail, Boolean estado,Long idRol) {
-        this.idPersona = idPersona;
-        this.cedula = cedula;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
-        this.direccion = direccion;
-        this.estadoCivil = estadoCivil;
-        this.telefono = telefono;
-        this.mail = mail;
-        this.estado = estado;
-        this.idRol=idRol;
-    }
+    
 
     public Long getIdPersona() {
         return idPersona;
@@ -103,7 +93,13 @@ public class Persona {
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
+    public String getSexo() {
+        return sexo;
+    }
 
+    public void setSexo(String estadoCivil) {
+        this.sexo = sexo;
+    }
     public String getTelefono() {
         return telefono;
     }
