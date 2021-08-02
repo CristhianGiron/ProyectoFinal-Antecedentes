@@ -77,12 +77,12 @@ public class RolDao implements Dao<Rol>{
     }
 
     @Override
-    public void destroy(Integer id) {
+    public void destroy(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Rol find(Integer id) {
+    public Rol find(Long id) {
         Rol rol = null;
         try {
             //Cargar la lista de cuentas

@@ -13,7 +13,11 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -35,13 +39,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Cris2
  */
 public class Utiles {
-
+    
     static Connection conexion;
-    static boolean estado=true;
+    static boolean estado = true;
+    
     public Utiles() {
         if (estado) {
             IniciarConexion();
-            estado=false;
+            estado = false;
         }
         
     }
@@ -77,7 +82,7 @@ public class Utiles {
                     + "\nDetalles del error: \n" + e.getMessage());
         }
         conexion = con;
-
+        
     }
 
     /**
@@ -123,25 +128,28 @@ public class Utiles {
             }
         }
         return null;
-
+        
     }
+    
     public Image img(Image imagen, Dimension d) {
         if (imagen != null) {
             Image rpta = imagen;
-                rpta = rpta.getScaledInstance(d.width, d.height, Image.SCALE_DEFAULT);
-                return rpta;
-           
+            rpta = rpta.getScaledInstance(d.width, d.height, Image.SCALE_DEFAULT);
+            return rpta;
+            
         }
         return null;
-
+        
     }
     
     public Image img(Blob imagen) {
         if (imagen != null) {
             Image rpta = null;
             try {
+                
                 rpta = javax.imageio.ImageIO.read(imagen.getBinaryStream());
-               // rpta = rpta.getScaledInstance(d.width, d.height, Image.SCALE_DEFAULT);
+
+                // rpta = rpta.getScaledInstance(d.width, d.height, Image.SCALE_DEFAULT);
                 return rpta;
             } catch (SQLException ex) {
                 System.err.println("Error: " + ex.getMessage());
@@ -150,7 +158,32 @@ public class Utiles {
             }
         }
         return null;
-
+        
+    }
+    int cant = 0;
+    
+    public File imagen(Blob input,String nombre) throws FileNotFoundException, IOException, SQLException {
+        cant++;
+        if (input != null) {
+            long size = input.length();
+            FileOutputStream output = null;
+            File file = new File(nombre.hashCode()+".png");
+            output = new FileOutputStream(file);
+            byte[] buffer = input.getBytes(1, Integer.parseInt(String.valueOf(size)));
+            output.write(buffer);
+            output.flush();
+            System.out.println("Guardar en: " + file.getAbsolutePath());
+            return file;
+        }
+        return null;
+        
+    }
+    
+    public FileInputStream imagen(File file) throws FileNotFoundException, IOException {
+        FileInputStream input = null;
+        input = new FileInputStream(file);
+        return input;
+        
     }
 
     /**
@@ -159,27 +192,6 @@ public class Utiles {
      * @param img
      * @return
      */
-    public ByteArrayInputStream convertirImagenABlob(Image img) {
-        try {
-            BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2d = bi.createGraphics();
-            g2d.drawImage(img, 0, 0, null);
-            g2d.dispose();
-            ByteArrayOutputStream baos;
-            baos = new ByteArrayOutputStream();
-            ImageIO.write(bi, "png", baos);
-            
-            baos.close();
-            
-            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-            return bais;
-        } catch (IOException ex) {
-            Logger.getLogger(Utiles.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-
-    }
-
     /**
      * Metodo que permite obtener la fecha actual
      *
@@ -224,7 +236,7 @@ public class Utiles {
         TimerTask task = new TimerTask() {
             int tic = 0;
             int cont = 0;
-
+            
             @Override
             public void run() {
                 lb.setIcon(ico[cont]);
@@ -233,7 +245,7 @@ public class Utiles {
                 if (cont == ico.length) {
                     cont = 0;
                 }
-
+                
             }
         };
         // Empezamos dentro de 10ms y luego lanzamos la tarea cada 1000ms
@@ -246,7 +258,7 @@ public class Utiles {
      * @return File[]
      */
     public File[] traerDirectorio() {
-
+        
         String path = "./img/";
         String files;
         File folder = new File(path);
@@ -270,11 +282,11 @@ public class Utiles {
                         imgaux = null;
                         System.out.println(files);
                     }
-
+                    
                     img[img.length - 1] = listOfFiles[i];
                 }
             }
-
+            
         }
         System.out.println("tm: " + img.length);
         return img;

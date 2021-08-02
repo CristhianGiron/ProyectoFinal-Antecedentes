@@ -1,6 +1,6 @@
 package Modelo;
 
-import java.awt.Image;
+import java.io.File;
 
 
 public class Persona {
@@ -14,13 +14,13 @@ public class Persona {
 	private String telefono;
 	private String mail;
         private Boolean estado;
-        private Image imagen;
+        private File imagen;
         private Long idRol;
         
     public Persona(){
         
     }
-    public Persona(Long idPersona, String cedula, String nombre, String apellido, String fechaNacimiento, String direccion, String estadoCivil, String telefono, String mail, Boolean estado, Image imagen,Long idRol) {
+    public Persona(Long idPersona, String cedula, String nombre, String apellido, String fechaNacimiento, String direccion, String estadoCivil, String telefono, String mail, Boolean estado, File imagen,Long idRol) {
         this.idPersona = idPersona;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -128,11 +128,11 @@ public class Persona {
         this.estado = estado;
     }
 
-    public Image getImagen() {
+    public File getFile() {
         return imagen;
     }
 
-    public void setImagen(Image imagen) {
+    public void setFile(File imagen) {
         this.imagen = imagen;
     }
     public Long getIdRol(){

@@ -34,7 +34,6 @@ public class GestionEncabezadoTabla  implements TableCellRenderer {
             ((JLabel)jcomponent).setSize( 30, jcomponent.getWidth() );   
             ((JLabel)jcomponent).setPreferredSize( new Dimension(6, jcomponent.getWidth())  );
         }
-        System.out.println("column : "+column);
         //jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(221, 211, 211)));
         if (column<table.getColumnCount()-2) {
           jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(255, 255, 255)));  
@@ -45,7 +44,6 @@ public class GestionEncabezadoTabla  implements TableCellRenderer {
         jcomponent.setBackground( new Color(65,65,65) );
         jcomponent.setToolTipText("Tabla Seguimiento");
         jcomponent.setForeground(Color.white);
-        System.out.println("Numero de columnas: "+ table.getColumnCount());
         return jcomponent;
     }
 

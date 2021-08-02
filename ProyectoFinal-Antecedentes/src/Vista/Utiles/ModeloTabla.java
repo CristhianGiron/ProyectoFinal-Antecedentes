@@ -13,14 +13,16 @@ public class ModeloTabla extends DefaultTableModel{
 	 * @param datos
 	 * @param titulos
 	 */
+        
 	public ModeloTabla(Object[][] datos, String[] titulos) {
+            
 		super();
 		this.titulos=titulos;
 		this.datos=datos;
 		setDataVector(datos, titulos);
 	}
 	public ModeloTabla() {
-		// TODO Auto-generated constructor stub
+	// TODO Auto-generated constructor stub
 	}
 
 //	public boolean isCellEditable (int row, int column)

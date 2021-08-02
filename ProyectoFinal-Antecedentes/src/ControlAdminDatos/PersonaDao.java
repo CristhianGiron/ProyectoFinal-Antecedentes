@@ -7,6 +7,8 @@ package ControlAdminDatos;
 
 import ControlAdminDatos.Utiles.Utiles;
 import Modelo.Persona;
+import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,13 +62,16 @@ public class PersonaDao implements Dao<Persona> {
                     if (rs.getString(10).contains("T")) {
                         Bool = true;
                     }
-                    list.add(new Persona(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), Bool,rs.getLong(12)));
+                    
+                    list.add(new Persona(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), Bool,uti.imagen(rs.getBlob(11),rs.getString(2)),rs.getLong(12)));
                 } while (rs.next());
             }
         } catch (SQLException ex) {
             System.out.println("Error en la extaraccion de los datos de la base de datos "
                     + "detalles de error: " + ex);
 
+        } catch (IOException ex) {
+            Logger.getLogger(PersonaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
 
@@ -76,7 +81,7 @@ public class PersonaDao implements Dao<Persona> {
     public void create(Persona persona) {
         int i = 0;
         try {
-            String insertar = "INSERT INTO `sistemaco_penal`.`personas` (`idpersona`, `cedula`, `nombre`, `apellido`, `fechaNacimiento`, `direccion`, `estadoCivil`, `telefono`, `mail`, `estado`,idRol) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+            String insertar = "INSERT INTO `sistemaco_penal`.`personas` (`idpersona`, `cedula`, `nombre`, `apellido`, `fechaNacimiento`, `direccion`, `estadoCivil`, `telefono`, `mail`, `estado`,imagen,idRol) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
             PreparedStatement stmt = (PreparedStatement) cnx.prepareStatement(insertar);
             stmt.setLong(1, persona.getIdPersona());
             stmt.setString(2, persona.getCedula());
@@ -88,10 +93,13 @@ public class PersonaDao implements Dao<Persona> {
             stmt.setString(8, persona.getTelefono());
             stmt.setString(9, persona.getMail());
             stmt.setString(10, "T");
-            stmt.setLong(11, persona.getIdRol());
+            stmt.setBinaryStream(11,uti.imagen(persona.getFile()));
+            stmt.setLong(12, persona.getIdRol());
             i = stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error al guardar en la base de datos: " + ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PersonaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -99,20 +107,24 @@ public class PersonaDao implements Dao<Persona> {
     public void edit(Persona persona) {
         int i = 0;
         try {
-            String insertar = "UPDATE `sistemaco_penal`.`personas` SET `direccion` = ?, `estadoCivil` = ?, `telefono` = ?, `mail` = ? WHERE `idpersona` =" + persona.getIdPersona();
+            String insertar = "UPDATE `sistemaco_penal`.`personas` SET `direccion` = ?, `estadoCivil` = ?, `telefono` = ?, `mail`=?, imagen = ? WHERE `idpersona` =" + persona.getIdPersona();
             PreparedStatement stmt = (PreparedStatement) cnx.prepareStatement(insertar);
             stmt.setString(1, persona.getDireccion());
             stmt.setString(2, persona.getEstadoCivil());
-            stmt.setString(8, persona.getTelefono());
-            stmt.setString(9, persona.getMail());
+            stmt.setString(3, persona.getTelefono());
+            stmt.setString(4, persona.getMail());
+            
+            stmt.setBinaryStream(5,uti.imagen(persona.getFile()));
             i = stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error al actualizar en la base de datos: " + ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PersonaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void destroy(Integer id) {
+    public void destroy(Long id) {
         int i = 0;
         try {
             String insertar = "UPDATE `sistemaco_penal`.`personas` SET `estado` ='F' WHERE `idpersona` =" + id;
@@ -124,7 +136,7 @@ public class PersonaDao implements Dao<Persona> {
     }
 
     @Override
-    public Persona find(Integer id) {
+    public Persona find(Long id) {
         Persona persona = null;
         try {
             //Cargar la lista de cuentas

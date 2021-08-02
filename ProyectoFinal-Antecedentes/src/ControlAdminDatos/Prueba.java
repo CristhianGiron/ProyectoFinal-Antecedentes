@@ -37,15 +37,15 @@ public class Prueba {
             }
         }
         try {
-            System.out.println("Cantidad: " + pe.find(14).getEstado());
+            System.out.println("Cantidad: " + pe.find(76L).getEstado());
         } catch (NullPointerException ex) {
             System.out.println("Datos erroneos la base de datos devueve 0 rows y 0 columns");
         }
-        pe.destroy(2);
-        pe.destroy(3);
-        pe.destroy(4);
-        pe.destroy(5);
-        pe.destroy(6);
+        pe.destroy(2L);
+        pe.destroy(3L);
+        pe.destroy(4L);
+        pe.destroy(5L);
+        pe.destroy(6L);
         pe.create(new Persona(0L, "11123", "Julia", "alarcon", "2021-4-5", "Shiris", "Casado", "099874", "asfasf", Boolean.TRUE, 1L));
         // TODO code application logic here
     }

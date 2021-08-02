@@ -12,10 +12,19 @@ import Vista.Utiles.GestionEncabezadoTabla;
 import Vista.Utiles.ModeloTabla;
 import Vista.Utiles.TablaPersonas.Utilidades;
 import ControlAdminDatos.Utiles.Utiles;
+import Controlador.ControladorPersona;
 import Vista.Utiles.TablaPersonas.ConvertirEnums;
 import Vista.Utiles.TablaPersonas.EstadoCivil;
 import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,27 +41,27 @@ public class GestionarPersonas extends javax.swing.JPanel {
      */
     private JPanel contentPane;
     private JScrollPane scrollPaneTabla;
-    ArrayList<Persona> listaPersonas;//lista que simula la informaci�n de la BD
-
-    ModeloTabla modelo;//modelo definido en la clase ModeloTabla
+    
+    ModeloTabla modelo;
     private int filasTabla;
     private int columnasTabla;
     Utiles uti = new Utiles();
-    ConvertirEnums enums=new ConvertirEnums();
+    ConvertirEnums enums = new ConvertirEnums();
+    ControladorPersona ctr = new ControladorPersona();
+    Icon icoVacio;
     public GestionarPersonas() {
         initComponents();
-        //tablaSeguimiento.addKeyListener(this)
+        ctr.listaPersonas();
+        ctr.buscar(null, "ALL");
         construirTabla();
+        icoVacio=rSFotoCircle1.icono;
         jScrollPane1.getViewport().setBackground(Color.white);
         cbEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(enums.convertEstadoCivil(EstadoCivil.values())));
-        //modelo.setRowCount(0);
         
     }
-
+    
     private void construirTabla() {
-
-        listaPersonas = consultarListaPersonas();
-
+        
         ArrayList<String> titulosList = new ArrayList<>();
         titulosList.add("Cedula");
         titulosList.add("Nombre");
@@ -64,115 +73,75 @@ public class GestionarPersonas extends javax.swing.JPanel {
         titulosList.add("E-mail");
         titulosList.add(" ");
         titulosList.add(" ");
-
-        //se asignan las columnas al arreglo para enviarse al momento de construir la tabla
+        
         String titulos[] = new String[titulosList.size()];
         for (int i = 0; i < titulos.length; i++) {
             titulos[i] = titulosList.get(i);
         }
-        /*obtenemos los datos de la lista y los guardamos en la matriz
-		 * que luego se manda a construir la tabla
-         */
-        Object[][] data = obtenerMatrizDatos(titulosList);
+        Object[][] data = ctr.obtenerMatrizDatos(titulosList);
         construirTabla(titulos, data);
-
+        
     }
-
-    private ArrayList<Persona> consultarListaPersonas() {
-        ArrayList<Persona> lista = new ArrayList<>();
-
-        lista.add(new Persona(1234L, "1111111", "David ", "Enao", "Ingeniero", "sadh", "dfsfs", "099", "sdgds@", true,1L));
-        lista.add(new Persona(1234L, "1111111", "David ", "Enao", "Ingeniero", "sadh", "dfsfs", "xvdxc", "sdgds", true,2L));
-        lista.add(new Persona(1234L, "1111111", "David ", "Enao", "Ingeniero", "sadh", "dfsfs", "xvdxc", "sdgds", true,1L));
-        lista.add(new Persona(1234L, "1111111", "David ", "Enao", "Ingeniero", "sadh", "dfsfs", "xvdxc", "sdgds", true,2L));
-
-        return lista;
-    }
-
-    private Object[][] obtenerMatrizDatos(ArrayList<String> titulosList) {
-
-        /*se crea la matriz donde las filas son dinamicas pues corresponde
-		 * a todos los usuarios, mientras que las columnas son estaticas
-		 * correspondiendo a las columnas definidas por defecto
-         */
-        String informacion[][] = new String[listaPersonas.size()][titulosList.size()];
-
-        for (int x = 0; x < informacion.length; x++) {
-
-            informacion[x][Utilidades.CEDULA] = listaPersonas.get(x).getCedula() + "";
-            informacion[x][Utilidades.NOMBRE] = listaPersonas.get(x).getNombre() + "";
-            informacion[x][Utilidades.APELLIDO] = listaPersonas.get(x).getApellido() + "";
-            informacion[x][Utilidades.FECHANACIMIENTO] = listaPersonas.get(x).getFechaNacimiento() + "";
-            informacion[x][Utilidades.DIRECCION] = listaPersonas.get(x).getDireccion() + "";
-            informacion[x][Utilidades.ESTADOCIVIL] = listaPersonas.get(x).getEstadoCivil() + "";
-            informacion[x][Utilidades.TELEFONO] = listaPersonas.get(x).getTelefono() + "";
-            informacion[x][Utilidades.MAIL] = listaPersonas.get(x).getMail() + "";
-
-            //se asignan las plabras clave para que en la clase GestionCeldas se use para asignar el icono correspondiente
-            informacion[x][Utilidades.PERFIL] = "PERFIL";
-            informacion[x][Utilidades.EVENTO] = "EVENTO";
-        }
-
-        return informacion;
-    }
-
+    
     private void construirTabla(String[] titulos, Object[][] data) {
+        
         modelo = new ModeloTabla(data, titulos);
-        //se asigna el modelo a la tabla
         tablaPersonas.setModel(modelo);
-
-        filasTabla = tablaPersonas.getRowCount();
         columnasTabla = tablaPersonas.getColumnCount();
         tablaPersonas.getColumnModel().getColumn(Utilidades.PERFIL).setCellRenderer(new GestionCeldas("icono"));
         tablaPersonas.getColumnModel().getColumn(Utilidades.EVENTO).setCellRenderer(new GestionCeldas("icono"));
-
-        //se recorre y asigna el resto de celdas que serian las que almacenen datos de tipo texto
-        for (int i = 0; i < titulos.length - 2; i++) {//se resta 7 porque las ultimas 7 columnas se definen arriba
+        for (int i = 0; i < titulos.length - 2; i++) {
             tablaPersonas.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
         }
-
+        
         tablaPersonas.getTableHeader().setReorderingAllowed(false);
-        tablaPersonas.setRowHeight(25);//tamano de las celdas
+        tablaPersonas.setRowHeight(25);
         tablaPersonas.setGridColor(new java.awt.Color(0, 0, 0));
-        //Se define el tama�o de largo para cada columna y su contenido
-        tablaPersonas.getColumnModel().getColumn(Utilidades.CEDULA).setPreferredWidth(130);//documento
-        tablaPersonas.getColumnModel().getColumn(Utilidades.NOMBRE).setPreferredWidth(380);//nombre
-        tablaPersonas.getColumnModel().getColumn(Utilidades.APELLIDO).setPreferredWidth(350);//direccion
-        tablaPersonas.getColumnModel().getColumn(Utilidades.FECHANACIMIENTO).setPreferredWidth(130);//telefono
-        tablaPersonas.getColumnModel().getColumn(Utilidades.DIRECCION).setPreferredWidth(280);//profesion
-        tablaPersonas.getColumnModel().getColumn(Utilidades.ESTADOCIVIL).setPreferredWidth(80);//edad
-        tablaPersonas.getColumnModel().getColumn(Utilidades.TELEFONO).setPreferredWidth(100);//nota1
-        tablaPersonas.getColumnModel().getColumn(Utilidades.MAIL).setPreferredWidth(100);//nota2
-        tablaPersonas.getColumnModel().getColumn(Utilidades.PERFIL).setPreferredWidth(35);//accion perfil
-        tablaPersonas.getColumnModel().getColumn(Utilidades.EVENTO).setPreferredWidth(35);//accion evento
-
-        //personaliza el encabezado
+        tablaPersonas.getColumnModel().getColumn(Utilidades.CEDULA).setPreferredWidth(130);
+        tablaPersonas.getColumnModel().getColumn(Utilidades.NOMBRE).setPreferredWidth(380);
+        tablaPersonas.getColumnModel().getColumn(Utilidades.APELLIDO).setPreferredWidth(350);
+        tablaPersonas.getColumnModel().getColumn(Utilidades.FECHANACIMIENTO).setPreferredWidth(130);
+        tablaPersonas.getColumnModel().getColumn(Utilidades.DIRECCION).setPreferredWidth(280);
+        tablaPersonas.getColumnModel().getColumn(Utilidades.ESTADOCIVIL).setPreferredWidth(80);
+        tablaPersonas.getColumnModel().getColumn(Utilidades.TELEFONO).setPreferredWidth(100);
+        tablaPersonas.getColumnModel().getColumn(Utilidades.MAIL).setPreferredWidth(100);
+        tablaPersonas.getColumnModel().getColumn(Utilidades.PERFIL).setPreferredWidth(35);
+        tablaPersonas.getColumnModel().getColumn(Utilidades.EVENTO).setPreferredWidth(35);
         JTableHeader jtableHeader = tablaPersonas.getTableHeader();
         jtableHeader.setDefaultRenderer(new GestionEncabezadoTabla());
         tablaPersonas.setTableHeader(jtableHeader);
-
+        
     }
 
-    /**
-     * Este metodo simularia el proceso o la acci�n que se quiere realizar si se
-     * presiona alguno de los botones o iconos de la tabla
-     *
-     * @param fila
-     */
     private void validarSeleccionMouse(int fila) {
         Utilidades.filaSeleccionada = fila;
-
-        //teniendo la fila entonces se obtiene el objeto correspondiente para enviarse como parammetro o imprimir la informaci�n
-        Persona miPersona = new Persona();
-        miPersona.setCedula(tablaPersonas.getValueAt(fila, Utilidades.CEDULA).toString());
-        miPersona.setNombre(tablaPersonas.getValueAt(fila, Utilidades.NOMBRE).toString());
-
-        String info = "INFO PERSONA\n";
-        info += "Documento: " + miPersona.getCedula() + "\n";
-        info += "Nombre: " + miPersona.getNombre() + "\n";
-
-        JOptionPane.showMessageDialog(null, info);
+        Long id = ctr.getListComun().get(tablaPersonas.getSelectedRow()).getIdPersona();
+        int confirm = JOptionPane.showConfirmDialog(null, "Esta seguro de su decision??");
+        if (confirm == 0) {
+            ctr.darBaja(id);
+            ctr.VaciarListComun();
+            ctr.listaPersonas();
+            ctr.buscar(null, "ALL");
+            construirTabla();
+        }
     }
+
+    private void validarSeleccionMouse2(int fila) throws IOException {
+        Utilidades.filaSeleccionada = fila;
+        ctr.setPersona(ctr.getListComun().get(tablaPersonas.getSelectedRow()));
+        txtEmail.setText(ctr.agregarPersona().getMail());
+        txtCell.setText(ctr.agregarPersona().getTelefono());
+        txtDireccion.setText(ctr.agregarPersona().getDireccion());
+        cbEstadoCivil.setSelectedItem(ctr.agregarPersona().getEstadoCivil());
+        if (ctr.agregarPersona().getFile() != null) {
+            ImageIcon ico = new ImageIcon(ctr.agregarPersona().getFile().getAbsolutePath());
+            rSFotoCircle1.setImagenDefault(ico);
+        }else{
+            rSFotoCircle1.setImagenDefault(icoVacio);
+        }
+        
+    }
+
     //versiones
     /**
      * This method is called from within the constructor to initialize the form.
@@ -189,11 +158,11 @@ public class GestionarPersonas extends javax.swing.JPanel {
         btnBuscarNombre = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPersonas = new javax.swing.JTable();
-        jTextField5 = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtCell = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -205,19 +174,34 @@ public class GestionarPersonas extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
+        txtBucarCedula = new javax.swing.JTextField();
+        txtBuscarNombre = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1000, 610));
         setPreferredSize(new java.awt.Dimension(1000, 610));
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
         setLayout(null);
 
         btnBuscarCedula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnBuscarCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar2.png"))); // NOI18N
         btnBuscarCedula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarCedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnBuscarCedulaMousePressed(evt);
+            }
+        });
         add(btnBuscarCedula);
         btnBuscarCedula.setBounds(290, 80, 20, 30);
 
@@ -225,6 +209,11 @@ public class GestionarPersonas extends javax.swing.JPanel {
         LimpiarBuscadorCedula1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LimpiarBuscadorCedula1.setText("X");
         LimpiarBuscadorCedula1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LimpiarBuscadorCedula1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                LimpiarBuscadorCedula1MousePressed(evt);
+            }
+        });
         add(LimpiarBuscadorCedula1);
         LimpiarBuscadorCedula1.setBounds(265, 80, 20, 30);
 
@@ -232,12 +221,22 @@ public class GestionarPersonas extends javax.swing.JPanel {
         LimpiarBuscadorNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LimpiarBuscadorNombre.setText("X");
         LimpiarBuscadorNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LimpiarBuscadorNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                LimpiarBuscadorNombreMousePressed(evt);
+            }
+        });
         add(LimpiarBuscadorNombre);
         LimpiarBuscadorNombre.setBounds(670, 80, 20, 30);
 
         btnBuscarNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnBuscarNombre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar2.png"))); // NOI18N
         btnBuscarNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnBuscarNombreMousePressed(evt);
+            }
+        });
         add(btnBuscarNombre);
         btnBuscarNombre.setBounds(695, 80, 20, 30);
 
@@ -269,42 +268,42 @@ public class GestionarPersonas extends javax.swing.JPanel {
         add(jScrollPane1);
         jScrollPane1.setBounds(26, 124, 956, 200);
 
-        jTextField5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                txtEmailActionPerformed(evt);
             }
         });
-        add(jTextField5);
-        jTextField5.setBounds(30, 390, 290, 30);
+        add(txtEmail);
+        txtEmail.setBounds(30, 390, 290, 30);
 
         jLabel6.setForeground(new java.awt.Color(49, 49, 49));
         jLabel6.setText("E-mail");
         add(jLabel6);
         jLabel6.setBounds(30, 370, 290, 14);
 
-        jTextField6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        txtCell.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        txtCell.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                txtCellActionPerformed(evt);
             }
         });
-        add(jTextField6);
-        jTextField6.setBounds(30, 450, 290, 30);
+        add(txtCell);
+        txtCell.setBounds(30, 450, 290, 30);
 
         jLabel7.setForeground(new java.awt.Color(49, 49, 49));
         jLabel7.setText("Cell");
         add(jLabel7);
         jLabel7.setBounds(30, 430, 290, 14);
 
-        jTextField7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        txtDireccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                txtDireccionActionPerformed(evt);
             }
         });
-        add(jTextField7);
-        jTextField7.setBounds(30, 510, 290, 30);
+        add(txtDireccion);
+        txtDireccion.setBounds(30, 510, 290, 30);
 
         jLabel8.setForeground(new java.awt.Color(49, 49, 49));
         jLabel8.setText("Dirección");
@@ -349,23 +348,36 @@ public class GestionarPersonas extends javax.swing.JPanel {
         add(jLabel10);
         jLabel10.setBounds(25, 65, 290, 10);
 
-        jTextField8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 117, 225)));
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        txtBucarCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 117, 225)));
+        txtBucarCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                txtBucarCedulaActionPerformed(evt);
             }
         });
-        add(jTextField8);
-        jTextField8.setBounds(25, 80, 290, 30);
+        txtBucarCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBucarCedulaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBucarCedulaKeyReleased(evt);
+            }
+        });
+        add(txtBucarCedula);
+        txtBucarCedula.setBounds(25, 80, 290, 30);
 
-        jTextField9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 117, 225)));
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscarNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 117, 225)));
+        txtBuscarNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                txtBuscarNombreActionPerformed(evt);
             }
         });
-        add(jTextField9);
-        jTextField9.setBounds(430, 80, 290, 30);
+        txtBuscarNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarNombreKeyReleased(evt);
+            }
+        });
+        add(txtBuscarNombre);
+        txtBuscarNombre.setBounds(430, 80, 290, 30);
 
         jLabel11.setForeground(new java.awt.Color(49, 49, 49));
         jLabel11.setText("Nombre");
@@ -395,19 +407,17 @@ public class GestionarPersonas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablaPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPersonasMouseClicked
-        System.out.println("*****Ejecutando evento");
-        //capturo fila o columna dependiendo de mi necesidad
         int fila = tablaPersonas.rowAtPoint(evt.getPoint());
         int columna = tablaPersonas.columnAtPoint(evt.getPoint());
-
-        /*uso la columna para valiar si corresponde a la columna de perfil garantizando
-		 * que solo se produzca algo si selecciono una fila de esa columna
-         */
         if (columna == Utilidades.PERFIL) {
-            //sabiendo que corresponde a la columna de perfil, envio la posicion de la fila seleccionada
             validarSeleccionMouse(fila);
-        } else if (columna == Utilidades.EVENTO) {//se valida que sea la columna del otro evento
-            JOptionPane.showMessageDialog(null, "Evento del otro icono");
+            
+        } else if (columna == Utilidades.EVENTO) {
+            try {
+                validarSeleccionMouse2(fila);
+            } catch (IOException ex) {
+                Logger.getLogger(GestionarPersonas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_tablaPersonasMouseClicked
 
@@ -415,41 +425,98 @@ public class GestionarPersonas extends javax.swing.JPanel {
 
     }//GEN-LAST:event_tablaPersonasMouseEntered
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
 
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txtEmailActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void txtCellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCellActionPerformed
 
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_txtCellActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
 
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_txtDireccionActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void txtBucarCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBucarCedulaActionPerformed
 
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_txtBucarCedulaActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void txtBuscarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarNombreActionPerformed
 
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_txtBuscarNombreActionPerformed
 
     private void tablaPersonasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPersonasMouseExited
 
     }//GEN-LAST:event_tablaPersonasMouseExited
 
     private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
-        btnGuardar.setBackground(new Color(18,79,82));
+        btnGuardar.setBackground(new Color(18, 79, 82));
     }//GEN-LAST:event_btnGuardarMouseEntered
 
     private void btnGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseExited
-        btnGuardar.setBackground(new Color(18,44,82));
+        btnGuardar.setBackground(new Color(18, 44, 82));
     }//GEN-LAST:event_btnGuardarMouseExited
 
     private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
-
+        int confirm = JOptionPane.showConfirmDialog(null, "Esta seguro de su decision??");
+        if (confirm == 0) {
+            ctr.agregarPersona().setMail(txtEmail.getText());
+            ctr.agregarPersona().setTelefono(txtCell.getText());
+            ctr.agregarPersona().setDireccion(txtDireccion.getText());
+            ctr.agregarPersona().setEstadoCivil(cbEstadoCivil.getSelectedItem().toString());
+            ctr.agregarPersona().setFile(new File(rSFotoCircle1.getRutaImagen()));
+            ctr.Editar(ctr.agregarPersona());
+            ctr.VaciarListComun();
+            ctr.listaPersonas();
+            ctr.buscar(null, "ALL");
+            construirTabla();
+        }
+        
     }//GEN-LAST:event_btnGuardarMousePressed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formFocusGained
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseEntered
+
+    private void LimpiarBuscadorCedula1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LimpiarBuscadorCedula1MousePressed
+        txtBucarCedula.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_LimpiarBuscadorCedula1MousePressed
+
+    private void LimpiarBuscadorNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LimpiarBuscadorNombreMousePressed
+        txtBuscarNombre.setText("");// TODO add your handling code here:
+    }//GEN-LAST:event_LimpiarBuscadorNombreMousePressed
+
+    private void btnBuscarCedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarCedulaMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarCedulaMousePressed
+
+    private void btnBuscarNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarNombreMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarNombreMousePressed
+    String buscar;
+    private void txtBucarCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBucarCedulaKeyPressed
+        
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBucarCedulaKeyPressed
+
+    private void txtBucarCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBucarCedulaKeyReleased
+        ctr.VaciarTemp();
+        buscar=txtBucarCedula.getText();
+        ctr.buscar(buscar, "CEDULA"); 
+        construirTabla();        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBucarCedulaKeyReleased
+
+    private void txtBuscarNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarNombreKeyReleased
+        ctr.VaciarTemp();
+        buscar=txtBuscarNombre.getText();
+        ctr.buscar(buscar, "NOMBRE"); 
+        construirTabla();         // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarNombreKeyReleased
 
 //vista en desarrollo
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -472,13 +539,13 @@ public class GestionarPersonas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private rojerusan.RSFotoCircle rSFotoCircle1;
     private javax.swing.JTable tablaPersonas;
+    private javax.swing.JTextField txtBucarCedula;
+    private javax.swing.JTextField txtBuscarNombre;
+    private javax.swing.JTextField txtCell;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
 
 }

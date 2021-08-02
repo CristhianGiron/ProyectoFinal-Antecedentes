@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 package Vista;
+import ControlAdminDatos.Utiles.Utiles;
 import Controlador.ControladorPersona;
 import Vista.Utiles.TablaPersonas.ConvertirEnums;
 import Vista.Utiles.TablaPersonas.EstadoCivil;
 import Vista.Utiles.TablaPersonas.Sexo;
 import Vista.Utiles.UtilesFecha;
 import java.awt.Color;
+import java.io.File;
 import javax.swing.ImageIcon;
 /**
  *
@@ -22,6 +24,7 @@ public class AgregarPersonas extends javax.swing.JPanel {
      * Creates new form AgregarPersonas
      */
     UtilesFecha fech=new UtilesFecha();
+    Utiles uti=new Utiles();
     public AgregarPersonas() {
         initComponents();
         ConvertirEnums enums=new ConvertirEnums();
@@ -266,6 +269,7 @@ public class AgregarPersonas extends javax.swing.JPanel {
         ctr.agregarPersona().setEstadoCivil(cbEstadoCivil.getSelectedItem().toString());
         ctr.agregarPersona().setTelefono(txtTelefono.getText());
         ctr.agregarPersona().setMail(txtMail.getText());
+        ctr.agregarPersona().setFile(new File(foto.getRutaImagen()));
         ctr.agregarPersona().setEstado(Boolean.TRUE);
         ctr.agregarPersona().setIdRol(2L);
         ctr.guardarPersona();
