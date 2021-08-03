@@ -7,9 +7,6 @@ package Controlador;
 
 import ControlAdminDatos.CuentaDao;
 import ControlAdminDatos.PersonaDao;
-import static Controlador.ControladorDeEncriptado.createSecretKey;
-import static Controlador.ControladorDeEncriptado.decrypt;
-import static Controlador.ControladorDeEncriptado.encrypt;
 import Modelo.Cuenta;
 import Modelo.Persona;
 import Vista.Acces.InicioSesion;
@@ -75,18 +72,34 @@ public class ControladorCuenta {
     public void Editar(Cuenta p) {
         dao.edit(p);
     }
-
-    public Boolean buscarCuenta(String Usuario, String Clave) {
-
+    Decrypt ctre = new Decrypt();
+    Boolean pase;
+    public void buscarCuenta(String Usuario, String Clave) throws GeneralSecurityException, IOException {
+        listaCuentas();
+        
+        String del=ctre.decodeString(Clave, ctre.KEY);
+        System.out.println("Encriptado campo: " + Clave);
+        System.out.println("Desencriptado campo: "+del);
+        
+        String clavel = getListCuenta().get(0).getClave();
+        String de=ctre.decodeString(clavel, ctre.KEY);
+        System.out.println("Encriptado bd: " + clavel);
+        System.out.println("Desencriptado bd: "+de);
+        
         for (int i = 0; i < getListCuenta().size(); i++) {
+            
             if (getListCuenta().get(i).getUsuario().equals(Usuario) && getListCuenta().get(i).getClave().equals(Clave)) {
+                System.out.println("Entarar alif");
                 ce = getListCuenta().get(i);
-                return true;
+                pase=true;
             } else {
-                return false;
+                pase=false;
             }
         }
-        return false;
+
+    }
+    public Boolean getBuscarPersonaCuenta() {
+        return pase;
 
     }
 
@@ -97,16 +110,12 @@ public class ControladorCuenta {
     }
 
     public String encriptar(char[] pasword) throws GeneralSecurityException {
-        try {
-            String clave = null;
+        
+            String clave = "";
             for (int i = 0; i < pasword.length; i++) {
                 clave += String.valueOf(pasword[i]);
             }
-            return encrypt(clave);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(ControladorCuenta.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+            return ctre.encodeString(clave, ctre.KEY);
+        } 
 
 }

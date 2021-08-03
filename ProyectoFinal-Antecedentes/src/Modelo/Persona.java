@@ -97,7 +97,7 @@ public class Persona {
         return sexo;
     }
 
-    public void setSexo(String estadoCivil) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
     public String getTelefono() {

@@ -5,12 +5,16 @@
  */
 package Vista.Acces;
 
+import ControlAdminDatos.Utiles.Utiles;
 import Controlador.ControladorCuenta;
 import Controlador.ControladorPersona;
 import Vista.Utiles.TablaPersonas.ConvertirEnums;
 import Vista.Utiles.TablaPersonas.Sexo;
 import Vista.Utiles.UtilesFecha;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.security.GeneralSecurityException;
@@ -18,6 +22,7 @@ import java.security.SecureRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,6 +51,9 @@ public class Registro extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblCedulaValida = new javax.swing.JLabel();
+        lblEmailValid = new javax.swing.JLabel();
+        lblClaveValid = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -70,6 +78,11 @@ public class Registro extends javax.swing.JPanel {
         txtMail = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         txtClave = new javax.swing.JPasswordField();
+        lblUsuarioValido = new javax.swing.JLabel();
+        lblNombreValido = new javax.swing.JLabel();
+        lblApellido = new javax.swing.JLabel();
+        lblDireccion = new javax.swing.JLabel();
+        lblTelefono = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -77,7 +90,24 @@ public class Registro extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(609, 400));
         setLayout(null);
 
+        lblCedulaValida.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblCedulaValida);
+        lblCedulaValida.setBounds(310, 160, 150, 14);
+
+        lblEmailValid.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblEmailValid);
+        lblEmailValid.setBounds(310, 340, 150, 14);
+
+        lblClaveValid.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblClaveValid);
+        lblClaveValid.setBounds(10, 180, 150, 14);
+
         txtUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
+        });
         add(txtUsuario);
         txtUsuario.setBounds(10, 90, 280, 30);
 
@@ -94,16 +124,32 @@ public class Registro extends javax.swing.JPanel {
         jLabel6.setBounds(10, 130, 170, 15);
 
         txtNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombreKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
         add(txtNombre);
         txtNombre.setBounds(10, 210, 280, 30);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel7.setText("Nombre");
+        jLabel7.setText("Nombres");
         add(jLabel7);
         jLabel7.setBounds(10, 190, 170, 15);
 
         txtApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
         add(txtApellido);
         txtApellido.setBounds(10, 270, 280, 30);
 
@@ -125,7 +171,7 @@ public class Registro extends javax.swing.JPanel {
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel9.setText("Apellido");
+        jLabel9.setText("Apellidos");
         add(jLabel9);
         jLabel9.setBounds(10, 250, 170, 15);
 
@@ -180,6 +226,14 @@ public class Registro extends javax.swing.JPanel {
         jLabel12.setBounds(310, 110, 170, 15);
 
         txtCedula.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
         add(txtCedula);
         txtCedula.setBounds(310, 130, 280, 30);
 
@@ -190,6 +244,11 @@ public class Registro extends javax.swing.JPanel {
         jLabel13.setBounds(310, 170, 170, 15);
 
         txtDireccion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyReleased(evt);
+            }
+        });
         add(txtDireccion);
         txtDireccion.setBounds(310, 190, 280, 30);
 
@@ -200,10 +259,23 @@ public class Registro extends javax.swing.JPanel {
         jLabel14.setBounds(310, 230, 170, 15);
 
         txtTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
         add(txtTelefono);
         txtTelefono.setBounds(310, 250, 280, 30);
 
         txtMail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtMail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMailKeyReleased(evt);
+            }
+        });
         add(txtMail);
         txtMail.setBounds(310, 310, 280, 30);
 
@@ -219,8 +291,33 @@ public class Registro extends javax.swing.JPanel {
                 txtClaveActionPerformed(evt);
             }
         });
+        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtClaveKeyReleased(evt);
+            }
+        });
         add(txtClave);
         txtClave.setBounds(10, 150, 280, 30);
+
+        lblUsuarioValido.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblUsuarioValido);
+        lblUsuarioValido.setBounds(10, 120, 150, 14);
+
+        lblNombreValido.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblNombreValido);
+        lblNombreValido.setBounds(10, 240, 150, 14);
+
+        lblApellido.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblApellido);
+        lblApellido.setBounds(10, 300, 150, 14);
+
+        lblDireccion.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblDireccion);
+        lblDireccion.setBounds(310, 220, 150, 14);
+
+        lblTelefono.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblTelefono);
+        lblTelefono.setBounds(310, 280, 150, 14);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseEntered
@@ -230,42 +327,70 @@ public class Registro extends javax.swing.JPanel {
     private void btnOkMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseExited
         btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/btn.png")));// TODO add your handling code here:
     }//GEN-LAST:event_btnOkMouseExited
-
+    Boolean validaCampoContraseña;
+    Boolean validaCampoCedula;
+    Boolean validaCampoEmail;
     private void btnOkMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMousePressed
-        try {                                   
-            ControladorPersona ctr = new ControladorPersona();
-            ControladorCuenta ctrc = new ControladorCuenta();
-            ctr.newPersona();
-            SecureRandom sc = new SecureRandom();
-            Integer secure = sc.nextInt(10);
-            Long generator=secure.longValue();
-            ctr.agregarPersona().setIdPersona(generator);
-            ctr.agregarPersona().setCedula(txtCedula.getText());
-            ctr.agregarPersona().setNombre(txtNombre.getText());
-            ctr.agregarPersona().setApellido(txtApellido.getText());
-            ctr.agregarPersona().setFechaNacimiento(fech.getFecha(fechaNa));
-            ctr.agregarPersona().setDireccion(txtDireccion.getText());
-            ctr.agregarPersona().setSexo(cbSexo.getSelectedItem().toString());
-            ctr.agregarPersona().setTelefono(txtTelefono.getText());
-            ctr.agregarPersona().setMail(txtMail.getText());
-            ctr.agregarPersona().setFile(new File(foto.getRutaImagen()));
-            ctr.agregarPersona().setEstado(Boolean.TRUE);
-            ctr.agregarPersona().setIdRol(1L);
-            ctr.guardarPersona();
-            ctrc.newCuenta();
-            ctrc.agregarCuenta().setIdCuenta(1L);
-            ctrc.agregarCuenta().setClave(ctrc.encriptar(txtClave.getPassword()));
-            ctrc.agregarCuenta().setUsuario(txtUsuario.getText());
-            ctrc.agregarCuenta().setIdPersona(generator);
-            ctrc.guardarCuenta();
-            
-            // TODO add your handling code here:
-        } catch (GeneralSecurityException ex) {
-            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+        if (validaCampoCedula && validaCampoContraseña && validaCampoEmail && telefonoValido && validaNombre && validaApellido && validaUsuario && validaDireccion && fechaNa.getDate() != null && cbSexo.getSelectedItem() != null) {
+
+            try {
+                ControladorPersona ctr = new ControladorPersona();
+                ControladorCuenta ctrc = new ControladorCuenta();
+                ctr.newPersona();
+                SecureRandom sc = new SecureRandom();
+                Integer secure = sc.nextInt(1000000);
+                Long generator = secure.longValue();
+                ctr.agregarPersona().setIdPersona(generator);
+                ctr.agregarPersona().setCedula(txtCedula.getText());
+                ctr.agregarPersona().setNombre(txtNombre.getText());
+                ctr.agregarPersona().setApellido(txtApellido.getText());
+                ctr.agregarPersona().setFechaNacimiento(fech.getFecha(fechaNa));
+                ctr.agregarPersona().setDireccion(txtDireccion.getText());
+                ctr.agregarPersona().setSexo(cbSexo.getSelectedItem().toString());
+                ctr.agregarPersona().setTelefono(txtTelefono.getText());
+                ctr.agregarPersona().setMail(txtMail.getText());
+                ctr.agregarPersona().setFile(new File(foto.getRutaImagen()));
+                ctr.agregarPersona().setEstado(Boolean.TRUE);
+                ctr.agregarPersona().setIdRol(1L);
+                ctr.guardarPersona();
+                ctrc.newCuenta();
+                ctrc.agregarCuenta().setIdCuenta(1L);
+                ctrc.agregarCuenta().setClave(ctrc.encriptar(txtClave.getPassword()));
+                ctrc.agregarCuenta().setUsuario(txtUsuario.getText());
+                ctrc.agregarCuenta().setIdPersona(generator);
+                ctrc.guardarCuenta();
+                if (ctr.isCorrect()) {
+                    txtApellido.setText("");
+                    txtCedula.setText("");
+                    txtClave.setText("");
+                    txtDireccion.setText("");
+                    txtMail.setText("");
+                    txtNombre.setText("");
+                    txtTelefono.setText("");
+                    txtUsuario.setText("");
+                    lblApellido.setText("");
+                    lblCedulaValida.setText("");
+                    lblDireccion.setText("");
+                    lblEmailValid.setText("");
+                    lblNombreValido.setText("");
+                    lblTelefono.setText("");
+                    lblClaveValid.setText("");
+                    lblUsuarioValido.setText("");
+                    Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"));
+                    foto.setImagenDefault(new ImageIcon(uti.img(img, foto.getSize())));
+                    JOptionPane.showMessageDialog(null, "Registro exitoso");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error en el registro");
+                }
+
+                // TODO add your handling code here:
+            } catch (GeneralSecurityException ex) {
+                Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Datos faltantes o erroneos");
         }
-        
-        
-                      // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnOkMousePressed
 
     private void btnRegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseEntered
@@ -279,6 +404,147 @@ public class Registro extends javax.swing.JPanel {
     private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
 
     }//GEN-LAST:event_txtClaveActionPerformed
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Caracteres invalidos solo puede ingresar numeros");
+            // ignorar el evento de teclado
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        char caracter = evt.getKeyChar();
+        // Verificar si la tecla pulsada no es un digito
+
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Caracteres invalidos solo puede ingresar numeros");
+            // ignorar el evento de teclado
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+
+        if (!Character.isLetter(evt.getKeyChar()) && !(evt.getKeyChar() == KeyEvent.VK_SPACE) && !(evt.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Caracteres invalidos no se permiten numeros en el Nombre");
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        if (!Character.isLetter(evt.getKeyChar()) && !(evt.getKeyChar() == KeyEvent.VK_SPACE) && !(evt.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Caracteres invalidos no se permiten numeros en el Apellido");
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoKeyTyped
+    Utiles uti = new Utiles();
+    private void txtCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyReleased
+
+        validaCampoCedula = uti.isEcuadorianDocumentValid(txtCedula.getText());
+
+        if (validaCampoCedula) {
+            lblCedulaValida.setText("CI. Valido");
+            lblCedulaValida.setForeground(Color.green);
+        } else {
+            lblCedulaValida.setText("CI. Invalido");
+            lblCedulaValida.setForeground(Color.red);
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaKeyReleased
+
+    private void txtMailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMailKeyReleased
+        validaCampoEmail = uti.validarDireccionCorreoElectronico(txtMail.getText());
+        if (validaCampoEmail) {
+            lblEmailValid.setText("Correo. Valido");
+            lblEmailValid.setForeground(Color.green);
+        } else {
+            lblEmailValid.setText("Correo. Invalido");
+            lblEmailValid.setForeground(Color.red);
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_txtMailKeyReleased
+
+    private void txtClaveKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyReleased
+        if (txtClave.getPassword().length >= 8) {
+            validaCampoContraseña = true;
+            lblClaveValid.setText("Contraseña. Valida");
+            lblClaveValid.setForeground(Color.green);
+        } else {
+            validaCampoContraseña = false;
+            lblClaveValid.setText("Contraseña. Invalida");
+            lblClaveValid.setForeground(Color.red);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClaveKeyReleased
+    boolean telefonoValido;
+    private void txtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyReleased
+        if (txtTelefono.getText().length() == 10) {
+            telefonoValido = true;
+            lblTelefono.setText("Telefono. Valido");
+            lblTelefono.setForeground(Color.green);
+
+        } else {
+            telefonoValido = false;
+            lblTelefono.setText("Telefono. Invalido");
+            lblTelefono.setForeground(Color.red);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoKeyReleased
+    boolean validaUsuario;
+    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+        if (txtUsuario.getText().length() > 4) {
+            validaUsuario = true;
+            lblUsuarioValido.setText("Usuario. Valido");
+            lblUsuarioValido.setForeground(Color.green);
+        } else {
+            validaUsuario = false;
+            lblUsuarioValido.setText("Usuario. Invalido");
+            lblUsuarioValido.setForeground(Color.red);
+        }
+// TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioKeyReleased
+    boolean validaNombre;
+    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
+        if (txtNombre.getText().length() > 7 && txtNombre.getText().contains(" ")) {
+            validaNombre = true;
+            lblNombreValido.setText("Nombre. Valido");
+            lblNombreValido.setForeground(Color.green);
+        } else {
+            validaNombre = false;
+            lblNombreValido.setText("Nombre. Invalido");
+            lblNombreValido.setForeground(Color.red);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreKeyReleased
+    boolean validaApellido;
+    private void txtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyReleased
+        if (txtApellido.getText().length() > 7 && txtApellido.getText().contains(" ")) {
+            validaApellido = true;
+            lblApellido.setText("Apellido. Valido");
+            lblApellido.setForeground(Color.green);
+        } else {
+            validaApellido = false;
+            lblApellido.setText("Apellido. Invalido");
+            lblApellido.setForeground(Color.red);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoKeyReleased
+    boolean validaDireccion;
+    private void txtDireccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyReleased
+        if (txtDireccion.getText().length() > 8) {
+            validaDireccion = true;
+            lblDireccion.setText("Dirección. Valida");
+            lblDireccion.setForeground(Color.green);
+        } else {
+            validaDireccion = false;
+            lblDireccion.setText("Dirección. Invalida");
+            lblDireccion.setForeground(Color.red);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -298,6 +564,14 @@ public class Registro extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblApellido;
+    private javax.swing.JLabel lblCedulaValida;
+    private javax.swing.JLabel lblClaveValid;
+    private javax.swing.JLabel lblDireccion;
+    private javax.swing.JLabel lblEmailValid;
+    private javax.swing.JLabel lblNombreValido;
+    private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel lblUsuarioValido;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JPasswordField txtClave;

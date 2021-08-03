@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Vista;
+
 import ControlAdminDatos.Utiles.Utiles;
 import Controlador.ControladorPersona;
 import Vista.Utiles.TablaPersonas.ConvertirEnums;
@@ -11,24 +12,29 @@ import Vista.Utiles.TablaPersonas.EstadoCivil;
 import Vista.Utiles.TablaPersonas.Sexo;
 import Vista.Utiles.UtilesFecha;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.io.File;
+import java.security.SecureRandom;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author hp
  */
-
 public class AgregarPersonas extends javax.swing.JPanel {
 
     /**
      * Creates new form AgregarPersonas
      */
-    UtilesFecha fech=new UtilesFecha();
-    Utiles uti=new Utiles();
+    UtilesFecha fech = new UtilesFecha();
+    Utiles uti = new Utiles();
+
     public AgregarPersonas() {
         initComponents();
-        ConvertirEnums enums=new ConvertirEnums();
-        cbTipoIdentificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cedula", "Pasaporte"}));
+        ConvertirEnums enums = new ConvertirEnums();
         cbEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(enums.convertEstadoCivil(EstadoCivil.values())));
         cbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(enums.convertSexo(Sexo.values())));
     }
@@ -59,12 +65,17 @@ public class AgregarPersonas extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
         cbEstadoCivil = new javax.swing.JComboBox<>();
-        cbTipoIdentificacion = new javax.swing.JComboBox<>();
         cbSexo = new javax.swing.JComboBox<>();
         foto = new rojerusan.RSFotoCircle();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JLabel();
+        lblCedula = new javax.swing.JLabel();
+        lblApellido = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        lblTelefono = new javax.swing.JLabel();
+        lblDireccion = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1000, 610));
@@ -84,13 +95,24 @@ public class AgregarPersonas extends javax.swing.JPanel {
                 txtApellidosActionPerformed(evt);
             }
         });
+        txtApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtApellidosKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidosKeyTyped(evt);
+            }
+        });
         add(txtApellidos);
         txtApellidos.setBounds(150, 150, 290, 30);
 
         txtTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoActionPerformed(evt);
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
             }
         });
         add(txtTelefono);
@@ -102,11 +124,19 @@ public class AgregarPersonas extends javax.swing.JPanel {
                 txtNombresActionPerformed(evt);
             }
         });
+        txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombresKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombresKeyTyped(evt);
+            }
+        });
         add(txtNombres);
         txtNombres.setBounds(150, 90, 290, 30);
 
         jLabel2.setForeground(new java.awt.Color(49, 49, 49));
-        jLabel2.setText("Cell");
+        jLabel2.setText("Telefono");
         add(jLabel2);
         jLabel2.setBounds(150, 310, 290, 14);
 
@@ -138,6 +168,11 @@ public class AgregarPersonas extends javax.swing.JPanel {
                 txtMailActionPerformed(evt);
             }
         });
+        txtMail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMailKeyReleased(evt);
+            }
+        });
         add(txtMail);
         txtMail.setBounds(150, 270, 290, 30);
 
@@ -157,11 +192,16 @@ public class AgregarPersonas extends javax.swing.JPanel {
                 txtDireccionActionPerformed(evt);
             }
         });
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyReleased(evt);
+            }
+        });
         add(txtDireccion);
         txtDireccion.setBounds(150, 390, 290, 30);
 
         jLabel8.setForeground(new java.awt.Color(49, 49, 49));
-        jLabel8.setText("Identificación");
+        jLabel8.setText("Cedula");
         add(jLabel8);
         jLabel8.setBounds(150, 430, 290, 14);
 
@@ -171,18 +211,21 @@ public class AgregarPersonas extends javax.swing.JPanel {
                 txtCedulaActionPerformed(evt);
             }
         });
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
         add(txtCedula);
-        txtCedula.setBounds(150, 480, 290, 30);
+        txtCedula.setBounds(150, 450, 290, 30);
 
         cbEstadoCivil.setBackground(new java.awt.Color(240, 240, 240));
         cbEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado Civil" }));
         add(cbEstadoCivil);
         cbEstadoCivil.setBounds(530, 150, 290, 30);
-
-        cbTipoIdentificacion.setBackground(new java.awt.Color(240, 240, 240));
-        cbTipoIdentificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo de Identificacion" }));
-        add(cbTipoIdentificacion);
-        cbTipoIdentificacion.setBounds(150, 450, 290, 30);
 
         cbSexo.setBackground(new java.awt.Color(240, 240, 240));
         cbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sexo" }));
@@ -194,7 +237,7 @@ public class AgregarPersonas extends javax.swing.JPanel {
         foto.setBounds(590, 210, 130, 130);
 
         jLabel9.setForeground(new java.awt.Color(49, 49, 49));
-        jLabel9.setText("Nombre");
+        jLabel9.setText("Nombres");
         add(jLabel9);
         jLabel9.setBounds(150, 70, 290, 14);
 
@@ -223,15 +266,35 @@ public class AgregarPersonas extends javax.swing.JPanel {
         });
         add(btnGuardar);
         btnGuardar.setBounds(620, 460, 120, 40);
+
+        lblCedula.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblCedula);
+        lblCedula.setBounds(150, 480, 160, 15);
+
+        lblApellido.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblApellido);
+        lblApellido.setBounds(150, 180, 160, 15);
+
+        lblNombre.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblNombre);
+        lblNombre.setBounds(150, 120, 160, 15);
+
+        lblEmail.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblEmail);
+        lblEmail.setBounds(150, 300, 160, 15);
+
+        lblTelefono.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblTelefono);
+        lblTelefono.setBounds(150, 360, 160, 15);
+
+        lblDireccion.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        add(lblDireccion);
+        lblDireccion.setBounds(150, 420, 160, 15);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidosActionPerformed
 
     }//GEN-LAST:event_txtApellidosActionPerformed
-
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-
-    }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
 
@@ -250,39 +313,178 @@ public class AgregarPersonas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCedulaActionPerformed
 
     private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
-        btnGuardar.setBackground(new Color(18,79,82));
+        btnGuardar.setBackground(new Color(18, 79, 82));
     }//GEN-LAST:event_btnGuardarMouseEntered
 
     private void btnGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseExited
-        btnGuardar.setBackground(new Color(18,44,82));
+        btnGuardar.setBackground(new Color(18, 44, 82));
     }//GEN-LAST:event_btnGuardarMouseExited
 
     private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
-        ControladorPersona ctr=new ControladorPersona();
-        ctr.newPersona();
-        ctr.agregarPersona().setIdPersona(0L);
-        ctr.agregarPersona().setCedula(txtCedula.getText());
-        ctr.agregarPersona().setNombre(txtNombres.getText());
-        ctr.agregarPersona().setApellido(txtApellidos.getText());
-        ctr.agregarPersona().setFechaNacimiento(fech.getFecha(dcFechaN));
-        ctr.agregarPersona().setDireccion(txtDireccion.getText());
-        ctr.agregarPersona().setEstadoCivil(cbEstadoCivil.getSelectedItem().toString());
-        ctr.agregarPersona().setSexo(cbSexo.getSelectedItem().toString());
-        ctr.agregarPersona().setTelefono(txtTelefono.getText());
-        ctr.agregarPersona().setMail(txtMail.getText());
-        ctr.agregarPersona().setFile(new File(foto.getRutaImagen()));
-        ctr.agregarPersona().setEstado(Boolean.TRUE);
-        ctr.agregarPersona().setIdRol(2L);
-        ctr.guardarPersona();
-        
+        if (validaCampoCedula && validaCampoEmail && telefonoValido && validaNombre && validaApellido && validaDireccion && dcFechaN.getDate() != null && cbSexo.getSelectedItem() != null && cbEstadoCivil.getSelectedItem() != null) {
+
+            ControladorPersona ctr = new ControladorPersona();
+            ctr.newPersona();
+            SecureRandom sc = new SecureRandom();
+            Integer secure = sc.nextInt(1000000000);
+            Long generator = secure.longValue();
+            ctr.agregarPersona().setIdPersona(generator);
+            ctr.agregarPersona().setCedula(txtCedula.getText());
+            ctr.agregarPersona().setNombre(txtNombres.getText());
+            ctr.agregarPersona().setApellido(txtApellidos.getText());
+            ctr.agregarPersona().setFechaNacimiento(fech.getFecha(dcFechaN));
+            ctr.agregarPersona().setDireccion(txtDireccion.getText());
+            ctr.agregarPersona().setEstadoCivil(cbEstadoCivil.getSelectedItem().toString());
+            ctr.agregarPersona().setSexo(cbSexo.getSelectedItem().toString());
+            ctr.agregarPersona().setTelefono(txtTelefono.getText());
+            ctr.agregarPersona().setMail(txtMail.getText());
+            ctr.agregarPersona().setFile(new File(foto.getRutaImagen()));
+            ctr.agregarPersona().setEstado(Boolean.TRUE);
+            ctr.agregarPersona().setIdRol(2L);
+            ctr.guardarPersona();
+
+            if (ctr.isCorrect()) {
+                txtApellidos.setText("");
+                txtCedula.setText("");
+                txtDireccion.setText("");
+                txtMail.setText("");
+                txtNombres.setText("");
+                txtTelefono.setText("");
+                lblApellido.setText("");
+                lblCedula.setText("");
+                lblDireccion.setText("");
+                lblEmail.setText("");
+                lblNombre.setText("");
+                lblTelefono.setText("");
+                Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"));
+                foto.setImagenDefault(new ImageIcon(uti.img(img, foto.getSize())));
+                JOptionPane.showMessageDialog(null, "Persona agregada correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "A sucedido un error mientras intentaba guardar revise la informacion e intente nuevamente");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Datos faltantes o erroneos");
+        }
+
+
     }//GEN-LAST:event_btnGuardarMousePressed
+    boolean validaCampoCedula;
+    private void txtCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyReleased
+
+        validaCampoCedula = uti.isEcuadorianDocumentValid(txtCedula.getText());
+
+        if (validaCampoCedula) {
+            lblCedula.setText("CI. Valido");
+            lblCedula.setForeground(Color.green);
+        } else {
+            lblCedula.setText("CI. Invalido");
+            lblCedula.setForeground(Color.red);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaKeyReleased
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Caracteres invalidos solo puede ingresar numeros");
+            // ignorar el evento de teclado
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaKeyTyped
+    boolean validaCampoEmail;
+    private void txtMailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMailKeyReleased
+        validaCampoEmail = uti.validarDireccionCorreoElectronico(txtMail.getText());
+        if (validaCampoEmail) {
+            lblEmail.setText("Correo. Valido");
+            lblEmail.setForeground(Color.green);
+        } else {
+            lblEmail.setText("Correo. Invalido");
+            lblEmail.setForeground(Color.red);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMailKeyReleased
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        char caracter = evt.getKeyChar();
+        // Verificar si la tecla pulsada no es un digito
+
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Caracteres invalidos solo puede ingresar numeros");
+            // ignorar el evento de teclado
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyTyped
+        if (!Character.isLetter(evt.getKeyChar()) && !(evt.getKeyChar() == KeyEvent.VK_SPACE) && !(evt.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Caracteres invalidos no se permiten numeros en el Nombre");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombresKeyTyped
+
+    private void txtApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidosKeyTyped
+        if (!Character.isLetter(evt.getKeyChar()) && !(evt.getKeyChar() == KeyEvent.VK_SPACE) && !(evt.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Caracteres invalidos no se permiten numeros en el Apellido");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidosKeyTyped
+    boolean telefonoValido;    boolean validaNombre;
+    private void txtNombresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyReleased
+        if (txtNombres.getText().length() > 7 && txtNombres.getText().contains(" ")) {
+            validaNombre = true;
+            lblNombre.setText("Nombre. Valido");
+            lblNombre.setForeground(Color.green);
+        } else {
+            validaNombre = false;
+            lblNombre.setText("Nombre. Invalido");
+            lblNombre.setForeground(Color.red);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombresKeyReleased
+    boolean validaApellido;
+    private void txtApellidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidosKeyReleased
+        if (txtApellidos.getText().length() > 7 && txtApellidos.getText().contains(" ")) {
+            validaApellido = true;
+            lblApellido.setText("Apellido. Valido");
+            lblApellido.setForeground(Color.green);
+        } else {
+            validaApellido = false;
+            lblApellido.setText("Apellido. Invalido");
+            lblApellido.setForeground(Color.red);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidosKeyReleased
+    boolean validaDireccion;
+    private void txtDireccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyReleased
+        if (txtDireccion.getText().length() > 4) {
+            validaDireccion = true;
+            lblDireccion.setText("Dirección. Valida");
+            lblDireccion.setForeground(Color.green);
+        } else {
+            validaDireccion = false;
+            lblDireccion.setText("Dirección. Invalida");
+            lblDireccion.setForeground(Color.red);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionKeyReleased
+
+    private void txtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyReleased
+        System.out.println("Que??");
+        if (txtTelefono.getText().length() == 10) {
+            telefonoValido = true;
+            lblTelefono.setText("Telefono. Valido");
+            lblTelefono.setForeground(Color.green);
+        } else {
+            telefonoValido = false;
+            lblTelefono.setText("Telefono. Invalido");
+            lblTelefono.setForeground(Color.red);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnGuardar;
     private javax.swing.JComboBox<String> cbEstadoCivil;
     private javax.swing.JComboBox<String> cbSexo;
-    private javax.swing.JComboBox<String> cbTipoIdentificacion;
     private com.toedter.calendar.JDateChooser dcFechaN;
     private rojerusan.RSFotoCircle foto;
     private javax.swing.JLabel jLabel1;
@@ -296,6 +498,12 @@ public class AgregarPersonas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblApellido;
+    private javax.swing.JLabel lblCedula;
+    private javax.swing.JLabel lblDireccion;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblTelefono;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtDireccion;

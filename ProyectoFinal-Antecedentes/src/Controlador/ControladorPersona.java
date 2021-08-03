@@ -38,9 +38,16 @@ public class ControladorPersona {
     public void guardarPersona() {
         dao.create(pe);
     }
+    public boolean isCorrect(){ 
+        return dao.isValidTransaccion();
+        
+    }
 
     public ArrayList<Persona> getListComun() {
         return listComun;
+    }
+    public ArrayList<Persona> getListTemporal() {
+        return temp;
     }
 
     public void VaciarListComun() {

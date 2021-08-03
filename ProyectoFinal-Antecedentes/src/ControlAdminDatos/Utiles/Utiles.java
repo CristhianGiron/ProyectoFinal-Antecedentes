@@ -28,6 +28,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -39,16 +41,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Cris2
  */
 public class Utiles {
-    
+
     static Connection conexion;
     static boolean estado = true;
-    
+
     public Utiles() {
         if (estado) {
             IniciarConexion();
             estado = false;
         }
-        
+
     }
 
     /**
@@ -82,7 +84,7 @@ public class Utiles {
                     + "\nDetalles del error: \n" + e.getMessage());
         }
         conexion = con;
-        
+
     }
 
     /**
@@ -128,25 +130,25 @@ public class Utiles {
             }
         }
         return null;
-        
+
     }
-    
+
     public Image img(Image imagen, Dimension d) {
         if (imagen != null) {
             Image rpta = imagen;
             rpta = rpta.getScaledInstance(d.width, d.height, Image.SCALE_DEFAULT);
             return rpta;
-            
+
         }
         return null;
-        
+
     }
-    
+
     public Image img(Blob imagen) {
         if (imagen != null) {
             Image rpta = null;
             try {
-                
+
                 rpta = javax.imageio.ImageIO.read(imagen.getBinaryStream());
 
                 // rpta = rpta.getScaledInstance(d.width, d.height, Image.SCALE_DEFAULT);
@@ -158,16 +160,16 @@ public class Utiles {
             }
         }
         return null;
-        
+
     }
     int cant = 0;
-    
-    public File imagen(Blob input,String nombre) throws FileNotFoundException, IOException, SQLException {
+
+    public File imagen(Blob input, String nombre) throws FileNotFoundException, IOException, SQLException {
         cant++;
         if (input != null) {
             long size = input.length();
             FileOutputStream output = null;
-            File file = new File(nombre.hashCode()+".png");
+            File file = new File(nombre.hashCode() + ".png");
             output = new FileOutputStream(file);
             byte[] buffer = input.getBytes(1, Integer.parseInt(String.valueOf(size)));
             output.write(buffer);
@@ -176,14 +178,14 @@ public class Utiles {
             return file;
         }
         return null;
-        
+
     }
-    
+
     public FileInputStream imagen(File file) throws FileNotFoundException, IOException {
         FileInputStream input = null;
         input = new FileInputStream(file);
         return input;
-        
+
     }
 
     /**
@@ -236,7 +238,7 @@ public class Utiles {
         TimerTask task = new TimerTask() {
             int tic = 0;
             int cont = 0;
-            
+
             @Override
             public void run() {
                 lb.setIcon(ico[cont]);
@@ -245,7 +247,7 @@ public class Utiles {
                 if (cont == ico.length) {
                     cont = 0;
                 }
-                
+
             }
         };
         // Empezamos dentro de 10ms y luego lanzamos la tarea cada 1000ms
@@ -258,7 +260,7 @@ public class Utiles {
      * @return File[]
      */
     public File[] traerDirectorio() {
-        
+
         String path = "./img/";
         String files;
         File folder = new File(path);
@@ -282,11 +284,11 @@ public class Utiles {
                         imgaux = null;
                         System.out.println(files);
                     }
-                    
+
                     img[img.length - 1] = listOfFiles[i];
                 }
             }
-            
+
         }
         System.out.println("tm: " + img.length);
         return img;
@@ -302,5 +304,51 @@ public class Utiles {
         for (int i = 0; i < dos.length; i++) {
             uno[i] = dos[i];
         }
+    }
+
+    public boolean isEcuadorianDocumentValid(String document) {
+        byte sum = 0;
+        try {
+            if (document.trim().length() != 10) {
+                return false;
+            }
+            String[] data = document.split("");
+            byte verifier = Byte.parseByte(data[0] + data[1]);
+            if (verifier < 1 || verifier > 24) {
+                return false;
+            }
+            byte[] digits = new byte[data.length];
+            for (byte i = 0; i < digits.length; i++) {
+                digits[i] = Byte.parseByte(data[i]);
+            }
+            if (digits[2] > 6) {
+                return false;
+            }
+            for (byte i = 0; i < digits.length - 1; i++) {
+                if (i % 2 == 0) {
+                    verifier = (byte) (digits[i] * 2);
+                    if (verifier > 9) {
+                        verifier = (byte) (verifier - 9);
+                    }
+                } else {
+                    verifier = (byte) (digits[i] * 1);
+                }
+                sum = (byte) (sum + verifier);
+            }
+            if ((sum - (sum % 10) + 10 - sum) == digits[9]) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Boolean validarDireccionCorreoElectronico(String correo) {
+        Pattern pattern = Pattern
+        .compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+        Matcher mather = pattern.matcher(correo);
+        return mather.find();
+
     }
 }

@@ -6,10 +6,9 @@
 package Vista.Acces;
 
 import Controlador.ControladorCuenta;
-import static Controlador.ControladorDeEncriptado.createSecretKey;
-import static Controlador.ControladorDeEncriptado.encrypt;
 import Controlador.MantenerCokie;
 import Modelo.Cuenta;
+import Modelo.Persona;
 import java.awt.Color;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
@@ -23,6 +22,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -174,23 +174,27 @@ public class InicioSesion extends javax.swing.JPanel {
     private void btnOkMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseExited
         btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/btn.png")));// TODO add your handling code here:
     }//GEN-LAST:event_btnOkMouseExited
-    public static boolean prueba; // posible idea
+ // posible idea
 
-    public Boolean setPase() {
-
-        return prueba;
-
-    }
     private void btnOkMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMousePressed
         try {
-            if (ctrc.buscarCuenta(txtUsuario.getText(), ctrc.encriptar(txtContraseña.getPassword()))) {
-                MantenerCokie ctr=new MantenerCokie();
+            //System.out.println("true: "+ ctrc.buscarCuenta(txtUsuario.getText(), ctrc.encriptar(txtContraseña.getPassword())));
+            ctrc.buscarCuenta(txtUsuario.getText(), ctrc.encriptar(txtContraseña.getPassword()));
+            System.out.println("Pase: "+ctrc.getBuscarPersonaCuenta());
+            if (ctrc.getBuscarPersonaCuenta()) {
+                MantenerCokie<Persona> ctr=new MantenerCokie<>();
                 ctr.addCokie(ctrc.buscarPersonaCuenta(ctrc.agregarCuenta().getIdPersona()),"Cesion");
+                txtContraseña.setText("");
+                txtUsuario.setText("");
             }
             
         } catch (GeneralSecurityException ex) {
+            JOptionPane.showMessageDialog(null, "Error durante la validacion de credenciales");
+
             Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error durante la validacion de credenciales");
+
             Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
 

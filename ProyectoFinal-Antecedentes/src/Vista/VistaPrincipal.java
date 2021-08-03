@@ -8,19 +8,18 @@ package Vista;
 import Vista.Acces.ControlAcceso;
 import Vista.Utiles.ControladorAnimaciones;
 import ControlAdminDatos.Utiles.Utiles;
+import Controlador.MantenerCokie;
+import Modelo.Persona;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.File;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -44,10 +43,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     int posicion = 170;
     int indicador;
     Utiles uti = new Utiles();
+    ImageIcon img;
 
     public VistaPrincipal() {
         initComponents();
-
         Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/IconoTriangulo1.png"));
         setIconImage(iconoPropio);
         Image iconoEncabezado = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/IconoTriangulo1.png"));
@@ -55,6 +54,20 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Contenedor.add(inicio, 3);
         inicio.setBounds(0, 35, 1000, 625);
         indicador = 1;
+        for (int i = 0; i < Menu4.getMouseListeners().length; i++) {
+            Menu4.removeMouseListener(Menu4.getMouseListeners()[i]);
+        }
+        for (int i = 0; i < Menu7.getMouseListeners().length; i++) {
+            Menu7.removeMouseListener(Menu7.getMouseListeners()[i]);
+        }
+        for (int i = 0; i < Menu10.getMouseListeners().length; i++) {
+            Menu10.removeMouseListener(Menu10.getMouseListeners()[i]);
+        }
+        for (int i = 0; i < Menu13.getMouseListeners().length; i++) {
+            Menu13.removeMouseListener(Menu13.getMouseListeners()[i]);
+        }
+        cortina();
+
     }
 
     /**
@@ -113,10 +126,33 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         inicioCesion = new javax.swing.JLabel();
+        fotop = new rojerusan.RSPanelCircleImage();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         Contenedor.setBackground(new java.awt.Color(204, 204, 255));
         Contenedor.setMinimumSize(new java.awt.Dimension(1000, 625));
@@ -587,6 +623,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         inicioCesion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         inicioCesion.setForeground(new java.awt.Color(255, 255, 255));
+        inicioCesion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         inicioCesion.setText("IniciarCesion");
         inicioCesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         inicioCesion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -600,10 +637,31 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 inicioCesionMousePressed(evt);
             }
         });
-        jPanel3.add(inicioCesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 10, -1, 20));
+        jPanel3.add(inicioCesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 7, 260, 20));
+
+        fotop.setColorBorde(new java.awt.Color(18, 44, 82));
+        fotop.setImagen(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"))); // NOI18N
+
+        javax.swing.GroupLayout fotopLayout = new javax.swing.GroupLayout(fotop);
+        fotop.setLayout(fotopLayout);
+        fotopLayout.setHorizontalGroup(
+            fotopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+        fotopLayout.setVerticalGroup(
+            fotopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(fotop, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, -3, 40, 40));
 
         jLabel2.setBackground(new java.awt.Color(18, 44, 82));
         jLabel2.setOpaque(true);
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel2MousePressed(evt);
+            }
+        });
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 40));
 
         Contenedor.add(jPanel3);
@@ -722,10 +780,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_Menu10MouseEntered
 
     private void Menu9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu9MousePressed
-
+         
         if (rootPaneCheckingEnabled) {
 
         }
+        gestionarPersonas.actualizar();
         Contenedor.remove(inicio);
         Contenedor.remove(agregarAntecedentes);
         Contenedor.remove(agregarPersonas);
@@ -852,8 +911,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
             animacion.colorColapse(Menu13);
         } else {
             animacion.animacionItems(Menu4, MenuDesplegable2, visto1, heightitem - 50, 50, 2, 0);
-            //animacion.animacionItemsLocalizacion(MenuDesplegable2,160,heightitem,2,0);
-            //====================================330
             animacion.animacionItemsLocalizacion(MenuDesplegable3, posicion + 60, posicion + 160, 2, 0);
             animacion.animacionItemsLocalizacion(MenuDesplegable4, posicion + 120, posicion + 220, 2, 0);
             animacion.animacionItemsLocalizacion(MenuDesplegable5, posicion + 180, posicion + 280, 2, 0);
@@ -889,7 +946,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Contenedor.add(inicio, 3);
             inicio.setBounds(0, 35, 1000, 625);
             indicador = 2;
-            cortina();
+            jButton1.setVisible(false);
         }
     }//GEN-LAST:event_Menu1MousePressed
 
@@ -917,8 +974,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuMouseEntered
 
     private void Menu14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu14MousePressed
-        if (acces.setRet()) {
-            //posibles ideas
+        //posibles ideas
         Contenedor.remove(inicio);
         Contenedor.remove(agregarPersonas);
         Contenedor.remove(gestionarAntecedentes);
@@ -931,7 +987,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         cuenta.setBounds(0, 35, 1000, 625);
         indicador = 3;
         cortina();
-        }
+
 
     }//GEN-LAST:event_Menu14MousePressed
     private void inicioCesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inicioCesionMouseEntered
@@ -943,21 +999,179 @@ public class VistaPrincipal extends javax.swing.JFrame {
         inicioCesion.setForeground(InitSesion);
     }//GEN-LAST:event_inicioCesionMouseExited
     ControlAcceso acces = new ControlAcceso();
-    private void inicioCesionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inicioCesionMousePressed
 
+
+    private void inicioCesionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inicioCesionMousePressed
         acces.setVisible(true);
         acces.setLocationRelativeTo(this);
     }//GEN-LAST:event_inicioCesionMousePressed
 
     private void Menu15MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu15MousePressed
         int accion = JOptionPane.showConfirmDialog(null, "Cerrar Cesión");
-        System.out.println("Acciones al cerrer el sistema: " + accion);
+        System.out.println("Acciones al cerrar el sistema: " + accion);
+        MantenerCokie<Persona> cok = new MantenerCokie<>();
         if (accion == 0) {
+            cok.RemoveCokie("Cesion");
+            inicioCesion.setText("IniciarCesion");
+            inicioCesion.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    inicioCesionMouseEntered(evt);
+                }
+
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    inicioCesionMouseExited(evt);
+                }
+
+                @Override
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    inicioCesionMousePressed(evt);
+                }
+            });
+            inicioCesion.updateUI();
+            cuenta.BorrarPantalla();
+
+            Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"));
+            //Desplega un subitems al presionar un item en el menu y controla su comportamiento
+            if (MenuDesplegable2.getSize().height == heightitem - 50) {
+                animacion.colorColapse(Menu4);
+            } else if (MenuDesplegable3.getSize().height == heightitem - 50) {
+                animacion.colorColapse(Menu7);
+            } else if (MenuDesplegable4.getSize().height == heightitem - 100) {
+                animacion.colorColapse(Menu10);
+            } else if (MenuDesplegable1.getSize().height == heightitem - 50) {
+                animacion.colorColapse(Menu1);
+            } else {
+                animacion.animacionItems(Menu13, MenuDesplegable5, visto4, heightitem - 50, 50, 2, 0);
+            }
+            Contenedor.remove(cuenta);
+            Contenedor.remove(agregarAntecedentes);
+            Contenedor.remove(gestionarJuzgados);
+            Contenedor.remove(agregarPersonas);
+            Contenedor.remove(gestionarPersonas);
+            repaint();
+            animacion.animacionPanelMenu(panelMenuL, btnMenu);
+            Contenedor.add(inicio, 3);
+            inicio.setBounds(0, 35, 1000, 625);
+            indicador = 2;
+            cortina();
+
+            fotop.setImagen(new ImageIcon(uti.img(img, fotop.getSize())));
+            for (int i = 0; i < Menu4.getMouseListeners().length; i++) {
+                Menu4.removeMouseListener(Menu4.getMouseListeners()[i]);
+            }
+            for (int i = 0; i < Menu7.getMouseListeners().length; i++) {
+                Menu7.removeMouseListener(Menu7.getMouseListeners()[i]);
+            }
+            for (int i = 0; i < Menu10.getMouseListeners().length; i++) {
+                Menu10.removeMouseListener(Menu10.getMouseListeners()[i]);
+            }
+            for (int i = 0; i < Menu13.getMouseListeners().length; i++) {
+                Menu13.removeMouseListener(Menu13.getMouseListeners()[i]);
+            }
+
             System.out.println("Cerrar cesion");
         } else {
             System.out.println("No hace nada");
         }
     }//GEN-LAST:event_Menu15MousePressed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formFocusGained
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        MantenerCokie<Persona> cok = new MantenerCokie<>();
+        File file = new File("Cesion" + File.separatorChar + "Cesion.json");
+        if (file.exists()) {
+            Persona persona = cok.getCokieValue("Cesion");
+            inicioCesion.setText(persona.getNombre() + " " + persona.getApellido());
+            fotop.setImagen(new ImageIcon(persona.getFile().getAbsolutePath()));
+
+            for (int i = 0; i < inicioCesion.getMouseListeners().length; i++) {
+                inicioCesion.removeMouseListener(inicioCesion.getMouseListeners()[i]);
+
+            }
+            Menu4.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    Menu4MouseEntered(evt);
+                }
+
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    Menu4MouseExited(evt);
+                }
+
+                @Override
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    Menu4MousePressed(evt);
+                }
+            });
+            Menu7.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    Menu7MouseEntered(evt);
+                }
+
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    Menu7MouseExited(evt);
+                }
+
+                @Override
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    Menu7MousePressed(evt);
+                }
+            });
+            Menu10.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    Menu10MouseEntered(evt);
+                }
+
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    Menu10MouseExited(evt);
+                }
+
+                @Override
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    Menu10MousePressed(evt);
+                }
+            });
+            Menu13.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    Menu13MouseEntered(evt);
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    Menu13MouseExited(evt);
+                }
+
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    Menu13MousePressed(evt);
+                }
+            });
+            cuenta.actualizarPantalla();
+
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+
+    }//GEN-LAST:event_formMouseEntered
+
+    private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+
+    }//GEN-LAST:event_jLabel2MousePressed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
     public void cortina() {
         //metodo que agrega una especie de cortina que bloque cualquier accion del
         //usuario sobre el lienso del contenedor cuando el menu esta desplegado evitando problemas
@@ -1053,6 +1267,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel MenuDesplegable4;
     private javax.swing.JPanel MenuDesplegable5;
     private javax.swing.JLabel btnMenu;
+    private rojerusan.RSPanelCircleImage fotop;
     private javax.swing.JLabel inicioCesion;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel12;

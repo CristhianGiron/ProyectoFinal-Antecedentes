@@ -14,13 +14,18 @@ public class Cuenta {
     String usuario;
     String clave;
     Long idPersona;
-    
-    public void Cuenta(Long idCuenta, String usuario, String clave,Long isPersona){
-        this.idCuenta=idCuenta;
-        this.usuario=usuario;
-        this.clave=clave;
-        this.idPersona=idPersona;  
+
+    public Cuenta() {
     }
+    
+    public Cuenta(Long idCuenta, String usuario, String clave, Long idPersona) {
+        this.idCuenta = idCuenta;
+        this.usuario = usuario;
+        this.clave = clave;
+        this.idPersona = idPersona;
+    }
+    
+    
     public Long getIdCuenta(){
         return idCuenta;
     }

@@ -5,7 +5,13 @@
  */
 package Vista;
 
+import Controlador.ControladorPersona;
+import Modelo.Persona;
 import java.awt.Color;
+import java.io.File;
+import java.util.Enumeration;
+import java.util.ResourceBundle;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -33,10 +39,12 @@ public class Inicio extends javax.swing.JPanel {
         btnBuscarCedula = new javax.swing.JLabel();
         LimpiarBuscadorNombre = new javax.swing.JLabel();
         btnBuscarNombre = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        txtCedula = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        foto = new rojerusan.RSPanelCircleImage();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtInformacion = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
@@ -57,6 +65,11 @@ public class Inicio extends javax.swing.JPanel {
         btnBuscarCedula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnBuscarCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar2.png"))); // NOI18N
         btnBuscarCedula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarCedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnBuscarCedulaMousePressed(evt);
+            }
+        });
         add(btnBuscarCedula);
         btnBuscarCedula.setBounds(380, 90, 20, 30);
 
@@ -73,14 +86,14 @@ public class Inicio extends javax.swing.JPanel {
         add(btnBuscarNombre);
         btnBuscarNombre.setBounds(790, 90, 20, 30);
 
-        jTextField8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 117, 225)));
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        txtCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 117, 225)));
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                txtCedulaActionPerformed(evt);
             }
         });
-        add(jTextField8);
-        jTextField8.setBounds(120, 90, 290, 30);
+        add(txtCedula);
+        txtCedula.setBounds(120, 90, 290, 30);
 
         jLabel10.setForeground(new java.awt.Color(49, 49, 49));
         jLabel10.setText("Cedula");
@@ -101,12 +114,26 @@ public class Inicio extends javax.swing.JPanel {
         add(jLabel11);
         jLabel11.setBounds(530, 70, 290, 10);
 
+        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.setLayout(null);
+
+        foto.setBackground(new java.awt.Color(0, 51, 102));
+        foto.setColorBorde(new java.awt.Color(0, 51, 102));
+        foto.setImagen(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"))); // NOI18N
+        jPanel1.add(foto);
+        foto.setBounds(0, 0, 150, 150);
+
+        add(jPanel1);
+        jPanel1.setBounds(600, 130, 150, 150);
+
+        txtInformacion.setEditable(false);
         txtInformacion.setColumns(20);
+        txtInformacion.setFont(new java.awt.Font("Leelawadee", 1, 12)); // NOI18N
         txtInformacion.setRows(5);
         jScrollPane1.setViewportView(txtInformacion);
 
         add(jScrollPane1);
-        jScrollPane1.setBounds(120, 130, 700, 380);
+        jScrollPane1.setBounds(120, 130, 460, 380);
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel9.setText("CONSULTAS");
@@ -130,9 +157,9 @@ public class Inicio extends javax.swing.JPanel {
         jLabel1.setBounds(930, 20, 50, 20);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
 
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_txtCedulaActionPerformed
 
     private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
  
@@ -147,6 +174,35 @@ public class Inicio extends javax.swing.JPanel {
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0,0,0)));
         jLabel1.setForeground(new Color(51,51,51));  // TODO add your handling code here:
     }//GEN-LAST:event_jLabel1MouseExited
+    ControladorPersona ctrp=new ControladorPersona();
+    private void btnBuscarCedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarCedulaMousePressed
+        ctrp.listaPersonas();
+        ctrp.VaciarTemp();
+        String buscar = txtCedula.getText();
+        ctrp.buscar(buscar, "CEDULA");
+        String resultado="";
+        File file=null;
+        System.out.println("Cantidad recibiendo: "+ctrp.getListTemporal().size());
+        for (int i = 0; i < ctrp.getListTemporal().size(); i++) {
+            Persona p=ctrp.getListTemporal().get(i);
+            resultado="Nomnbre: "+p.getNombre()+" "+p.getApellido()+"\n"+
+                    "Cedula: "+p.getCedula()+"\n"+
+                    "Fecha Nacimiento: "+p.getFechaNacimiento()+"\n"+
+                    "Direccion: "+p.getDireccion()+"\n"+
+                    "Estado Civil: "+p.getApellido()+"\n"+
+                    "Sexo/Genero: "+p.getSexo()+"\n"+
+                    "Telefono: "+p.getTelefono()+"\n"+
+                    "E-mal: "+p.getMail()+"\n"+
+                    "Aqui el resto de datos de procesos";
+            file=p.getFile();
+        }
+        if (file!=null) {
+           foto.setImagen(new ImageIcon(file.getAbsolutePath())); 
+        }
+        txtInformacion.setText(resultado);
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarCedulaMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -154,14 +210,16 @@ public class Inicio extends javax.swing.JPanel {
     private javax.swing.JLabel LimpiarBuscadorNombre;
     private javax.swing.JLabel btnBuscarCedula;
     private javax.swing.JLabel btnBuscarNombre;
+    private rojerusan.RSPanelCircleImage foto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField txtCedula;
     private javax.swing.JTextArea txtInformacion;
     // End of variables declaration//GEN-END:variables
 }

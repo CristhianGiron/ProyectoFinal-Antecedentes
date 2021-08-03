@@ -7,10 +7,10 @@ package ControlAdminDatos;
 
 import ControlAdminDatos.Utiles.Utiles;
 import Modelo.Cuenta;
-import Modelo.Cuenta;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -59,7 +59,29 @@ public class CuentaDao implements Dao<Cuenta> {
 
     @Override
     public ArrayList<Cuenta> findEntities(boolean all, int maxResult, int firstResult) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
+        String query;
+        ArrayList<Cuenta> list = new ArrayList<>();
+        if (all) {
+            query = "SELECT * FROM sistemaco_penal.cuenta";
+        } else {
+            query = "SELECT * FROM sistemaco_penal.cuenta where idcuenta>='" + firstResult + "' limit " + maxResult;
+        }
+        try {
+            //Cargar la lista de cuentas
+            stmt = (Statement) cnx.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                do {
+                    list.add(new Cuenta(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getLong(4)) );
+                } while (rs.next());
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la extaraccion de los datos de la base de datos "
+                    + "detalles de error: " + ex);
+
+        } 
+        return list; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

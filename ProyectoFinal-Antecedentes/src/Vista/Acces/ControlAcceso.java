@@ -7,6 +7,7 @@ package Vista.Acces;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowListener;
 
 /**
  *
@@ -21,11 +22,18 @@ public class ControlAcceso extends javax.swing.JFrame {
     Registro registro = new Registro(new ControlAcceso.eventoCerrar1());
 
     public ControlAcceso() {
+        //this.addWindowListener(aL);
         initComponents();
         this.add(sesion);
         //[609, 400]
         sesion.setBounds(0, 0, 609, 400);
     }
+//    public ControlAcceso() {
+//        initComponents();
+//        this.add(sesion);
+//        //[609, 400]
+//        sesion.setBounds(0, 0, 609, 400);
+//    }
 
     public void remove() {
         this.remove(sesion);
@@ -44,16 +52,6 @@ public class ControlAcceso extends javax.swing.JFrame {
     public void salir() {
         this.dispose();
     }
-    public static boolean estado;
-    public void retorna(){
-        estado=sesion.setPase();
-        
-    }
-    public boolean setRet(){ //posible idea
-        return estado;  
-    } 
-    
-
     class eventoCerrar implements MouseListener {
 
         @Override
@@ -153,11 +151,20 @@ public class ControlAcceso extends javax.swing.JFrame {
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(609, 400));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+                // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
