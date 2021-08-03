@@ -8,6 +8,7 @@ package Vista;
 import Controlador.ControladorPersona;
 import Modelo.Persona;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.io.File;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
@@ -135,46 +136,66 @@ public class Inicio extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCedulaActionPerformed
 
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
-        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0,0,255)));
-        jLabel1.setForeground(new Color(0,0,255));        // TODO add your handling code here:
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 255)));
+        jLabel1.setForeground(new Color(0, 0, 255));        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel1MouseEntered
 
     private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
-        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0,0,0)));
-        jLabel1.setForeground(new Color(51,51,51));  // TODO add your handling code here:
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        jLabel1.setForeground(new Color(51, 51, 51));  // TODO add your handling code here:
     }//GEN-LAST:event_jLabel1MouseExited
-    ControladorPersona ctrp=new ControladorPersona();
+    ControladorPersona ctrp = new ControladorPersona();
     private void btnBuscarCedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarCedulaMousePressed
         ctrp.listaPersonas();
         ctrp.VaciarTemp();
         String buscar = txtCedula.getText();
         ctrp.buscar(buscar, "CEDULA");
-        String resultado="";
-        File file=null;
-        System.out.println("Cantidad recibiendo: "+ctrp.getListTemporal().size());
+        String resultado = "";
+        File file = null;
+        System.out.println("Cantidad recibiendo: " + ctrp.getListTemporal().size());
         for (int i = 0; i < ctrp.getListTemporal().size(); i++) {
-            Persona p=ctrp.getListTemporal().get(i);
-            resultado="Nomnbre: "+p.getNombre()+" "+p.getApellido()+"\n"+
-                    "Cedula: "+p.getCedula()+"\n"+
-                    "Fecha Nacimiento: "+p.getFechaNacimiento()+"\n"+
-                    "Direccion: "+p.getDireccion()+"\n"+
-                    "Estado Civil: "+p.getApellido()+"\n"+
-                    "Sexo/Genero: "+p.getSexo()+"\n"+
-                    "Telefono: "+p.getTelefono()+"\n"+
-                    "E-mal: "+p.getMail()+"\n"+
-                    "Aqui el resto de datos de procesos";
-            file=p.getFile();
+            Persona p = ctrp.getListTemporal().get(i);
+            resultado = "Nomnbre: " + p.getNombre() + " " + p.getApellido() + "\n"
+                    + "Cedula: " + p.getCedula() + "\n"
+                    + "Fecha Nacimiento: " + p.getFechaNacimiento() + "\n"
+                    + "Direccion: " + p.getDireccion() + "\n"
+                    + "Estado Civil: " + p.getApellido() + "\n"
+                    + "Sexo/Genero: " + p.getSexo() + "\n"
+                    + "Telefono: " + p.getTelefono() + "\n"
+                    + "E-mal: " + p.getMail() + "\n"
+                    + "Aqui el resto de datos de procesos";
+            file = p.getFile();
         }
-        if (file!=null) {
-           foto.setImagen(new ImageIcon(file.getAbsolutePath())); 
+        if (file != null) {
+            foto.setImagen(new ImageIcon(file.getAbsolutePath()));
         }
         txtInformacion.setText(resultado);
-        
+
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarCedulaMousePressed
 
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
-        //Pagina web        // TODO add your handling code here:
+        Runtime r = Runtime.getRuntime();
+        Process p = null;
+
+        String comando[] = {"/C:/Program Files/Google/Chrome/Application/chrome.exe/", "EjemploHelp/index.html"};
+        try {
+            p = r.exec(comando);
+        } catch (Exception e) {
+            String comando1[] = {"/C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe", "EjemploHelp/index.html"};
+            try {
+                p = r.exec(comando1);
+
+            } catch (Exception ex) {
+                String comando2[] = {"/C:/Program Files/Mozilla Firefox/firefox.exe", "EjemploHelp/index.html"};
+                try {
+                    p = r.exec(comando2);
+
+                } catch (Exception ex1) {
+                    
+                }
+            }
+        }
     }//GEN-LAST:event_jLabel1MousePressed
 
 
