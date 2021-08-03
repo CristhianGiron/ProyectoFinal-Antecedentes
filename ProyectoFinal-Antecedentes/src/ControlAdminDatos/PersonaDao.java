@@ -6,6 +6,7 @@
 package ControlAdminDatos;
 
 import ControlAdminDatos.Utiles.Utiles;
+import Controlador.Conexion;
 import Modelo.Persona;
 import java.io.File;
 import java.io.IOException;
@@ -26,11 +27,12 @@ public class PersonaDao implements Dao<Persona> {
 
     Statement stmt;
     PreparedStatement stmt1;
-    Utiles uti = new Utiles();
+    Conexion con = new Conexion();
+    Utiles uti=new Utiles();
     static Connection cnx;
     
     public PersonaDao() {
-        cnx = uti.getConexion();
+        cnx = con.getConexion();
 
     }
     Boolean isValid;

@@ -18,6 +18,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -350,5 +352,38 @@ public class Utiles {
         Matcher mather = pattern.matcher(correo);
         return mather.find();
 
+    }
+    /**
+     * El siguiente método permite extraer un dato 
+     * @param obj
+     * @param atributoClase
+     * @return 
+     */
+    public static String extraccionDato(Object obj, String atributoClase) {
+        Class clase = obj.getClass();
+        Field atributo = null;
+        Object informacion = null;
+        for (Field f : clase.getDeclaredFields()) {
+            if (f.getName().toString().equalsIgnoreCase(atributoClase)) {
+                atributo = f;
+            }
+        }
+        if (atributo != null) {
+            //  Method metodo = null;
+            for (Method metodoAux : clase.getMethods()) {
+                if (metodoAux.getName().startsWith("get")) {
+                    if (metodoAux.getName().toLowerCase().endsWith(atributo.getName())) {
+                        try {
+                            informacion = metodoAux.invoke(obj);
+                            
+                            break;
+                        } catch (Exception e) {
+                            System.out.println("Error de metodo " + e);
+                        }
+                    }
+                }
+            }
+        }
+        return (informacion != null) ? informacion.toString() : null;
     }
 }

@@ -13,7 +13,7 @@ import java.util.Date;
  * @author ASUS
  */
 public class Proceso {
-    int idProceso;
+    Long idProceso;
     String tipoProceso;
     String delito;
     int instancia;
@@ -21,11 +21,12 @@ public class Proceso {
     Date fechaFinal;
     int nrAudiencias;
     String duracion;
-    File text;
+    byte[] text;
     String estadoVictimario;
     String estadoDemanda;
+    String nombreDocumento;
 
-    public Proceso(int idProceso, String tipoProceso, String delito, int instancia, Date fechaInicio, Date fechaFinal, int nrAudiencias, String duracion, File text, String estadoVictimario, String estadoDemanda) {
+    public Proceso(Long idProceso, String tipoProceso, String delito, int instancia, Date fechaInicio, Date fechaFinal, int nrAudiencias, String duracion, byte[] text, String estadoVictimario, String estadoDemanda, String nombreDocumento) {
         this.idProceso = idProceso;
         this.tipoProceso = tipoProceso;
         this.delito = delito;
@@ -37,13 +38,14 @@ public class Proceso {
         this.text = text;
         this.estadoVictimario = estadoVictimario;
         this.estadoDemanda = estadoDemanda;
+        this.nombreDocumento = nombreDocumento;
     }
 
-    public int getIdProceso() {
+    public Long getIdProceso() {
         return idProceso;
     }
 
-    public void setIdProceso(int idProceso) {
+    public void setIdProceso(Long idProceso) {
         this.idProceso = idProceso;
     }
 
@@ -103,11 +105,11 @@ public class Proceso {
         this.duracion = duracion;
     }
 
-    public File getText() {
+    public byte[] getText() {
         return text;
     }
 
-    public void setText(File text) {
+    public void setText(byte[] text) {
         this.text = text;
     }
 
@@ -125,5 +127,13 @@ public class Proceso {
 
     public void setEstadoDemanda(String estadoDemanda) {
         this.estadoDemanda = estadoDemanda;
+    }
+
+    public String getNombreDocumento() {
+        return nombreDocumento;
+    }
+
+    public void setNombreDocumento(String nombreDocumento) {
+        this.nombreDocumento = nombreDocumento;
     }
 }

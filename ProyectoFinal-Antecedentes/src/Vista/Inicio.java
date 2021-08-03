@@ -37,12 +37,8 @@ public class Inicio extends javax.swing.JPanel {
 
         LimpiarBuscadorCedula1 = new javax.swing.JLabel();
         btnBuscarCedula = new javax.swing.JLabel();
-        LimpiarBuscadorNombre = new javax.swing.JLabel();
-        btnBuscarNombre = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         foto = new rojerusan.RSPanelCircleImage();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -73,19 +69,6 @@ public class Inicio extends javax.swing.JPanel {
         add(btnBuscarCedula);
         btnBuscarCedula.setBounds(380, 90, 20, 30);
 
-        LimpiarBuscadorNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        LimpiarBuscadorNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LimpiarBuscadorNombre.setText("X");
-        LimpiarBuscadorNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        add(LimpiarBuscadorNombre);
-        LimpiarBuscadorNombre.setBounds(770, 90, 20, 30);
-
-        btnBuscarNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnBuscarNombre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar2.png"))); // NOI18N
-        btnBuscarNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        add(btnBuscarNombre);
-        btnBuscarNombre.setBounds(790, 90, 20, 30);
-
         txtCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 117, 225)));
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,20 +82,6 @@ public class Inicio extends javax.swing.JPanel {
         jLabel10.setText("Cedula");
         add(jLabel10);
         jLabel10.setBounds(120, 70, 290, 10);
-
-        jTextField9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 117, 225)));
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
-            }
-        });
-        add(jTextField9);
-        jTextField9.setBounds(530, 90, 290, 30);
-
-        jLabel11.setForeground(new java.awt.Color(49, 49, 49));
-        jLabel11.setText("Nombre");
-        add(jLabel11);
-        jLabel11.setBounds(530, 70, 290, 10);
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
         jPanel1.setLayout(null);
@@ -161,10 +130,6 @@ public class Inicio extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtCedulaActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
- 
-    }//GEN-LAST:event_jTextField9ActionPerformed
-
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0,0,255)));
         jLabel1.setForeground(new Color(0,0,255));        // TODO add your handling code here:
@@ -207,18 +172,14 @@ public class Inicio extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LimpiarBuscadorCedula1;
-    private javax.swing.JLabel LimpiarBuscadorNombre;
     private javax.swing.JLabel btnBuscarCedula;
-    private javax.swing.JLabel btnBuscarNombre;
     private rojerusan.RSPanelCircleImage foto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextArea txtInformacion;
     // End of variables declaration//GEN-END:variables

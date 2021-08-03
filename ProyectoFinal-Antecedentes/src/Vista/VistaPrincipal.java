@@ -886,6 +886,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         repaint();
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(agregarAntecedentes, 3);
+        agregarAntecedentes.cargarCombos();
         agregarAntecedentes.setBounds(0, 35, 1000, 625);
         indicador = 3;
         cortina();
@@ -946,7 +947,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Contenedor.add(inicio, 3);
             inicio.setBounds(0, 35, 1000, 625);
             indicador = 2;
-            jButton1.setVisible(false);
+            cortina();
         }
     }//GEN-LAST:event_Menu1MousePressed
 

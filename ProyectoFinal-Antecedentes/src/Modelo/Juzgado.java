@@ -10,30 +10,35 @@ package Modelo;
  * @author hp
  */
 public class Juzgado {
-    int idJuzgado;
-    String nombreJuzgado;
-    String direccionJuzgado;
+    private Long idJuzgado;
+    private String nombre;
+    private String direccionJuzgado;
+    private String estadoJuzgado;
 
-    public Juzgado(int idJuzgado, String nombreJuzgado, String direccionJuzgado) {
+    public Juzgado(Long idJuzgado, String nombreJuzgado, String direccionJuzgado, String estadoJuzgado) {
         this.idJuzgado = idJuzgado;
-        this.nombreJuzgado = nombreJuzgado;
+        this.nombre = nombreJuzgado;
         this.direccionJuzgado = direccionJuzgado;
+        this.estadoJuzgado = estadoJuzgado;
     }
 
-    public int getIdJuzgado() {
+    public Juzgado() {
+    }
+
+    public Long getIdJuzgado() {
         return idJuzgado;
     }
 
-    public void setIdJuzgado(int idJuzgado) {
+    public void setIdJuzgado(Long idJuzgado) {
         this.idJuzgado = idJuzgado;
     }
 
-    public String getNombreJuzgado() {
-        return nombreJuzgado;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreJuzgado(String nombreJuzgado) {
-        this.nombreJuzgado = nombreJuzgado;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDireccionJuzgado() {
@@ -42,5 +47,13 @@ public class Juzgado {
 
     public void setDireccionJuzgado(String direccionJuzgado) {
         this.direccionJuzgado = direccionJuzgado;
+    }
+
+    public String getEstadoJuzgado() {
+        return estadoJuzgado;
+    }
+
+    public void setEstadoJuzgado(String estadoJuzgado) {
+        this.estadoJuzgado = estadoJuzgado;
     }
 }

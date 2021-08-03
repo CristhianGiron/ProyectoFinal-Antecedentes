@@ -7,6 +7,7 @@ package ControlAdminDatos;
 
 import static ControlAdminDatos.PersonaDao.cnx;
 import ControlAdminDatos.Utiles.Utiles;
+import Controlador.Conexion;
 import Modelo.Persona;
 import Modelo.Rol;
 import java.sql.Connection;
@@ -23,11 +24,11 @@ import java.util.ArrayList;
 public class RolDao implements Dao<Rol>{
     Statement stmt;
     PreparedStatement stmt1;
-    Utiles uti = new Utiles();
+    Conexion con = new Conexion();
     static Connection cnx;
     
     public RolDao(){
-        cnx=uti.getConexion();
+        cnx=con.getConexion();
     }
     
     

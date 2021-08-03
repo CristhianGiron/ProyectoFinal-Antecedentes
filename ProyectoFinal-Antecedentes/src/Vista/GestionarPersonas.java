@@ -170,10 +170,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnBuscarCedula = new javax.swing.JLabel();
-        LimpiarBuscadorCedula1 = new javax.swing.JLabel();
-        LimpiarBuscadorNombre = new javax.swing.JLabel();
-        btnBuscarNombre = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPersonas = new javax.swing.JTable();
         txtEmail = new javax.swing.JTextField();
@@ -214,52 +210,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
             }
         });
         setLayout(null);
-
-        btnBuscarCedula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnBuscarCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar2.png"))); // NOI18N
-        btnBuscarCedula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBuscarCedula.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnBuscarCedulaMousePressed(evt);
-            }
-        });
-        add(btnBuscarCedula);
-        btnBuscarCedula.setBounds(290, 80, 20, 30);
-
-        LimpiarBuscadorCedula1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        LimpiarBuscadorCedula1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LimpiarBuscadorCedula1.setText("X");
-        LimpiarBuscadorCedula1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        LimpiarBuscadorCedula1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                LimpiarBuscadorCedula1MousePressed(evt);
-            }
-        });
-        add(LimpiarBuscadorCedula1);
-        LimpiarBuscadorCedula1.setBounds(265, 80, 20, 30);
-
-        LimpiarBuscadorNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        LimpiarBuscadorNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LimpiarBuscadorNombre.setText("X");
-        LimpiarBuscadorNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        LimpiarBuscadorNombre.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                LimpiarBuscadorNombreMousePressed(evt);
-            }
-        });
-        add(LimpiarBuscadorNombre);
-        LimpiarBuscadorNombre.setBounds(670, 80, 20, 30);
-
-        btnBuscarNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnBuscarNombre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar2.png"))); // NOI18N
-        btnBuscarNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBuscarNombre.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnBuscarNombreMousePressed(evt);
-            }
-        });
-        add(btnBuscarNombre);
-        btnBuscarNombre.setBounds(695, 80, 20, 30);
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -552,22 +502,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_formMouseEntered
-
-    private void LimpiarBuscadorCedula1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LimpiarBuscadorCedula1MousePressed
-        txtBucarCedula.setText("");        // TODO add your handling code here:
-    }//GEN-LAST:event_LimpiarBuscadorCedula1MousePressed
-
-    private void LimpiarBuscadorNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LimpiarBuscadorNombreMousePressed
-        txtBuscarNombre.setText("");// TODO add your handling code here:
-    }//GEN-LAST:event_LimpiarBuscadorNombreMousePressed
-
-    private void btnBuscarCedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarCedulaMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarCedulaMousePressed
-
-    private void btnBuscarNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarNombreMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarNombreMousePressed
     String buscar;
     private void txtBucarCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBucarCedulaKeyPressed
 
@@ -639,10 +573,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
 
 //vista en desarrollo
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LimpiarBuscadorCedula1;
-    private javax.swing.JLabel LimpiarBuscadorNombre;
-    private javax.swing.JLabel btnBuscarCedula;
-    private javax.swing.JLabel btnBuscarNombre;
     private javax.swing.JLabel btnGuardar;
     private javax.swing.JComboBox<String> cbEstadoCivil;
     private rojerusan.RSFotoCircle foto;
