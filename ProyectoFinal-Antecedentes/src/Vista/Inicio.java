@@ -113,7 +113,8 @@ public class Inicio extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setText("Ayuda");
+        jLabel1.setText("Acerca de");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel1MouseEntered(evt);
@@ -121,9 +122,12 @@ public class Inicio extends javax.swing.JPanel {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jLabel1MouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel1MousePressed(evt);
+            }
         });
         add(jLabel1);
-        jLabel1.setBounds(930, 20, 50, 20);
+        jLabel1.setBounds(910, 20, 70, 20);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
@@ -168,6 +172,10 @@ public class Inicio extends javax.swing.JPanel {
         
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarCedulaMousePressed
+
+    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        //Pagina web        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel1MousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
