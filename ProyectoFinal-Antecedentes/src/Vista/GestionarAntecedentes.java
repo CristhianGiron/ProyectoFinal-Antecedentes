@@ -81,10 +81,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     
     private ArrayList<Proceso> consultarListaProcesos(){
         ArrayList<Proceso> lista = new ArrayList<>();
-        lista.add(new Proceso(111, "Ejecutivo", "Peculado", 1, pasarStringDate("12-01-2021"), null , 9, "4 meses", null, "si", "no"));
-        lista.add(new Proceso(222, "Ejecutivo", "Peculado", 1, pasarStringDate("12-01-2021"), null , 9, "4 meses", null, "si", "no"));
-        lista.add(new Proceso(333, "Ejecutivo", "Peculado", 1, pasarStringDate("12-01-2021"), null , 9, "4 meses", null, "si", "no"));
-        lista.add(new Proceso(333, "Ejecutivo", "Peculado", 1, pasarStringDate("12-01-2021"), null , 9, "4 meses", null, "si", "no"));
+
 
         return lista;
     }
@@ -171,7 +168,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             informacion[x][UtilidadesTablaAntecedentes.FECHAINICIO] = (new SimpleDateFormat("dd-MM-yyyy").format(listaProceso.get(x).getFechaInicio())) + "";
             String ff = (listaProceso.get(x).getFechaFinal() != null)?(new SimpleDateFormat("dd-MM-yyyy").format(listaProceso.get(x).getFechaFinal())):"Sin fecha";
             informacion[x][UtilidadesTablaAntecedentes.FECHAFINALIZACION] =  ff + "";
-            informacion[x][UtilidadesTablaAntecedentes.JUZGADO] = listaJuzgado.get(x).getNombreJuzgado()+ "";
+            informacion[x][UtilidadesTablaAntecedentes.JUZGADO] = listaJuzgado.get(x).getNombre()+ "";
             //se asignan las plabras clave para que en la clase GestionCeldas se use para asignar el icono correspondiente
             informacion[x][UtilidadesTablaAntecedentes.PERFIL] = "PERFIL";
             informacion[x][UtilidadesTablaAntecedentes.EVENTO] = "EVENTO";

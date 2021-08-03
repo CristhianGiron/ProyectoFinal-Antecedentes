@@ -5,10 +5,23 @@
  */
 package Vista;
 
+import ControlAdminDatos.PersonaDao;
+import Controlador.DelitoDao;
+import Controlador.JuzgadoDao;
+import Controlador.Utilidades.UtilAgreGesAnt;
+import Modelo.Delito;
+import Modelo.Juzgado;
+import Modelo.Persona;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.event.ItemEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -19,17 +32,27 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import necesario.RSFileChooser;
 
 /**
  *
  * @author hp
  */
 public class AgregarAntecedentes extends javax.swing.JPanel {
-boolean boolPanelMenu = false;
+
+    boolean boolPanelMenu = false;
     boolean boolPanelAntecedentes = false;
     boolean boolPanelPersonas = false;
     boolean boolPanelSettings = false;
-    File fichero;
+    File fichero = null;
+    String rutaArchivo;
+    ArrayList<Delito> listaDelito;
+    DelitoDao dd = new DelitoDao();
+    ArrayList<Juzgado> listaJuzgado;
+    JuzgadoDao jd = new JuzgadoDao();
+    ArrayList<Persona> listaPersonas;
+    PersonaDao pd = new PersonaDao();
+
     /**
      * Creates new form AgregarAntecedentes
      */
@@ -40,6 +63,17 @@ boolean boolPanelMenu = false;
         lbNombreArchivo.setVisible(false);
         rbEnProceso.setEnabled(false);
         rbEnProceso.setSelected(true);
+        listaDelito = dd.findDelitoEntities(false);
+        listaJuzgado = jd.findJuzgadoEntities(false);
+        listaPersonas = pd.findPersonaEntities();
+        cargarCombos();
+    }
+
+    public void cargarCombos() {
+        listaDelito = dd.findDelitoEntities(false);
+        UtilAgreGesAnt.cargarCombo(cbDelito, listaDelito, "nombre");
+        listaJuzgado = jd.findJuzgadoEntities(false);
+        UtilAgreGesAnt.cargarCombo(cbJuzgados, listaJuzgado, "nombre");
     }
 
     /**
@@ -59,7 +93,6 @@ boolean boolPanelMenu = false;
         txtNombreApellido = new javax.swing.JTextField();
         lbLinea = new javax.swing.JLabel();
         lbNombreApellido = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lbCedula = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -72,7 +105,7 @@ boolean boolPanelMenu = false;
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         lbJuzgado = new javax.swing.JLabel();
-        cbxJuzgados = new javax.swing.JComboBox<>();
+        cbJuzgados = new javax.swing.JComboBox<>();
         lbDescripcionDelito1 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         dcFechaInicioAudiencia = new com.toedter.calendar.JDateChooser();
@@ -146,8 +179,11 @@ boolean boolPanelMenu = false;
         lbTipoDelito.setText("Tipo de Delito:");
         lbTipoDelito.setToolTipText("");
         PanelComponentes.add(lbTipoDelito);
-        lbTipoDelito.setBounds(70, 231, 87, 20);
+        lbTipoDelito.setBounds(70, 280, 87, 20);
 
+        txtNombreApellido.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtNombreApellido.setEnabled(false);
+        txtNombreApellido.setOpaque(false);
         txtNombreApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreApellidoActionPerformed(evt);
@@ -156,7 +192,7 @@ boolean boolPanelMenu = false;
         PanelComponentes.add(txtNombreApellido);
         txtNombreApellido.setBounds(465, 90, 319, 30);
 
-        lbLinea.setText("___________________________________________________________________________________________________________________");
+        lbLinea.setText("_________________________________________________________________________________________________________________________________________________________________");
         lbLinea.setMaximumSize(new java.awt.Dimension(600, 14));
         lbLinea.setPreferredSize(new java.awt.Dimension(600, 14));
         PanelComponentes.add(lbLinea);
@@ -168,17 +204,11 @@ boolean boolPanelMenu = false;
         PanelComponentes.add(lbNombreApellido);
         lbNombreApellido.setBounds(465, 50, 114, 20);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel5.setText("*");
-        PanelComponentes.add(jLabel5);
-        jLabel5.setBounds(451, 52, 8, 17);
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(204, 0, 0));
         jLabel6.setText("*");
         PanelComponentes.add(jLabel6);
-        jLabel6.setBounds(60, 228, 10, 17);
+        jLabel6.setBounds(60, 280, 10, 17);
 
         lbCedula.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbCedula.setText("Cédula");
@@ -196,24 +226,24 @@ boolean boolPanelMenu = false;
         lbArt.setText("Art:");
         lbArt.setToolTipText("");
         PanelComponentes.add(lbArt);
-        lbArt.setBounds(448, 281, 21, 20);
+        lbArt.setBounds(560, 280, 21, 20);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(204, 0, 0));
         jLabel16.setText("*");
         PanelComponentes.add(jLabel16);
-        jLabel16.setBounds(60, 278, 10, 17);
+        jLabel16.setBounds(60, 220, 10, 17);
 
         cbxTipoDelito.setBackground(new java.awt.Color(240, 240, 240));
         cbxTipoDelito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         PanelComponentes.add(cbxTipoDelito);
-        cbxTipoDelito.setBounds(175, 228, 210, 30);
+        cbxTipoDelito.setBounds(180, 280, 210, 30);
 
         lbDelito.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbDelito.setText("Delito:");
         lbDelito.setToolTipText("");
         PanelComponentes.add(lbDelito);
-        lbDelito.setBounds(76, 281, 38, 20);
+        lbDelito.setBounds(70, 230, 38, 20);
 
         txArt.setText("N");
         txArt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -224,12 +254,17 @@ boolean boolPanelMenu = false;
             }
         });
         PanelComponentes.add(txArt);
-        txArt.setBounds(487, 278, 49, 30);
+        txArt.setBounds(600, 280, 110, 30);
 
         cbDelito.setBackground(new java.awt.Color(240, 240, 240));
         cbDelito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbDelito.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbDelitoItemStateChanged(evt);
+            }
+        });
         PanelComponentes.add(cbDelito);
-        cbDelito.setBounds(175, 278, 210, 30);
+        cbDelito.setBounds(180, 220, 530, 30);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -246,10 +281,10 @@ boolean boolPanelMenu = false;
         PanelComponentes.add(lbJuzgado);
         lbJuzgado.setBounds(76, 441, 53, 20);
 
-        cbxJuzgados.setBackground(new java.awt.Color(240, 240, 240));
-        cbxJuzgados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        PanelComponentes.add(cbxJuzgados);
-        cbxJuzgados.setBounds(175, 438, 210, 30);
+        cbJuzgados.setBackground(new java.awt.Color(240, 240, 240));
+        cbJuzgados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        PanelComponentes.add(cbJuzgados);
+        cbJuzgados.setBounds(175, 438, 360, 30);
 
         lbDescripcionDelito1.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbDescripcionDelito1.setText("Descripción:");
@@ -408,6 +443,11 @@ boolean boolPanelMenu = false;
         jPanel3.add(lbNombreArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 317, 21));
 
         lbIconoArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/PDF file icon_page-0001.png"))); // NOI18N
+        lbIconoArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbIconoArchivoMouseClicked(evt);
+            }
+        });
         jPanel3.add(lbIconoArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
 
         IconoBorrarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoCerrar.png"))); // NOI18N
@@ -545,32 +585,9 @@ boolean boolPanelMenu = false;
         add(jScrollPane4);
         jScrollPane4.setBounds(0, 0, 1000, 610);
     }// </editor-fold>//GEN-END:initComponents
-    //Esconde de forma horizontal un panel
-    public void esconderHorizontal(JPanel panel, boolean dashboard){
-        if(dashboard == true){
-            panel.setPreferredSize(new Dimension(0, panel.getHeight()));//Esconde
-        }
-        else{
-            panel.setPreferredSize(new Dimension(213, panel.getHeight()));//Muestra
-        }
-        
-    }
-    
-    //Esconde de forma vertical un panel
-    public void esconderVertical(JPanel panel, boolean dashboard, JLabel boton){
-        if(dashboard == true){
-            panel.setPreferredSize(new Dimension(panel.getWidth(), 0));//Esconde
-            cambiarImagen(boton, "/Vista/Iconos/IconoTriangulo1.png");//Cambia el icono
-        }
-        else{
-            panel.setPreferredSize(new Dimension(panel.getWidth(), 92));//Muestra
-            cambiarImagen(boton, "/Vista/Iconos/IconoTriangulo2.png");//Cambia el icono
-        }
-        
-    }
-    
+
     //Cambia la imagen de un icono ubicado en un JLabel
-    public void cambiarImagen(JLabel button, String direccionImagen){
+    public void cambiarImagen(JLabel button, String direccionImagen) {
         ImageIcon img = new ImageIcon(getClass().getResource(direccionImagen));
         button.setIcon(img);
     }
@@ -627,11 +644,29 @@ boolean boolPanelMenu = false;
     }//GEN-LAST:event_botonSubirMouseClicked
 
     private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
-
+        Persona aux = (Persona) UtilAgreGesAnt.obtenerEntidad(txtCedula.getText(), listaPersonas, "cedula");
+        if (aux != null) {
+            txtNombreApellido.setText(aux.getNombre() + " " + aux.getApellido());
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe registro de esa persona");
+        }
     }//GEN-LAST:event_botonBuscarMouseClicked
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
+        System.out.println(dcFechaInicioAudiencia.getDate());
+        dcFechaFinalizacionAudiencia.setDate(dcFechaInicioAudiencia.getDate());
         JOptionPane.showMessageDialog(null, "Se ha guardado con éxito");
+        if (txtCedula.getText().length() > 0 && txtNombreApellido.getText().length() > 0 && cbDelito.getSelectedIndex() > 0
+                && cbJuzgados.getSelectedIndex() > 0 && dcFechaInicioAudiencia.getDate() != null && txtIntancia.getText().length() > 0
+                && fichero != null) {
+            try {
+                byte[] pdf = new byte[(int) fichero.length()];
+                InputStream input = new FileInputStream(fichero);
+                input.read(pdf);
+            } catch (IOException ex) {
+                Logger.getLogger(AgregarAntecedentes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_botonGuardarMouseClicked
 
     private void PanelComponentesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelComponentesMouseExited
@@ -645,22 +680,48 @@ boolean boolPanelMenu = false;
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCedulaActionPerformed
-    
-     public void cambiarColor(JPanel panel, Color color){
+
+    private void cbDelitoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbDelitoItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (cbDelito.getSelectedIndex() == 0) {
+                jTextArea1.setText("");
+                txArt.setText("");
+            } else {
+                Delito aux = listaDelito.get(cbDelito.getSelectedIndex() - 1);
+                jTextArea1.setText(aux.getDescripcion());
+                txArt.setText(aux.getArticulo());
+            }
+        }
+    }//GEN-LAST:event_cbDelitoItemStateChanged
+
+    private void lbIconoArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbIconoArchivoMouseClicked
+        if (evt.getClickCount() == 2) {
+            try {
+                byte[] pdf = new byte[(int) fichero.length()];
+                InputStream input = new FileInputStream(fichero);
+                input.read(pdf);
+                necesario.RSFileChooser guardar = new RSFileChooser();
+                guardar.showSaveDialog(null);
+                guardar.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                File archivo = guardar.getSelectedFile();
+                UtilAgreGesAnt.descargarArchivo(pdf, archivo);
+            } catch (IOException e) {
+            }
+        }
+    }//GEN-LAST:event_lbIconoArchivoMouseClicked
+
+    public void cambiarColor(JPanel panel, Color color) {
         panel.setBackground(color);
     }
-    
-    public void clickmenu(JPanel panel, int numberbool){
-        if(numberbool == 1){
+
+    public void clickmenu(JPanel panel, int numberbool) {
+        if (numberbool == 1) {
             panel.setBackground(new Color(25, 29, 74));
-        }
-        else{
-            panel.setBackground(new Color(221,226,255));
+        } else {
+            panel.setBackground(new Color(221, 226, 255));
         }
     }
-    
-   
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IconoBorrarArchivo;
@@ -671,7 +732,7 @@ boolean boolPanelMenu = false;
     private javax.swing.JPanel botonGuardar;
     private javax.swing.JPanel botonSubir;
     private javax.swing.JComboBox<String> cbDelito;
-    private javax.swing.JComboBox<String> cbxJuzgados;
+    private javax.swing.JComboBox<String> cbJuzgados;
     private javax.swing.JComboBox<String> cbxTipoCondena;
     private javax.swing.JComboBox<String> cbxTipoDelito;
     private com.toedter.calendar.JDateChooser dcFechaFinalizacionAudiencia;
@@ -683,7 +744,6 @@ boolean boolPanelMenu = false;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;

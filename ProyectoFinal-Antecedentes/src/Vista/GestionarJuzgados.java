@@ -5,8 +5,8 @@
  */
 package Vista;
 
-import ControlAdminDatos.JuzgadoDao;
-import Controlador.Utilidades.UtilidadesJuzgado;
+import Controlador.JuzgadoDao;
+import Controlador.Utilidades.UtilGesJuz;
 import Modelo.Juzgado;
 import Vista.Utiles.GestionCeldas;
 import Vista.Utiles.GestionEncabezadoTabla;
@@ -47,7 +47,7 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         txtNombreJuzgado.setText("");
         txtDireccion.setText("");
     }
-
+    
     private void construirTabla() {
         ArrayList<String> titulosList = new ArrayList<>();
 
@@ -110,7 +110,7 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         String informacion[][] = new String[listaJuzgado.size()][titulosList.size()];
         for (int x = 0; x < informacion.length; x++) {
 
-            informacion[x][UtilidadesTablaJuzgado.NOMBRE] = listaJuzgado.get(x).getNombreJuzgado() + "";
+            informacion[x][UtilidadesTablaJuzgado.NOMBRE] = listaJuzgado.get(x).getNombre() + "";
             informacion[x][UtilidadesTablaJuzgado.DIRECCION] = listaJuzgado.get(x).getDireccionJuzgado() + "";
             informacion[x][UtilidadesTablaJuzgado.ESTADO] = listaJuzgado.get(x).getEstadoJuzgado() + "";
             //se asignan las plabras clave para que en la clase GestionCeldas se use para asignar el icono correspondiente
@@ -133,8 +133,6 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         LabelTitulo = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaJuzgados = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtNombreJuzgado = new javax.swing.JTextField();
         lbNombreJuzgado = new javax.swing.JLabel();
@@ -148,6 +146,8 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         botonGuardar = new javax.swing.JPanel();
         lbIconoGuardar = new javax.swing.JLabel();
         lbGuardar = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaJuzgados = new javax.swing.JTable();
 
         setMinimumSize(new java.awt.Dimension(1000, 610));
         setLayout(null);
@@ -158,25 +158,6 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         LabelTitulo.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 24)); // NOI18N
         LabelTitulo.setText("ADMINISTAR ANTECEDENTES");
         LabelTitulo.setToolTipText("");
-
-        tablaJuzgados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tablaJuzgados.setPreferredSize(new java.awt.Dimension(200, 100));
-        tablaJuzgados.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaJuzgadosMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tablaJuzgados);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoJuzgados2.png"))); // NOI18N
 
@@ -280,6 +261,26 @@ public class GestionarJuzgados extends javax.swing.JPanel {
                 .addGap(0, 0, 0))
         );
 
+        tablaJuzgados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tablaJuzgados.setAutoscrolls(false);
+        tablaJuzgados.setPreferredSize(new java.awt.Dimension(200, 100));
+        tablaJuzgados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaJuzgadosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaJuzgados);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -293,32 +294,29 @@ public class GestionarJuzgados extends javax.swing.JPanel {
                         .addGap(244, 244, 244)
                         .addComponent(LabelTitulo))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
+                        .addGap(36, 36, 36)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbDireccion)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lbDireccion)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtNombreJuzgado, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lbNombreJuzgado))))
-                                .addGap(61, 61, 61)
-                                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                                        .addComponent(txtNombreJuzgado, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(61, 61, 61)
+                                        .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lbNombreJuzgado)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(101, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(311, 311, 311))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,15 +326,14 @@ public class GestionarJuzgados extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbNombreJuzgado)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbNombreJuzgado)
-                            .addComponent(jLabel11))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNombreJuzgado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreJuzgado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -344,7 +341,7 @@ public class GestionarJuzgados extends javax.swing.JPanel {
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
                 .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54))
         );
@@ -363,10 +360,10 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         if ((txtNombreJuzgado.getText().length() > 0 && txtDireccion.getText().length() > 0) || (txtDireccion.getText().length() > 0)) {
             JOptionPane.showMessageDialog(null, "Solo se puede buscar por el nombre del Juzgado");
         }else if(txtNombreJuzgado.getText().length() > 0){
-            int pos = UtilidadesJuzgado.obtenerJuzgadoContenido(listaJuzgado, txtNombreJuzgado.getText());
+            int pos = UtilGesJuz.obtenerJuzgadoContenido(listaJuzgado, txtNombreJuzgado.getText());
             Juzgado aux = listaJuzgado.get(pos);
             jzEditar = jd.find(aux.getIdJuzgado());
-            txtNombreJuzgado.setText(jzEditar.getNombreJuzgado());
+            txtNombreJuzgado.setText(jzEditar.getNombre());
             txtDireccion.setText(jzEditar.getDireccionJuzgado());
             sePuedeEditar = true;
         }else{
@@ -412,7 +409,7 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         } else if (columna == UtilidadesTablaJuzgado.EDITAR) {//se valida que sea la columna del otro evento
             Juzgado aux = listaJuzgado.get(fila);
             jzEditar = jd.find(aux.getIdJuzgado());
-            txtNombreJuzgado.setText(jzEditar.getNombreJuzgado());
+            txtNombreJuzgado.setText(jzEditar.getNombre());
             txtDireccion.setText(jzEditar.getDireccionJuzgado());
             sePuedeEditar = true;
         }
