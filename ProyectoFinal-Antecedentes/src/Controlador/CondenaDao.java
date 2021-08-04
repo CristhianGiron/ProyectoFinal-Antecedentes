@@ -24,9 +24,14 @@ public class CondenaDao implements Dao<Condena> {
     PreparedStatement stmt1;
     Conexion con = new Conexion();
     static Connection cnx;
+    boolean seGuardo;
 
     public CondenaDao() {
         cnx = con.getConexion();
+    }
+    
+    public boolean isSeGuardo() {
+        return seGuardo;
     }
 
     public ArrayList<Condena> findCondenaEntities(boolean todo) {
@@ -54,7 +59,7 @@ public class CondenaDao implements Dao<Condena> {
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {
                 do {
-                    lista.add(new Condena(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getNString(4)));
+                    lista.add(new Condena(rs.getLong(1), rs.getString(2), rs.getString(3)));
                 } while (rs.next());
             }
         } catch (SQLException ex) {
@@ -70,15 +75,16 @@ public class CondenaDao implements Dao<Condena> {
     public void create(Condena condena) {
         int i = 0;
         try {
-            String insertar = "INSERT INTO sistemaco_penal.condena (idCondena, tipoCondena, sentencia, estadoCondena) VALUES (?, ?, ?, ?)";
+            String insertar = "INSERT INTO sistemaco_penal.condena (idCondena, sentencia, estadoCondena) VALUES (?, ?, ?)";
             PreparedStatement pstmt = (PreparedStatement) cnx.prepareStatement(insertar);
             pstmt.setLong(1, condena.getIdCondena());
-            pstmt.setString(2, condena.getTipoCondena());
-            pstmt.setString(3, condena.getSentencia());
-            pstmt.setString(4, condena.getEstadoCondena());
+            pstmt.setString(2, condena.getSentencia());
+            pstmt.setString(3, condena.getEstadoCondena());
             i = pstmt.executeUpdate();
+            seGuardo = true; 
         } catch (SQLException ex) {
             System.out.println("Error al guardar en la base de datos: " + ex);
+            seGuardo = false; 
         }
     }
 
@@ -87,13 +93,15 @@ public class CondenaDao implements Dao<Condena> {
         int i = 0;
         try {
             Long id = condena.getIdCondena();
-            String insertar = "UPDATE sistemaco_penal.condena SET tipoCondena = ?, sentencia = ?, estadoCondena = ? WHERE idCondena =" + id;
+            String insertar = "UPDATE sistemaco_penal.condena SET sentencia = ?, estadoCondena = ? WHERE idCondena =" + id;
             PreparedStatement pstmt = (PreparedStatement) cnx.prepareStatement(insertar);
-            pstmt.setString(1, condena.getTipoCondena());
-            pstmt.setString(2, condena.getSentencia());
+            pstmt.setString(1, condena.getSentencia());
+            pstmt.setString(2, condena.getEstadoCondena());
             i = pstmt.executeUpdate();
+            seGuardo = true;
         } catch (SQLException ex) {
             System.out.println("Error al actualizar en la base de datos: " + ex);
+            seGuardo = false;
         }
     }
 
@@ -110,7 +118,7 @@ public class CondenaDao implements Dao<Condena> {
             stmt = (Statement) cnx.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.condena where idCondena = " + id);
             if (rs.next()) {
-                condena = new Condena(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                condena = new Condena(rs.getLong(1), rs.getString(2), rs.getString(3));
                 return condena;
             }
         } catch (SQLException ex) {

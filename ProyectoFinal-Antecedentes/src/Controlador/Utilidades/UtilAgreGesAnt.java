@@ -114,7 +114,6 @@ public class UtilAgreGesAnt {
         for (int i = 0; i < listaProceso.size(); i++) {
             Proceso tmp = listaProceso.get(i);
             Long id = tmp.getIdDelito();
-            System.out.println(dd.find(id).toString());
             listaDelito.add(dd.find(id));
         }
         return listaDelito;
@@ -146,7 +145,7 @@ public class UtilAgreGesAnt {
 		 * a todos los usuarios, mientras que las columnas son estaticas
 		 * correspondiendo a las columnas definidas por defecto
          */
-        String informacion[][] = new String[listaJuzgado.size()][titulosList.size()];
+        String informacion[][] = new String[listaProceso.size()][titulosList.size()];
         for (int x = 0; x < informacion.length; x++) {
 
             informacion[x][UtilidadesTablaAntecedentes.DELITO] = listaDelito.get(x).getNombre()+ "";
@@ -155,6 +154,9 @@ public class UtilAgreGesAnt {
             informacion[x][UtilidadesTablaAntecedentes.FECHAINICIO] = listaProceso.get(x).getFechaInicio() + "";
             informacion[x][UtilidadesTablaAntecedentes.FECHAFINALIZACION] = listaProceso.get(x).getFechaFinal() + "";
             informacion[x][UtilidadesTablaAntecedentes.JUZGADO] = listaJuzgado.get(x).getNombre( )+ "";
+            informacion[x][UtilidadesTablaAntecedentes.ESTADOVICTIMARIO] = listaProceso.get(x).getEstadoVictimario()+ "";
+            informacion[x][UtilidadesTablaAntecedentes.ESTADODEMANDA] = listaProceso.get(x).getEstadoDemanda()+ "";
+            informacion[x][UtilidadesTablaAntecedentes.ESTADOPROCESO] = listaProceso.get(x).getEstadoProceso()+ "";
             //se asignan las plabras clave para que en la clase GestionCeldas se use para asignar el icono correspondiente
             informacion[x][UtilidadesTablaAntecedentes.BORRAR] = "PERFIL";
             informacion[x][UtilidadesTablaAntecedentes.EDITAR] = "EVENTO";

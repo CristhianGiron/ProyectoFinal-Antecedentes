@@ -22,6 +22,9 @@ import Vista.Utiles.TablaAntecedentes.UtilidadesTablaAntecedentes;
 import Vista.Utiles.ModeloTabla;
 import Vista.Utiles.UtilesFecha;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,11 +32,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.JTableHeader;
+import necesario.RSFileChooser;
 
 /**
  *
@@ -55,14 +58,17 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     JuzgadoDao jd = new JuzgadoDao();
     ArrayList<Persona> listaPersonas;
     PersonaDao pd = new PersonaDao();
-    ArrayList<Proceso> listaProcesos;
+    ArrayList<Proceso> listaProcesos = new ArrayList<>();
     ProcesoDao prcd = new ProcesoDao();
     ArrayList<Condena> listaCondena;
     CondenaDao cd = new CondenaDao();
     Persona auxPer = null;
+    Proceso auxPro = null;
+    Condena auxCon = null;
     String estadoProceso;
     String estadoVictimario;
     UtilesFecha fecha = new UtilesFecha();
+    byte[] auxByte = null;
 
     public GestionarAntecedentes() {
         initComponents();
@@ -71,7 +77,26 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         lbNombreArchivo.setVisible(false);
         rbEnProceso.setEnabled(false);
         rbEnProceso.setSelected(true);
-        //construirTabla();
+        construirTabla();
+    }
+
+    public void limpiarCampos() {
+        Proceso auxPro = null;
+        Condena auxCon = null;
+        dcFechaFinalizacionAudiencia.setDate(null);
+        txtIntancia.setText("");
+        txtNrAudiencia.setText("");
+        txtSentencia.setText("");
+        borrarArchivo();
+    }
+    
+    public void borrarArchivo() {
+        IconoBorrarArchivo.setVisible(false);
+        lbIconoArchivo.setVisible(false);
+        lbNombreArchivo.setVisible(false);
+        lbNombreArchivo.setText("");
+        fichero = null;
+        auxByte = null;
     }
 
     public void cargarListas() {
@@ -95,6 +120,9 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         titulosList.add("Fecha de Inicio");
         titulosList.add("Fecha de Finalización");
         titulosList.add("Juzgado");
+        titulosList.add("Estado Victimario");
+        titulosList.add("Estado Demanda");
+        titulosList.add("Estado Proceso");
         titulosList.add(" ");
         titulosList.add(" ");
 
@@ -123,7 +151,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.EDITAR).setCellRenderer(new GestionCeldas("icono"));
 
         //se recorre y asigna el resto de celdas que serian las que almacenen datos de tipo texto
-        for (int i = 0; i < titulos.length - 2; i++) {//se resta 2 porque las ultimas 2 columnas se definen arriba
+        for (int i = 0; i < titulos.length - 2; i++) {//se resta 1 porque las ultimas 1 columnas se definen arriba
             tablaAntecedentes.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
         }
 
@@ -131,12 +159,15 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         tablaAntecedentes.setRowHeight(25);//tamano de las celdas
         tablaAntecedentes.setGridColor(new java.awt.Color(0, 0, 0));
         //Se define el tamaño de largo para cada columna y su contenido
-        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.DELITO).setPreferredWidth(130);
+        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.DELITO).setPreferredWidth(150);
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.ART).setPreferredWidth(100);
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.CONDENA).setPreferredWidth(450);
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.FECHAINICIO).setPreferredWidth(100);
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.FECHAFINALIZACION).setPreferredWidth(100);
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.JUZGADO).setPreferredWidth(180);
+        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.ESTADOVICTIMARIO).setPreferredWidth(180);
+        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.ESTADODEMANDA).setPreferredWidth(160);
+        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.ESTADOPROCESO).setPreferredWidth(160);
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.BORRAR).setPreferredWidth(35);
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.EDITAR).setPreferredWidth(35);
 
@@ -144,7 +175,6 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         JTableHeader jtableHeader = tablaAntecedentes.getTableHeader();
         jtableHeader.setDefaultRenderer(new GestionEncabezadoTabla());
         tablaAntecedentes.setTableHeader(jtableHeader);
-
     }
 
     /**
@@ -168,8 +198,6 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         lbFechaInicioAudiencia1 = new javax.swing.JLabel();
         dcFechaFinalizacionAudiencia = new com.toedter.calendar.JDateChooser();
-        lbDuracionAudiencia = new javax.swing.JLabel();
-        txDuracionAudiencia = new javax.swing.JTextField();
         lbIntancia = new javax.swing.JLabel();
         txtIntancia = new javax.swing.JTextField();
         lbNrAudiencia = new javax.swing.JLabel();
@@ -179,8 +207,6 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         rbFinalizado = new javax.swing.JRadioButton();
         lbEstadoProceso = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        lbTipoCondena = new javax.swing.JLabel();
-        cbxTipoCondena = new javax.swing.JComboBox<>();
         lbSentencia = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtSentencia = new javax.swing.JTextArea();
@@ -197,10 +223,15 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         botonGuardar = new javax.swing.JPanel();
         lbIconoGuardar = new javax.swing.JLabel();
         lbGuardar = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
         tablaAntecedentes = new javax.swing.JTable();
         jLabel23 = new javax.swing.JLabel();
         foto = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        lbEstadoProceso1 = new javax.swing.JLabel();
+        rbCulpable = new javax.swing.JRadioButton();
+        rbPresuntoCulpable = new javax.swing.JRadioButton();
+        rbInocente = new javax.swing.JRadioButton();
 
         setMinimumSize(new java.awt.Dimension(1000, 610));
         setPreferredSize(new java.awt.Dimension(1000, 610));
@@ -230,10 +261,16 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
                 txtCedulaActionPerformed(evt);
             }
         });
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
         PanelComponentes.add(txtCedula);
         txtCedula.setBounds(50, 90, 219, 30);
 
         txtNombreApellido.setBackground(new java.awt.Color(240, 240, 240));
+        txtNombreApellido.setEnabled(false);
         txtNombreApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreApellidoActionPerformed(evt);
@@ -283,23 +320,6 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         PanelComponentes.add(dcFechaFinalizacionAudiencia);
         dcFechaFinalizacionAudiencia.setBounds(320, 524, 130, 30);
 
-        lbDuracionAudiencia.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        lbDuracionAudiencia.setText("Duración:");
-        lbDuracionAudiencia.setToolTipText("");
-        PanelComponentes.add(lbDuracionAudiencia);
-        lbDuracionAudiencia.setBounds(497, 534, 58, 20);
-
-        txDuracionAudiencia.setText("N");
-        txDuracionAudiencia.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txDuracionAudiencia.setEnabled(false);
-        txDuracionAudiencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txDuracionAudienciaActionPerformed(evt);
-            }
-        });
-        PanelComponentes.add(txDuracionAudiencia);
-        txDuracionAudiencia.setBounds(573, 524, 49, 30);
-
         lbIntancia.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbIntancia.setText("Intancia:");
         lbIntancia.setToolTipText("");
@@ -309,6 +329,11 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         txtIntancia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIntanciaActionPerformed(evt);
+            }
+        });
+        txtIntancia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIntanciaKeyTyped(evt);
             }
         });
         PanelComponentes.add(txtIntancia);
@@ -323,6 +348,11 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         txtNrAudiencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNrAudienciaActionPerformed(evt);
+            }
+        });
+        txtNrAudiencia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNrAudienciaKeyTyped(evt);
             }
         });
         PanelComponentes.add(txtNrAudiencia);
@@ -344,7 +374,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             }
         });
         PanelComponentes.add(rbEnProceso);
-        rbEnProceso.setBounds(211, 621, 78, 22);
+        rbEnProceso.setBounds(220, 660, 78, 22);
 
         rbFinalizado.setBackground(new java.awt.Color(255, 255, 255));
         rbFinalizado.setText("Finalizado");
@@ -354,43 +384,32 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             }
         });
         PanelComponentes.add(rbFinalizado);
-        rbFinalizado.setBounds(307, 621, 73, 23);
+        rbFinalizado.setBounds(320, 660, 73, 23);
 
         lbEstadoProceso.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbEstadoProceso.setText("Estado del Proceso:");
         lbEstadoProceso.setToolTipText("");
         PanelComponentes.add(lbEstadoProceso);
-        lbEstadoProceso.setBounds(76, 620, 117, 20);
+        lbEstadoProceso.setBounds(70, 660, 117, 20);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(204, 0, 0));
         jLabel22.setText("*");
         PanelComponentes.add(jLabel22);
-        jLabel22.setBounds(200, 840, 10, 17);
-
-        lbTipoCondena.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        lbTipoCondena.setText("Tipo de Condena:");
-        lbTipoCondena.setToolTipText("");
-        PanelComponentes.add(lbTipoCondena);
-        lbTipoCondena.setBounds(76, 665, 107, 20);
-
-        cbxTipoCondena.setBackground(new java.awt.Color(240, 240, 240));
-        cbxTipoCondena.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        PanelComponentes.add(cbxTipoCondena);
-        cbxTipoCondena.setBounds(201, 662, 210, 30);
+        jLabel22.setBounds(200, 830, 10, 17);
 
         lbSentencia.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbSentencia.setText("Sentencia:");
         lbSentencia.setToolTipText("");
         PanelComponentes.add(lbSentencia);
-        lbSentencia.setBounds(76, 710, 60, 20);
+        lbSentencia.setBounds(70, 700, 60, 20);
 
         txtSentencia.setColumns(20);
         txtSentencia.setRows(5);
         jScrollPane3.setViewportView(txtSentencia);
 
         PanelComponentes.add(jScrollPane3);
-        jScrollPane3.setBounds(76, 741, 335, 76);
+        jScrollPane3.setBounds(70, 730, 335, 76);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -400,6 +419,11 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         jPanel3.add(lbNombreArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 317, 21));
 
         lbIconoArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/PDF file icon_page-0001.png"))); // NOI18N
+        lbIconoArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbIconoArchivoMouseClicked(evt);
+            }
+        });
         jPanel3.add(lbIconoArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
 
         IconoBorrarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoCerrar.png"))); // NOI18N
@@ -411,7 +435,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         jPanel3.add(IconoBorrarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 20, -1));
 
         PanelComponentes.add(jPanel3);
-        jPanel3.setBounds(224, 840, 331, 131);
+        jPanel3.setBounds(220, 830, 331, 131);
 
         botonSubir.setBackground(new java.awt.Color(18, 44, 82));
         botonSubir.setPreferredSize(new java.awt.Dimension(140, 46));
@@ -449,7 +473,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         );
 
         PanelComponentes.add(botonSubir);
-        botonSubir.setBounds(309, 989, 147, 22);
+        botonSubir.setBounds(310, 990, 147, 22);
 
         botonBuscar.setBackground(new java.awt.Color(18, 44, 82));
         botonBuscar.setPreferredSize(new java.awt.Dimension(140, 46));
@@ -530,7 +554,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         );
 
         PanelComponentes.add(botonGuardar);
-        botonGuardar.setBounds(328, 1057, 114, 22);
+        botonGuardar.setBounds(330, 1060, 114, 22);
 
         tablaAntecedentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -543,23 +567,66 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaAntecedentes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tablaAntecedentes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaAntecedentesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaAntecedentes);
+        jScrollPane5.setViewportView(tablaAntecedentes);
 
-        PanelComponentes.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 220, 960, 280);
+        PanelComponentes.add(jScrollPane5);
+        jScrollPane5.setBounds(10, 220, 960, 280);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(204, 0, 0));
         jLabel23.setText("*");
         PanelComponentes.add(jLabel23);
-        jLabel23.setBounds(60, 622, 10, 17);
+        jLabel23.setBounds(60, 670, 10, 17);
         PanelComponentes.add(foto);
         foto.setBounds(730, 20, 130, 130);
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel24.setText("*");
+        PanelComponentes.add(jLabel24);
+        jLabel24.setBounds(50, 620, 10, 17);
+
+        lbEstadoProceso1.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbEstadoProceso1.setText("Estado del Victimario:");
+        lbEstadoProceso1.setToolTipText("");
+        PanelComponentes.add(lbEstadoProceso1);
+        lbEstadoProceso1.setBounds(70, 620, 130, 20);
+
+        rbCulpable.setBackground(new java.awt.Color(255, 255, 255));
+        rbCulpable.setText("Culpable");
+        rbCulpable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCulpableActionPerformed(evt);
+            }
+        });
+        PanelComponentes.add(rbCulpable);
+        rbCulpable.setBounds(220, 620, 67, 23);
+
+        rbPresuntoCulpable.setBackground(new java.awt.Color(255, 255, 255));
+        rbPresuntoCulpable.setText("Presunto Culpable");
+        rbPresuntoCulpable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbPresuntoCulpableActionPerformed(evt);
+            }
+        });
+        PanelComponentes.add(rbPresuntoCulpable);
+        rbPresuntoCulpable.setBounds(320, 620, 120, 23);
+
+        rbInocente.setBackground(new java.awt.Color(255, 255, 255));
+        rbInocente.setText("Inocente");
+        rbInocente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbInocenteActionPerformed(evt);
+            }
+        });
+        PanelComponentes.add(rbInocente);
+        rbInocente.setBounds(470, 620, 70, 23);
 
         jScrollPane4.setViewportView(PanelComponentes);
 
@@ -572,7 +639,36 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     }//GEN-LAST:event_PanelComponentesMouseExited
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
-        JOptionPane.showMessageDialog(null, "Se ha guardado con éxito");
+        if (txtIntancia.getText().length() > 0 && (auxByte != null || fichero != null)) {
+            auxPro.setFechaFinal(fecha.getFecha(dcFechaFinalizacionAudiencia));
+            auxPro.setInstancia(Integer.parseInt(txtIntancia.getText()));
+            auxPro.setNrAudiencias(Integer.parseInt(txtNrAudiencia.getText()));
+            auxPro.setEstadoVictimario(estadoVictimario);
+            auxPro.setEstadoDemanda(estadoProceso);
+            auxCon.setSentencia(txtSentencia.getText());
+            auxCon.setEstadoCondena((!txtSentencia.getText().equalsIgnoreCase("") ? "Dictada" : "Sin Dictar"));
+            if (auxByte == null) {
+                try {
+                    byte[] pdf = new byte[(int) fichero.length()];
+                    InputStream input = new FileInputStream(fichero);
+                    input.read(pdf);
+                    auxPro.setText(pdf);
+                    auxPro.setNombreDocumento(fichero.getName());
+                } catch (Exception e) {
+                }
+            }
+            cd.edit(auxCon);
+            prcd.edit(auxPro);
+            if (cd.isSeGuardo() && prcd.isSeGuardo()) {
+                JOptionPane.showMessageDialog(null, "Se ha modificado con exito");
+                limpiarCampos();
+                cargarListas();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al modificar");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
+        }
     }//GEN-LAST:event_botonGuardarMouseClicked
 
     private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
@@ -599,15 +695,12 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             fichero = fc.getSelectedFile();//Seleccionamos el fichero
             lbNombreArchivo.setVisible(true);
             lbNombreArchivo.setText(fichero.getName());//Escribimos el nombre del archivo
+            auxByte = null;
         }
     }//GEN-LAST:event_botonSubirMouseClicked
 
     private void IconoBorrarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoBorrarArchivoMouseClicked
-        IconoBorrarArchivo.setVisible(false);
-        lbIconoArchivo.setVisible(false);
-        lbNombreArchivo.setVisible(false);
-        lbNombreArchivo.setText("");
-        fichero = null;
+        borrarArchivo();
     }//GEN-LAST:event_IconoBorrarArchivoMouseClicked
 
     private void rbFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFinalizadoActionPerformed
@@ -615,6 +708,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             rbFinalizado.setEnabled(false);
             rbEnProceso.setEnabled(true);
             rbEnProceso.setSelected(false);
+            this.estadoProceso = "Finalizado";
         }
     }//GEN-LAST:event_rbFinalizadoActionPerformed
 
@@ -623,6 +717,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             rbEnProceso.setEnabled(false);
             rbFinalizado.setEnabled(true);
             rbFinalizado.setSelected(false);
+            this.estadoProceso = "En proceso";
         }
     }//GEN-LAST:event_rbEnProcesoActionPerformed
 
@@ -634,10 +729,6 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIntanciaActionPerformed
 
-    private void txDuracionAudienciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txDuracionAudienciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txDuracionAudienciaActionPerformed
-
     private void txtNombreApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreApellidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreApellidoActionPerformed
@@ -646,43 +737,172 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCedulaActionPerformed
 
+    private void lbIconoGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbIconoGuardarMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_lbIconoGuardarMouseClicked
+
     private void tablaAntecedentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAntecedentesMouseClicked
         int fila = tablaAntecedentes.rowAtPoint(evt.getPoint());
         int columna = tablaAntecedentes.columnAtPoint(evt.getPoint());
 
         /*uso la columna para valiar si corresponde a la columna de perfil garantizando
         * que solo se produzca algo si selecciono una fila de esa columna
-        */
+         */
         if (columna == UtilidadesTablaAntecedentes.BORRAR) {
-            Juzgado aux = listaJuzgado.get(fila);
-            jd.destroy(aux.getIdJuzgado());
+            Proceso aux = listaProcesos.get(fila);
+            prcd.destroy(aux.getIdProceso());
+            if (prcd.isSeGuardo()) {
+                JOptionPane.showMessageDialog(null, "Se ha modificado el estado correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al modificar el estado correctamente");
+            }
         } else if (columna == UtilidadesTablaAntecedentes.EDITAR) {//se valida que sea la columna del otro evento
-            Juzgado aux = listaJuzgado.get(fila);
+            auxPro = listaProcesos.get(fila);
+            auxCon = listaCondena.get(fila);
+            SimpleDateFormat formato = new SimpleDateFormat("yyy-MM-dd");
+            Date d = null;
+            if (auxPro.getFechaFinal() != null) {
+                try {
+                    d = formato.parse(auxPro.getFechaFinal());
+                } catch (ParseException ex) {
+                    Logger.getLogger(GestionarAntecedentes.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            dcFechaFinalizacionAudiencia.setDate(d);
+            txtIntancia.setText(auxPro.getInstancia() + "");
+            txtNrAudiencia.setText(auxPro.getNrAudiencias() + "");
 
+            if (auxPro.getEstadoVictimario().equalsIgnoreCase("Culpable")) {
+                rbCulpable.setEnabled(false);
+                rbCulpable.setSelected(true);
+                rbPresuntoCulpable.setEnabled(true);
+                rbPresuntoCulpable.setSelected(false);
+                rbInocente.setEnabled(true);
+                rbInocente.setSelected(false);
+                this.estadoVictimario = "Culpable";
+            } else if (auxPro.getEstadoVictimario().equalsIgnoreCase("Presunto Culpable")) {
+                rbCulpable.setEnabled(true);
+                rbCulpable.setSelected(false);
+                rbPresuntoCulpable.setEnabled(false);
+                rbPresuntoCulpable.setSelected(true);
+                rbInocente.setEnabled(true);
+                rbInocente.setSelected(false);
+                this.estadoVictimario = "Presunto Culpable";
+            } else if (auxPro.getEstadoVictimario().equalsIgnoreCase("Inocente")) {
+                rbCulpable.setEnabled(true);
+                rbCulpable.setSelected(false);
+                rbPresuntoCulpable.setEnabled(true);
+                rbPresuntoCulpable.setSelected(false);
+                rbInocente.setEnabled(false);
+                rbInocente.setSelected(true);
+                this.estadoVictimario = "Inocente";
+            }
+
+            if (auxPro.getEstadoDemanda().equalsIgnoreCase("Finalizado")) {
+                rbFinalizado.setEnabled(false);
+                rbFinalizado.setSelected(true);
+                rbEnProceso.setEnabled(true);
+                rbEnProceso.setSelected(false);
+                this.estadoProceso = "Finalizado";
+            } else if (auxPro.getEstadoDemanda().equalsIgnoreCase("En proceso")) {
+                rbFinalizado.setEnabled(true);
+                rbFinalizado.setSelected(false);
+                rbEnProceso.setEnabled(false);
+                rbEnProceso.setSelected(true);
+                this.estadoProceso = "En proceso";
+            }
+
+            txtSentencia.setText(auxCon.getSentencia());
+            IconoBorrarArchivo.setVisible(true);
+            lbIconoArchivo.setVisible(true);
+            lbNombreArchivo.setVisible(true);
+            lbNombreArchivo.setText(auxPro.getNombreDocumento());//Escribimos el nombre del archivo
+            auxByte = auxPro.getText();
         }
-        listaJuzgado = jd.findJuzgadoEntities(true);
         cargarListas();
     }//GEN-LAST:event_tablaAntecedentesMouseClicked
 
-    private void lbIconoGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbIconoGuardarMouseClicked
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Se ha editado con éxito");
-    }//GEN-LAST:event_lbIconoGuardarMouseClicked
+    private void rbCulpableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCulpableActionPerformed
+        if (rbCulpable.isSelected()) {
+            rbCulpable.setEnabled(false);
+            rbPresuntoCulpable.setEnabled(true);
+            rbPresuntoCulpable.setSelected(false);
+            rbInocente.setEnabled(true);
+            rbInocente.setSelected(false);
+            this.estadoVictimario = "Culpable";
+        }
+    }//GEN-LAST:event_rbCulpableActionPerformed
 
-    private void validarSeleccionMouse(int fila) {
-        /*UtilidadesTablaAntecedentes.filaSeleccionada = fila;
+    private void rbPresuntoCulpableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPresuntoCulpableActionPerformed
+        if (rbPresuntoCulpable.isSelected()) {
+            rbPresuntoCulpable.setEnabled(false);
+            rbCulpable.setEnabled(true);
+            rbCulpable.setSelected(false);
+            rbInocente.setEnabled(true);
+            rbInocente.setSelected(false);
+            this.estadoVictimario = "Presunto Culpable";
+        }
+    }//GEN-LAST:event_rbPresuntoCulpableActionPerformed
 
-        //teniendo la fila entonces se obtiene el objeto correspondiente para enviarse como parammetro o imprimir la información
-        Persona miPersona = new Persona();
-        miPersona.setCedula(tablaPersonas.getValueAt(fila, Utilidades.CEDULA).toString());
-        miPersona.setNombre(tablaPersonas.getValueAt(fila, Utilidades.NOMBRE).toString());
+    private void rbInocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbInocenteActionPerformed
+        if (rbInocente.isSelected()) {
+            rbInocente.setEnabled(false);
+            rbCulpable.setEnabled(true);
+            rbCulpable.setSelected(false);
+            rbPresuntoCulpable.setEnabled(true);
+            rbPresuntoCulpable.setSelected(false);
+            this.estadoVictimario = "Inocente";
+        }
+    }//GEN-LAST:event_rbInocenteActionPerformed
 
-        String info = "INFO PERSONA\n";
-        info += "Documento: " + miPersona.getCedula() + "\n";
-        info += "Nombre: " + miPersona.getNombre() + "\n";
+    private void lbIconoArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbIconoArchivoMouseClicked
+        if (evt.getClickCount() == 2) {
+            if (auxByte != null) {
+                necesario.RSFileChooser guardar = new RSFileChooser();
+                guardar.showSaveDialog(null);
+                guardar.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                File archivo = guardar.getSelectedFile();
+                UtilAgreGesAnt.descargarArchivo(auxByte, archivo);
+            } else {
+                try {
+                    byte[] pdf = new byte[(int) fichero.length()];
+                    InputStream input = new FileInputStream(fichero);
+                    input.read(pdf);
+                    necesario.RSFileChooser guardar = new RSFileChooser();
+                    guardar.showSaveDialog(null);
+                    guardar.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                    File archivo = guardar.getSelectedFile();
+                    UtilAgreGesAnt.descargarArchivo(pdf, archivo);
+                } catch (IOException e) {
+                }
+            }
+        }
+    }//GEN-LAST:event_lbIconoArchivoMouseClicked
 
-        JOptionPane.showMessageDialog(null, info);*/
-    }
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b')) {
+            evt.consume();
+        }    }//GEN-LAST:event_txtCedulaKeyTyped
+
+    private void txtIntanciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIntanciaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b')) {
+            evt.consume();
+        }    }//GEN-LAST:event_txtIntanciaKeyTyped
+
+    private void txtNrAudienciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNrAudienciaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b')) {
+            evt.consume();
+        }    }//GEN-LAST:event_txtNrAudienciaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -693,22 +913,23 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     private javax.swing.JPanel botonBuscar;
     private javax.swing.JPanel botonGuardar;
     private javax.swing.JPanel botonSubir;
-    private javax.swing.JComboBox<String> cbxTipoCondena;
     private com.toedter.calendar.JDateChooser dcFechaFinalizacionAudiencia;
     private javax.swing.JLabel foto;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel lbBuscar;
     private javax.swing.JLabel lbCedula;
-    private javax.swing.JLabel lbDuracionAudiencia;
     private javax.swing.JLabel lbEstadoProceso;
+    private javax.swing.JLabel lbEstadoProceso1;
     private javax.swing.JLabel lbFechaInicioAudiencia1;
     private javax.swing.JLabel lbGuardar;
     private javax.swing.JLabel lbIconoArchivo;
@@ -721,11 +942,12 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     private javax.swing.JLabel lbNrAudiencia;
     private javax.swing.JLabel lbSentencia;
     private javax.swing.JLabel lbSubirArchivo;
-    private javax.swing.JLabel lbTipoCondena;
+    private javax.swing.JRadioButton rbCulpable;
     private javax.swing.JRadioButton rbEnProceso;
     private javax.swing.JRadioButton rbFinalizado;
+    private javax.swing.JRadioButton rbInocente;
+    private javax.swing.JRadioButton rbPresuntoCulpable;
     private javax.swing.JTable tablaAntecedentes;
-    private javax.swing.JTextField txDuracionAudiencia;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtIntancia;
     private javax.swing.JTextField txtNombreApellido;

@@ -85,8 +85,8 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         listaProcesos = prcd.findProcesoEntities(true);
         cargarCombos();
     }
-    
-    public void limpiarCampos(){
+
+    public void limpiarCampos() {
         auxPer = null;
         txtCedula.setText("");
         txtNombreApellido.setText("");
@@ -96,14 +96,13 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         cbJuzgados.setSelectedIndex(0);
         dcFechaInicioAudiencia.setDate(null);
         dcFechaFinalizacionAudiencia.setDate(null);
-        txDuracionAudiencia.setText("");
         txtIntancia.setText("");
         txtNrAudiencia.setText("");
         txtSentencia.setText("");
         borrarArchivo();
     }
-    
-    public void borrarArchivo(){
+
+    public void borrarArchivo() {
         IconoBorrarArchivo.setVisible(false);
         lbIconoArchivo.setVisible(false);
         lbNombreArchivo.setVisible(false);
@@ -131,16 +130,13 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         PanelComponentes = new javax.swing.JPanel();
         LabelTitulo = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
-        lbTipoDelito = new javax.swing.JLabel();
         txtNombreApellido = new javax.swing.JTextField();
         lbLinea = new javax.swing.JLabel();
         lbNombreApellido = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         lbCedula = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         lbArt = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        cbxTipoDelito = new javax.swing.JComboBox<>();
         lbDelito = new javax.swing.JLabel();
         txArt = new javax.swing.JTextField();
         cbDelito = new javax.swing.JComboBox<>();
@@ -155,8 +151,6 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         jLabel20 = new javax.swing.JLabel();
         lbFechaInicioAudiencia1 = new javax.swing.JLabel();
         dcFechaFinalizacionAudiencia = new com.toedter.calendar.JDateChooser();
-        lbDuracionAudiencia = new javax.swing.JLabel();
-        txDuracionAudiencia = new javax.swing.JTextField();
         lbIntancia = new javax.swing.JLabel();
         txtIntancia = new javax.swing.JTextField();
         lbNrAudiencia = new javax.swing.JLabel();
@@ -166,8 +160,6 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         rbFinalizado = new javax.swing.JRadioButton();
         lbEstadoProceso = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        lbTipoCondena = new javax.swing.JLabel();
-        cbxTipoCondena = new javax.swing.JComboBox<>();
         lbSentencia = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtSentencia = new javax.swing.JTextArea();
@@ -190,6 +182,7 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         rbCulpable = new javax.swing.JRadioButton();
         rbPresuntoCulpable = new javax.swing.JRadioButton();
         rbInocente = new javax.swing.JRadioButton();
+        foto = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(1000, 610));
         setPreferredSize(new java.awt.Dimension(1000, 610));
@@ -219,14 +212,13 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
                 txtCedulaActionPerformed(evt);
             }
         });
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
         PanelComponentes.add(txtCedula);
         txtCedula.setBounds(50, 90, 219, 30);
-
-        lbTipoDelito.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        lbTipoDelito.setText("Tipo de Delito:");
-        lbTipoDelito.setToolTipText("");
-        PanelComponentes.add(lbTipoDelito);
-        lbTipoDelito.setBounds(70, 280, 87, 20);
 
         txtNombreApellido.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtNombreApellido.setEnabled(false);
@@ -237,7 +229,7 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             }
         });
         PanelComponentes.add(txtNombreApellido);
-        txtNombreApellido.setBounds(465, 90, 319, 30);
+        txtNombreApellido.setBounds(360, 90, 319, 30);
 
         lbLinea.setText("_________________________________________________________________________________________________________________________________________________________________");
         lbLinea.setMaximumSize(new java.awt.Dimension(600, 14));
@@ -249,13 +241,7 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         lbNombreApellido.setText("Nombre y Apellido");
         lbNombreApellido.setToolTipText("");
         PanelComponentes.add(lbNombreApellido);
-        lbNombreApellido.setBounds(465, 50, 114, 20);
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel6.setText("*");
-        PanelComponentes.add(jLabel6);
-        jLabel6.setBounds(60, 280, 10, 17);
+        lbNombreApellido.setBounds(360, 50, 114, 20);
 
         lbCedula.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbCedula.setText("Cédula");
@@ -273,18 +259,13 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         lbArt.setText("Art:");
         lbArt.setToolTipText("");
         PanelComponentes.add(lbArt);
-        lbArt.setBounds(560, 280, 21, 20);
+        lbArt.setBounds(70, 280, 21, 20);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(204, 0, 0));
         jLabel16.setText("*");
         PanelComponentes.add(jLabel16);
         jLabel16.setBounds(60, 220, 10, 17);
-
-        cbxTipoDelito.setBackground(new java.awt.Color(240, 240, 240));
-        cbxTipoDelito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        PanelComponentes.add(cbxTipoDelito);
-        cbxTipoDelito.setBounds(180, 280, 210, 30);
 
         lbDelito.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbDelito.setText("Delito:");
@@ -301,7 +282,7 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             }
         });
         PanelComponentes.add(txArt);
-        txArt.setBounds(600, 280, 110, 30);
+        txArt.setBounds(160, 280, 110, 30);
 
         cbDelito.setBackground(new java.awt.Color(240, 240, 240));
         cbDelito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -311,7 +292,7 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             }
         });
         PanelComponentes.add(cbDelito);
-        cbDelito.setBounds(180, 220, 530, 30);
+        cbDelito.setBounds(160, 220, 530, 30);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -320,7 +301,7 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTextArea1);
 
         PanelComponentes.add(jScrollPane2);
-        jScrollPane2.setBounds(175, 334, 361, 76);
+        jScrollPane2.setBounds(160, 330, 361, 76);
 
         lbJuzgado.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbJuzgado.setText("Juzgado:");
@@ -336,13 +317,13 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             }
         });
         PanelComponentes.add(cbJuzgados);
-        cbJuzgados.setBounds(175, 438, 360, 30);
+        cbJuzgados.setBounds(160, 440, 360, 30);
 
         lbDescripcionDelito1.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbDescripcionDelito1.setText("Descripción:");
         lbDescripcionDelito1.setToolTipText("");
         PanelComponentes.add(lbDescripcionDelito1);
-        lbDescripcionDelito1.setBounds(76, 334, 73, 20);
+        lbDescripcionDelito1.setBounds(70, 330, 73, 20);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(204, 0, 0));
@@ -378,23 +359,6 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         PanelComponentes.add(dcFechaFinalizacionAudiencia);
         dcFechaFinalizacionAudiencia.setBounds(320, 524, 130, 30);
 
-        lbDuracionAudiencia.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        lbDuracionAudiencia.setText("Duración:");
-        lbDuracionAudiencia.setToolTipText("");
-        PanelComponentes.add(lbDuracionAudiencia);
-        lbDuracionAudiencia.setBounds(497, 534, 58, 20);
-
-        txDuracionAudiencia.setText("N");
-        txDuracionAudiencia.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txDuracionAudiencia.setEnabled(false);
-        txDuracionAudiencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txDuracionAudienciaActionPerformed(evt);
-            }
-        });
-        PanelComponentes.add(txDuracionAudiencia);
-        txDuracionAudiencia.setBounds(573, 524, 49, 30);
-
         lbIntancia.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbIntancia.setText("Intancia:");
         lbIntancia.setToolTipText("");
@@ -404,6 +368,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         txtIntancia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIntanciaActionPerformed(evt);
+            }
+        });
+        txtIntancia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIntanciaKeyTyped(evt);
             }
         });
         PanelComponentes.add(txtIntancia);
@@ -418,6 +387,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         txtNrAudiencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNrAudienciaActionPerformed(evt);
+            }
+        });
+        txtNrAudiencia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNrAudienciaKeyTyped(evt);
             }
         });
         PanelComponentes.add(txtNrAudiencia);
@@ -462,17 +436,6 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         jLabel22.setText("*");
         PanelComponentes.add(jLabel22);
         jLabel22.setBounds(50, 640, 10, 17);
-
-        lbTipoCondena.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        lbTipoCondena.setText("Tipo de Condena:");
-        lbTipoCondena.setToolTipText("");
-        PanelComponentes.add(lbTipoCondena);
-        lbTipoCondena.setBounds(460, 690, 107, 20);
-
-        cbxTipoCondena.setBackground(new java.awt.Color(240, 240, 240));
-        cbxTipoCondena.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        PanelComponentes.add(cbxTipoCondena);
-        cbxTipoCondena.setBounds(590, 680, 210, 30);
 
         lbSentencia.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbSentencia.setText("Sentencia:");
@@ -673,6 +636,8 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         });
         PanelComponentes.add(rbInocente);
         rbInocente.setBounds(470, 640, 70, 23);
+        PanelComponentes.add(foto);
+        foto.setBounds(730, 20, 130, 130);
 
         jScrollPane4.setViewportView(PanelComponentes);
 
@@ -680,48 +645,87 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         jScrollPane4.setBounds(0, 0, 1000, 610);
     }// </editor-fold>//GEN-END:initComponents
 
-    //Cambia la imagen de un icono ubicado en un JLabel
-    public void cambiarImagen(JLabel button, String direccionImagen) {
-        ImageIcon img = new ImageIcon(getClass().getResource(direccionImagen));
-        button.setIcon(img);
-    }
-    private void txArtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txArtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txArtActionPerformed
+    private void PanelComponentesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelComponentesMouseExited
+        txtNombreApellido.setFocusable(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelComponentesMouseExited
 
-    private void txDuracionAudienciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txDuracionAudienciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txDuracionAudienciaActionPerformed
-
-    private void txtIntanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIntanciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIntanciaActionPerformed
-
-    private void txtNrAudienciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNrAudienciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNrAudienciaActionPerformed
-
-    private void rbEnProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEnProcesoActionPerformed
-        if (rbEnProceso.isSelected()) {
-            rbEnProceso.setEnabled(false);
-            rbFinalizado.setEnabled(true);
-            rbFinalizado.setSelected(false);
-            this.estadoProceso = "En proceso";
+    private void rbInocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbInocenteActionPerformed
+        if (rbInocente.isSelected()) {
+            rbInocente.setEnabled(false);
+            rbCulpable.setEnabled(true);
+            rbCulpable.setSelected(false);
+            rbPresuntoCulpable.setEnabled(true);
+            rbPresuntoCulpable.setSelected(false);
+            this.estadoVictimario = "Inocente";
         }
-    }//GEN-LAST:event_rbEnProcesoActionPerformed
+    }//GEN-LAST:event_rbInocenteActionPerformed
 
-    private void rbFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFinalizadoActionPerformed
-        if (rbFinalizado.isSelected()) {
-            rbFinalizado.setEnabled(false);
-            rbEnProceso.setEnabled(true);
-            rbEnProceso.setSelected(false);
-            this.estadoProceso = "Finalizado";
+    private void rbPresuntoCulpableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPresuntoCulpableActionPerformed
+        if (rbPresuntoCulpable.isSelected()) {
+            rbPresuntoCulpable.setEnabled(false);
+            rbCulpable.setEnabled(true);
+            rbCulpable.setSelected(false);
+            rbInocente.setEnabled(true);
+            rbInocente.setSelected(false);
+            this.estadoVictimario = "Presunto Culpable";
         }
-    }//GEN-LAST:event_rbFinalizadoActionPerformed
+    }//GEN-LAST:event_rbPresuntoCulpableActionPerformed
 
-    private void IconoBorrarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoBorrarArchivoMouseClicked
-        borrarArchivo();
-    }//GEN-LAST:event_IconoBorrarArchivoMouseClicked
+    private void rbCulpableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCulpableActionPerformed
+        if (rbCulpable.isSelected()) {
+            rbCulpable.setEnabled(false);
+            rbPresuntoCulpable.setEnabled(true);
+            rbPresuntoCulpable.setSelected(false);
+            rbInocente.setEnabled(true);
+            rbInocente.setSelected(false);
+            this.estadoVictimario = "Culpable";
+        }
+    }//GEN-LAST:event_rbCulpableActionPerformed
+
+    private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
+        if (auxPer != null && txtCedula.getText().length() > 0 && txtNombreApellido.getText().length() > 0
+                && cbDelito.getSelectedIndex() > 0 && cbJuzgados.getSelectedIndex() > 0
+                && dcFechaInicioAudiencia.getDate() != null && txtIntancia.getText().length() > 0
+                && fichero != null) {
+            try {
+                byte[] pdf = new byte[(int) fichero.length()];
+                InputStream input = new FileInputStream(fichero);
+                input.read(pdf);
+                Delito auxD = listaDelito.get(cbDelito.getSelectedIndex() - 1);
+                Juzgado auxJ = listaJuzgado.get(cbJuzgados.getSelectedIndex() - 1);
+                Condena auxC = new Condena(Long.valueOf(listaProcesos.size() + 1), txtSentencia.getText(),
+                        (!txtSentencia.getText().equalsIgnoreCase("") ? "Dictada" : "Sin Dictar"));
+                Proceso auxP = new Proceso(Long.valueOf(listaProcesos.size() + 1), Integer.parseInt(txtIntancia.getText()),
+                        fecha.getFecha(dcFechaInicioAudiencia), fecha.getFecha(dcFechaFinalizacionAudiencia),
+                        (!txtNrAudiencia.getText().equalsIgnoreCase("")) ? Integer.parseInt(txtNrAudiencia.getText()) : 0,
+                        pdf, fichero.getName(), estadoVictimario, estadoProceso, "Habilitado", auxD.getIdDelito(), auxPer.getIdPersona(),
+                        auxC.getIdCondena(), auxJ.getIdJuzgado());
+                cd.create(auxC);
+                prcd.create(auxP);
+                if (cd.isSeGuardo() && prcd.isSeGuardo()) {
+                    JOptionPane.showMessageDialog(null, "Se ha guardado con exito");
+                    listaProcesos = prcd.findProcesoEntities(true);
+                    limpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al guardar");
+                }
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
+        }
+    }//GEN-LAST:event_botonGuardarMouseClicked
+
+    private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
+        auxPer = (Persona) UtilAgreGesAnt.obtenerEntidad(txtCedula.getText(), listaPersonas, "cedula");
+        if (auxPer != null) {
+            txtNombreApellido.setText(auxPer.getNombre() + " " + auxPer.getApellido());
+            foto.setIcon(new ImageIcon(auxPer.getFile().getAbsolutePath()));
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe registro de esa persona");
+        }
+    }//GEN-LAST:event_botonBuscarMouseClicked
 
     private void botonSubirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSubirMouseClicked
         necesario.RSFileChooser fc = new necesario.RSFileChooser();//Creamos el objeto JFileChooser
@@ -735,69 +739,9 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_botonSubirMouseClicked
 
-    private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
-        auxPer = (Persona) UtilAgreGesAnt.obtenerEntidad(txtCedula.getText(), listaPersonas, "cedula");
-        if (auxPer != null) {
-            txtNombreApellido.setText(auxPer.getNombre() + " " + auxPer.getApellido());
-        } else {
-            JOptionPane.showMessageDialog(null, "No existe registro de esa persona");
-        }
-    }//GEN-LAST:event_botonBuscarMouseClicked
-
-    private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
-        if (auxPer != null && txtCedula.getText().length() > 0 && txtNombreApellido.getText().length() > 0
-                && cbDelito.getSelectedIndex() > 0 && cbJuzgados.getSelectedIndex() > 0
-                && dcFechaInicioAudiencia.getDate() != null && txtIntancia.getText().length() > 0
-                && fichero != null) {
-            try {
-                byte[] pdf = new byte[(int) fichero.length()];
-                InputStream input = new FileInputStream(fichero);
-                input.read(pdf);
-                Delito auxD = listaDelito.get(cbDelito.getSelectedIndex() - 1);
-                Juzgado auxJ = listaJuzgado.get(cbJuzgados.getSelectedIndex() - 1);
-                Condena auxC = new Condena(Long.valueOf(listaProcesos.size() + 1), "Penal", txtSentencia.getText(), 
-                        (!txtSentencia.getText().equalsIgnoreCase("")?"Dictada":"Sin Dictar"));
-                Proceso auxP = new Proceso(Long.valueOf(listaProcesos.size() + 1), "TipoProceso", Integer.parseInt(txtIntancia.getText()),
-                        fecha.getFecha(dcFechaInicioAudiencia), fecha.getFecha(dcFechaFinalizacionAudiencia), 
-                        (!txtNrAudiencia.getText().equalsIgnoreCase(""))?Integer.parseInt(txtNrAudiencia.getText()):0,
-                        pdf, fichero.getName(), estadoVictimario, estadoProceso, auxD.getIdDelito(), auxPer.getIdPersona(), 
-                        auxC.getIdCondena(), auxJ.getIdJuzgado());
-                cd.create(auxC);
-                prcd.create(auxP);
-                listaProcesos = prcd.findProcesoEntities(true);
-                limpiarCampos();
-            } catch (IOException ex) {
-                System.out.println(ex);
-            }
-        }else{
-            JOptionPane.showMessageDialog(null, "Pro favor llene todos los campos");
-        }
-    }//GEN-LAST:event_botonGuardarMouseClicked
-
-    private void PanelComponentesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelComponentesMouseExited
-        txtNombreApellido.setFocusable(true);        // TODO add your handling code here:
-    }//GEN-LAST:event_PanelComponentesMouseExited
-
-    private void txtNombreApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreApellidoActionPerformed
-
-    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCedulaActionPerformed
-
-    private void cbDelitoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbDelitoItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (cbDelito.getSelectedIndex() == 0) {
-                jTextArea1.setText("");
-                txArt.setText("");
-            } else {
-                Delito aux = listaDelito.get(cbDelito.getSelectedIndex() - 1);
-                jTextArea1.setText(aux.getDescripcion());
-                txArt.setText(aux.getArticulo());
-            }
-        }
-    }//GEN-LAST:event_cbDelitoItemStateChanged
+    private void IconoBorrarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoBorrarArchivoMouseClicked
+        borrarArchivo();
+    }//GEN-LAST:event_IconoBorrarArchivoMouseClicked
 
     private void lbIconoArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbIconoArchivoMouseClicked
         if (evt.getClickCount() == 2) {
@@ -815,42 +759,91 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_lbIconoArchivoMouseClicked
 
+    private void rbFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFinalizadoActionPerformed
+        if (rbFinalizado.isSelected()) {
+            rbFinalizado.setEnabled(false);
+            rbEnProceso.setEnabled(true);
+            rbEnProceso.setSelected(false);
+            this.estadoProceso = "Finalizado";
+        }
+    }//GEN-LAST:event_rbFinalizadoActionPerformed
+
+    private void rbEnProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEnProcesoActionPerformed
+        if (rbEnProceso.isSelected()) {
+            rbEnProceso.setEnabled(false);
+            rbFinalizado.setEnabled(true);
+            rbFinalizado.setSelected(false);
+            this.estadoProceso = "En proceso";
+        }
+    }//GEN-LAST:event_rbEnProcesoActionPerformed
+
+    private void txtNrAudienciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNrAudienciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNrAudienciaActionPerformed
+
+    private void txtIntanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIntanciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIntanciaActionPerformed
+
     private void cbJuzgadosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbJuzgadosItemStateChanged
 
     }//GEN-LAST:event_cbJuzgadosItemStateChanged
 
-    private void rbCulpableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCulpableActionPerformed
-        if (rbCulpable.isSelected()) {
-            rbCulpable.setEnabled(false);
-            rbPresuntoCulpable.setEnabled(true);
-            rbPresuntoCulpable.setSelected(false);
-            rbInocente.setEnabled(true);
-            rbInocente.setSelected(false);
-            this.estadoVictimario = "Culpable";
+    private void cbDelitoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbDelitoItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (cbDelito.getSelectedIndex() == 0) {
+                jTextArea1.setText("");
+                txArt.setText("");
+            } else {
+                Delito aux = listaDelito.get(cbDelito.getSelectedIndex() - 1);
+                jTextArea1.setText(aux.getDescripcion());
+                txArt.setText(aux.getArticulo());
+            }
         }
-    }//GEN-LAST:event_rbCulpableActionPerformed
+    }//GEN-LAST:event_cbDelitoItemStateChanged
 
-    private void rbPresuntoCulpableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPresuntoCulpableActionPerformed
-        if (rbPresuntoCulpable.isSelected()) {
-            rbPresuntoCulpable.setEnabled(false);
-            rbCulpable.setEnabled(true);
-            rbCulpable.setSelected(false);
-            rbInocente.setEnabled(true);
-            rbInocente.setSelected(false);
-            this.estadoVictimario = "Presunto Culpable";
-        }
-    }//GEN-LAST:event_rbPresuntoCulpableActionPerformed
+    private void txArtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txArtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txArtActionPerformed
 
-    private void rbInocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbInocenteActionPerformed
-        if (rbInocente.isSelected()) {
-            rbInocente.setEnabled(false);
-            rbCulpable.setEnabled(true);
-            rbCulpable.setSelected(false);
-            rbPresuntoCulpable.setEnabled(true);
-            rbPresuntoCulpable.setSelected(false);
-            this.estadoVictimario = "Inocente";
+    private void txtNombreApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreApellidoActionPerformed
+
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaActionPerformed
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b')) {
+            evt.consume();
         }
-    }//GEN-LAST:event_rbInocenteActionPerformed
+    }//GEN-LAST:event_txtCedulaKeyTyped
+
+    private void txtIntanciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIntanciaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b')) {
+            evt.consume();
+        }    }//GEN-LAST:event_txtIntanciaKeyTyped
+
+    private void txtNrAudienciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNrAudienciaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b')) {
+            evt.consume();
+        }    }//GEN-LAST:event_txtNrAudienciaKeyTyped
+
+    //Cambia la imagen de un icono ubicado en un JLabel
+    public void cambiarImagen(JLabel button, String direccionImagen) {
+        ImageIcon img = new ImageIcon(getClass().getResource(direccionImagen));
+        button.setIcon(img);
+    }
 
     public void cambiarColor(JPanel panel, Color color) {
         panel.setBackground(color);
@@ -875,10 +868,9 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     private javax.swing.JPanel botonSubir;
     private javax.swing.JComboBox<String> cbDelito;
     private javax.swing.JComboBox<String> cbJuzgados;
-    private javax.swing.JComboBox<String> cbxTipoCondena;
-    private javax.swing.JComboBox<String> cbxTipoDelito;
     private com.toedter.calendar.JDateChooser dcFechaFinalizacionAudiencia;
     private com.toedter.calendar.JDateChooser dcFechaInicioAudiencia;
+    private javax.swing.JLabel foto;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel19;
@@ -887,7 +879,6 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -898,7 +889,6 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     private javax.swing.JLabel lbCedula;
     private javax.swing.JLabel lbDelito;
     private javax.swing.JLabel lbDescripcionDelito1;
-    private javax.swing.JLabel lbDuracionAudiencia;
     private javax.swing.JLabel lbEstadoProceso;
     private javax.swing.JLabel lbEstadoProceso1;
     private javax.swing.JLabel lbFechaInicioAudiencia;
@@ -915,15 +905,12 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     private javax.swing.JLabel lbNrAudiencia;
     private javax.swing.JLabel lbSentencia;
     private javax.swing.JLabel lbSubirArchivo;
-    private javax.swing.JLabel lbTipoCondena;
-    private javax.swing.JLabel lbTipoDelito;
     private javax.swing.JRadioButton rbCulpable;
     private javax.swing.JRadioButton rbEnProceso;
     private javax.swing.JRadioButton rbFinalizado;
     private javax.swing.JRadioButton rbInocente;
     private javax.swing.JRadioButton rbPresuntoCulpable;
     private javax.swing.JTextField txArt;
-    private javax.swing.JTextField txDuracionAudiencia;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtIntancia;
     private javax.swing.JTextField txtNombreApellido;

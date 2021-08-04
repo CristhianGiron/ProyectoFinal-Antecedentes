@@ -25,9 +25,14 @@ public class JuzgadoDao implements Dao<Juzgado> {
     PreparedStatement stmt1;
     Conexion con = new Conexion();
     static Connection cnx;
+    boolean seGuardo;
 
     public JuzgadoDao() {
         cnx = con.getConexion();
+    }
+
+    public boolean isSeGuardo() {
+        return seGuardo;
     }
 
     public ArrayList<Juzgado> findJuzgadoEntities(boolean todo) {
@@ -78,8 +83,10 @@ public class JuzgadoDao implements Dao<Juzgado> {
             pstmt.setString(3, juzgado.getDireccionJuzgado());
             pstmt.setString(4, juzgado.getEstadoJuzgado());
             i = pstmt.executeUpdate();
+            seGuardo = true;
         } catch (SQLException ex) {
             System.out.println("Error al guardar en la base de datos: " + ex);
+            seGuardo = false;
         }
     }
 
@@ -93,8 +100,10 @@ public class JuzgadoDao implements Dao<Juzgado> {
             pstmt.setString(1, juzgado.getNombre());
             pstmt.setString(2, juzgado.getDireccionJuzgado());
             i = pstmt.executeUpdate();
+            seGuardo = true;
         } catch (SQLException ex) {
             System.out.println("Error al actualizar en la base de datos: " + ex);
+            seGuardo = false;
         }
     }
 
@@ -112,9 +121,11 @@ public class JuzgadoDao implements Dao<Juzgado> {
                 }
                 PreparedStatement pstmt = (PreparedStatement) cnx.prepareStatement(insertar);
                 i = pstmt.executeUpdate();
+                seGuardo = true;
             }
         } catch (SQLException ex) {
             System.out.println("Error al actualizar en la base de datos: " + ex);
+            seGuardo = false;
         }
     }
 

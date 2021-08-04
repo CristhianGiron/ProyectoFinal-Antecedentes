@@ -11,13 +11,11 @@ package Modelo;
  */
 public class Condena {
    private Long idCondena;
-   private String tipoCondena;
    private String sentencia;
    private String estadoCondena;
 
-    public Condena(Long idCondena, String tipoCondena, String sentencia, String estadoCondena) {
+    public Condena(Long idCondena, String sentencia, String estadoCondena) {
         this.idCondena = idCondena;
-        this.tipoCondena = tipoCondena;
         this.sentencia = sentencia;
         this.estadoCondena = estadoCondena;
     }
@@ -28,14 +26,6 @@ public class Condena {
 
     public void setIdCondena(Long idCondena) {
         this.idCondena = idCondena;
-    }
-
-    public String getTipoCondena() {
-        return tipoCondena;
-    }
-
-    public void setTipoCondena(String tipoCondena) {
-        this.tipoCondena = tipoCondena;
     }
 
     public String getSentencia() {

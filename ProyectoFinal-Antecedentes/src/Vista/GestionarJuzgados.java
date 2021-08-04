@@ -27,7 +27,7 @@ public class GestionarJuzgados extends javax.swing.JPanel {
     /**
      * Creates new form AgregarJuzgados
      */
-    ArrayList<Juzgado> listaJuzgado;
+    ArrayList<Juzgado> listaJuzgado = new ArrayList<>();
     ModeloTabla modelo;
 
     private JuzgadoDao jd = new JuzgadoDao();
@@ -38,16 +38,14 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         initComponents();
         listaJuzgado = jd.findJuzgadoEntities(true);
         sePuedeEditar = false;
-        if (listaJuzgado.size() > 0) {
-            construirTabla();
-        }
+        construirTabla();
     }
 
     public void vaciarTxt() {
         txtNombreJuzgado.setText("");
         txtDireccion.setText("");
     }
-    
+
     private void construirTabla() {
         ArrayList<String> titulosList = new ArrayList<>();
 
@@ -76,7 +74,7 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         modelo = new ModeloTabla(data, titulos);
         //se asigna el modelo a la tabla
         tablaJuzgados.setModel(modelo);
-        
+
         //se asigna el tipo de dato que tendrón las celdas de cada columna definida respectivamente para validar su personalización;
         tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.BORRAR).setCellRenderer(new GestionCeldas("icono"));
         tablaJuzgados.getColumnModel().getColumn(UtilidadesTablaJuzgado.EDITAR).setCellRenderer(new GestionCeldas("icono"));
@@ -347,16 +345,16 @@ public class GestionarJuzgados extends javax.swing.JPanel {
     private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
         if ((txtNombreJuzgado.getText().length() > 0 && txtDireccion.getText().length() > 0) || (txtDireccion.getText().length() > 0)) {
             JOptionPane.showMessageDialog(null, "Solo se puede buscar por el nombre del Juzgado");
-        }else if(txtNombreJuzgado.getText().length() > 0){
+        } else if (txtNombreJuzgado.getText().length() > 0) {
             int pos = UtilGesJuz.obtenerJuzgadoContenido(listaJuzgado, txtNombreJuzgado.getText());
             Juzgado aux = listaJuzgado.get(pos);
             jzEditar = jd.find(aux.getIdJuzgado());
             txtNombreJuzgado.setText(jzEditar.getNombre());
             txtDireccion.setText(jzEditar.getDireccionJuzgado());
             sePuedeEditar = true;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Debe llenar el campo del Nombre");
-        }  
+        }
     }//GEN-LAST:event_botonBuscarMouseClicked
 
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
@@ -365,20 +363,35 @@ public class GestionarJuzgados extends javax.swing.JPanel {
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
         if (txtNombreJuzgado.getText().length() > 0 && txtDireccion.getText().length() > 0) {
+            boolean esValido = false;
             if (sePuedeEditar) {
                 sePuedeEditar = false;
                 Juzgado aux = new Juzgado(jzEditar.getIdJuzgado(), txtNombreJuzgado.getText(), txtDireccion.getText(), jzEditar.getEstadoJuzgado());
                 System.out.println(aux.toString());
-                jd.edit(aux); 
+                jd.edit(aux);
                 jzEditar = new Juzgado();
+                if (jd.isSeGuardo()) {
+                    JOptionPane.showMessageDialog(null, "Se ha modificado con exito");
+                    esValido = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al modificar");
+                }
             } else {
                 Juzgado aux = new Juzgado(Long.valueOf(listaJuzgado.size() + 1), txtNombreJuzgado.getText(), txtDireccion.getText(), "Activado");
                 jd.create(aux);
+                if (jd.isSeGuardo()) {
+                    JOptionPane.showMessageDialog(null, "Se ha guardado con exito");
+                    esValido = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al guardar");
+                }
             }
-            listaJuzgado = jd.findJuzgadoEntities(true);
-            vaciarTxt();
-            construirTabla();
-        }else{
+            if (esValido) {
+                listaJuzgado = jd.findJuzgadoEntities(true);
+                vaciarTxt();
+                construirTabla();
+            }
+        } else {
             JOptionPane.showMessageDialog(null, "Llene todos los parametros");
         }
     }//GEN-LAST:event_botonGuardarMouseClicked
@@ -390,10 +403,15 @@ public class GestionarJuzgados extends javax.swing.JPanel {
 
         /*uso la columna para valiar si corresponde a la columna de perfil garantizando
         * que solo se produzca algo si selecciono una fila de esa columna
-        */
+         */
         if (columna == UtilidadesTablaJuzgado.BORRAR) {
             Juzgado aux = listaJuzgado.get(fila);
             jd.destroy(aux.getIdJuzgado());
+            if (jd.isSeGuardo()) {
+                JOptionPane.showMessageDialog(null, "Se ha modificado el estado correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al modificar el estado correctamente");
+            }
         } else if (columna == UtilidadesTablaJuzgado.EDITAR) {//se valida que sea la columna del otro evento
             Juzgado aux = listaJuzgado.get(fila);
             jzEditar = jd.find(aux.getIdJuzgado());

@@ -14,7 +14,6 @@ import java.util.Date;
  */
 public class Proceso {
     private Long idProceso;
-    private String tipoProceso;
     private int instancia;
     private String fechaInicio;
     private String fechaFinal;
@@ -23,14 +22,14 @@ public class Proceso {
     private String nombreDocumento;
     private String estadoVictimario;
     private String estadoDemanda;
+    private String estadoProceso;
     private Long idDelito;
     private Long idPersona;
     private Long idCondena;
     private Long idJuzgado;
 
-    public Proceso(Long idProceso, String tipoProceso, int instancia, String fechaInicio, String fechaFinal, int nrAudiencias, byte[] text, String nombreDocumento, String estadoVictimario, String estadoDemanda, Long idDelito, Long idPersona, Long idCondena, Long idJuzgado) {
+    public Proceso(Long idProceso, int instancia, String fechaInicio, String fechaFinal, int nrAudiencias, byte[] text, String nombreDocumento, String estadoVictimario, String estadoDemanda, String estadoProceso, Long idDelito, Long idPersona, Long idCondena, Long idJuzgado) {
         this.idProceso = idProceso;
-        this.tipoProceso = tipoProceso;
         this.instancia = instancia;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
@@ -39,6 +38,7 @@ public class Proceso {
         this.nombreDocumento = nombreDocumento;
         this.estadoVictimario = estadoVictimario;
         this.estadoDemanda = estadoDemanda;
+        this.estadoProceso = estadoProceso;
         this.idDelito = idDelito;
         this.idPersona = idPersona;
         this.idCondena = idCondena;
@@ -51,14 +51,6 @@ public class Proceso {
 
     public void setIdProceso(Long idProceso) {
         this.idProceso = idProceso;
-    }
-
-    public String getTipoProceso() {
-        return tipoProceso;
-    }
-
-    public void setTipoProceso(String tipoProceso) {
-        this.tipoProceso = tipoProceso;
     }
 
     public int getInstancia() {
@@ -123,6 +115,14 @@ public class Proceso {
 
     public void setEstadoDemanda(String estadoDemanda) {
         this.estadoDemanda = estadoDemanda;
+    }
+
+    public String getEstadoProceso() {
+        return estadoProceso;
+    }
+
+    public void setEstadoProceso(String estadoProceso) {
+        this.estadoProceso = estadoProceso;
     }
 
     public Long getIdDelito() {
