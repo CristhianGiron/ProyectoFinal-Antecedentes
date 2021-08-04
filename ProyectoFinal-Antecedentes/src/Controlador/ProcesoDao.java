@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.Date;
 
 /**
  *
@@ -61,8 +62,9 @@ public class ProcesoDao implements Dao<Proceso> {
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {
                 do {
-                    lista.add(new Proceso(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5), rs.getDate(6),
-                            rs.getInt(7), rs.getString(8), rs.getBytes(9), rs.getString(10), rs.getString(11), rs.getString(12)));
+                    lista.add(new Proceso(rs.getLong(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6),
+                            rs.getBytes(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getLong(11), rs.getLong(12),
+                            rs.getLong(13), rs.getLong(14)));
                 } while (rs.next());
             }
         } catch (SQLException ex) {
@@ -75,8 +77,30 @@ public class ProcesoDao implements Dao<Proceso> {
     }
 
     @Override
-    public void create(Proceso object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void create(Proceso proceso) {
+        int i = 0;
+        try {
+            String insertar = "INSERT INTO sistemaco_penal.proceso (idproceso, tipoProceso, instancia, fechaInicio, fechaFinal, nroAudiencia, documento, nombreDocumento, estadoVictimario, estadoDemanda, idDelito, idPersona, idCondena, idJuzgado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = (PreparedStatement) cnx.prepareStatement(insertar);
+            pstmt.setLong(1, proceso.getIdProceso());
+            pstmt.setString(2, proceso.getTipoProceso());
+            pstmt.setInt(3, proceso.getInstancia());
+            pstmt.setString(4, proceso.getFechaInicio());
+            pstmt.setString(5, proceso.getFechaFinal());
+            pstmt.setInt(6, proceso.getNrAudiencias());
+            pstmt.setBytes(7, proceso.getText());
+            pstmt.setString(8, proceso.getNombreDocumento());
+            pstmt.setString(9, proceso.getEstadoVictimario());
+            pstmt.setString(10, proceso.getEstadoDemanda());
+            pstmt.setLong(11, proceso.getIdDelito());
+            pstmt.setLong(12, proceso.getIdPersona());
+            pstmt.setLong(13, proceso.getIdCondena());
+            pstmt.setLong(14, proceso.getIdJuzgado());
+
+            i = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al guardar en la base de datos: " + ex);
+        }
     }
 
     @Override
@@ -97,5 +121,30 @@ public class ProcesoDao implements Dao<Proceso> {
     @Override
     public int getCount() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ArrayList<Proceso> listaProcesoPersona(Long id) {
+        String query;
+        ArrayList<Proceso> lista = new ArrayList<>();
+
+        query = "SELECT * FROM sistemaco_penal.proceso where idPersona = " + id;
+
+        try {
+            //Cargar la lista de cuentas
+            stmt = (Statement) cnx.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                do {
+                    lista.add(new Proceso(rs.getLong(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6),
+                            rs.getBytes(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getLong(11), rs.getLong(12),
+                            rs.getLong(13), rs.getLong(14)));
+                } while (rs.next());
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la extaraccion de los datos de la base de datos "
+                    + "detalles de error: " + ex);
+
+        }
+        return lista;
     }
 }

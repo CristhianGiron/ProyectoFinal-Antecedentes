@@ -6,12 +6,17 @@
 package Vista;
 
 import ControlAdminDatos.PersonaDao;
+import Controlador.CondenaDao;
 import Controlador.DelitoDao;
 import Controlador.JuzgadoDao;
+import Controlador.ProcesoDao;
 import Controlador.Utilidades.UtilAgreGesAnt;
+import Modelo.Condena;
 import Modelo.Delito;
 import Modelo.Juzgado;
 import Modelo.Persona;
+import Modelo.Proceso;
+import Vista.Utiles.UtilesFecha;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -52,6 +57,13 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     JuzgadoDao jd = new JuzgadoDao();
     ArrayList<Persona> listaPersonas;
     PersonaDao pd = new PersonaDao();
+    ArrayList<Proceso> listaProcesos;
+    ProcesoDao prcd = new ProcesoDao();
+    CondenaDao cd = new CondenaDao();
+    Persona auxPer = null;
+    String estadoProceso;
+    String estadoVictimario;
+    UtilesFecha fecha = new UtilesFecha();
 
     /**
      * Creates new form AgregarAntecedentes
@@ -63,10 +75,40 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         lbNombreArchivo.setVisible(false);
         rbEnProceso.setEnabled(false);
         rbEnProceso.setSelected(true);
+        rbPresuntoCulpable.setSelected(true);
+        rbPresuntoCulpable.setEnabled(false);
+        this.estadoProceso = "En proceso";
+        this.estadoVictimario = "Presunto Culpable";
         listaDelito = dd.findDelitoEntities(false);
         listaJuzgado = jd.findJuzgadoEntities(false);
         listaPersonas = pd.findPersonaEntities();
+        listaProcesos = prcd.findProcesoEntities(true);
         cargarCombos();
+    }
+    
+    public void limpiarCampos(){
+        auxPer = null;
+        txtCedula.setText("");
+        txtNombreApellido.setText("");
+        cbDelito.setSelectedIndex(0);
+        txArt.setText("");
+        jTextArea1.setText("");
+        cbJuzgados.setSelectedIndex(0);
+        dcFechaInicioAudiencia.setDate(null);
+        dcFechaFinalizacionAudiencia.setDate(null);
+        txDuracionAudiencia.setText("");
+        txtIntancia.setText("");
+        txtNrAudiencia.setText("");
+        txtSentencia.setText("");
+        borrarArchivo();
+    }
+    
+    public void borrarArchivo(){
+        IconoBorrarArchivo.setVisible(false);
+        lbIconoArchivo.setVisible(false);
+        lbNombreArchivo.setVisible(false);
+        lbNombreArchivo.setText("");
+        fichero = null;
     }
 
     public void cargarCombos() {
@@ -143,6 +185,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         lbIconoGuardar = new javax.swing.JLabel();
         lbGuardar = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        lbEstadoProceso1 = new javax.swing.JLabel();
+        rbCulpable = new javax.swing.JRadioButton();
+        rbPresuntoCulpable = new javax.swing.JRadioButton();
+        rbInocente = new javax.swing.JRadioButton();
 
         setMinimumSize(new java.awt.Dimension(1000, 610));
         setPreferredSize(new java.awt.Dimension(1000, 610));
@@ -283,6 +330,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
 
         cbJuzgados.setBackground(new java.awt.Color(240, 240, 240));
         cbJuzgados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbJuzgados.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbJuzgadosItemStateChanged(evt);
+            }
+        });
         PanelComponentes.add(cbJuzgados);
         cbJuzgados.setBounds(175, 438, 360, 30);
 
@@ -387,7 +439,7 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             }
         });
         PanelComponentes.add(rbEnProceso);
-        rbEnProceso.setBounds(211, 621, 78, 22);
+        rbEnProceso.setBounds(220, 680, 78, 22);
 
         rbFinalizado.setBackground(new java.awt.Color(255, 255, 255));
         rbFinalizado.setText("Finalizado");
@@ -397,30 +449,30 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             }
         });
         PanelComponentes.add(rbFinalizado);
-        rbFinalizado.setBounds(307, 621, 73, 23);
+        rbFinalizado.setBounds(320, 680, 73, 23);
 
         lbEstadoProceso.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        lbEstadoProceso.setText("Estado del Proceso:");
+        lbEstadoProceso.setText("Estado del Victimario:");
         lbEstadoProceso.setToolTipText("");
         PanelComponentes.add(lbEstadoProceso);
-        lbEstadoProceso.setBounds(76, 620, 117, 20);
+        lbEstadoProceso.setBounds(70, 640, 130, 20);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(204, 0, 0));
         jLabel22.setText("*");
         PanelComponentes.add(jLabel22);
-        jLabel22.setBounds(60, 622, 10, 17);
+        jLabel22.setBounds(50, 640, 10, 17);
 
         lbTipoCondena.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbTipoCondena.setText("Tipo de Condena:");
         lbTipoCondena.setToolTipText("");
         PanelComponentes.add(lbTipoCondena);
-        lbTipoCondena.setBounds(76, 665, 107, 20);
+        lbTipoCondena.setBounds(460, 690, 107, 20);
 
         cbxTipoCondena.setBackground(new java.awt.Color(240, 240, 240));
         cbxTipoCondena.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         PanelComponentes.add(cbxTipoCondena);
-        cbxTipoCondena.setBounds(201, 662, 210, 30);
+        cbxTipoCondena.setBounds(590, 680, 210, 30);
 
         lbSentencia.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbSentencia.setText("Sentencia:");
@@ -580,6 +632,48 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         PanelComponentes.add(jLabel23);
         jLabel23.setBounds(200, 840, 10, 17);
 
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel24.setText("*");
+        PanelComponentes.add(jLabel24);
+        jLabel24.setBounds(50, 680, 10, 17);
+
+        lbEstadoProceso1.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbEstadoProceso1.setText("Estado del Proceso:");
+        lbEstadoProceso1.setToolTipText("");
+        PanelComponentes.add(lbEstadoProceso1);
+        lbEstadoProceso1.setBounds(70, 680, 117, 20);
+
+        rbCulpable.setBackground(new java.awt.Color(255, 255, 255));
+        rbCulpable.setText("Culpable");
+        rbCulpable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCulpableActionPerformed(evt);
+            }
+        });
+        PanelComponentes.add(rbCulpable);
+        rbCulpable.setBounds(220, 640, 67, 23);
+
+        rbPresuntoCulpable.setBackground(new java.awt.Color(255, 255, 255));
+        rbPresuntoCulpable.setText("Presunto Culpable");
+        rbPresuntoCulpable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbPresuntoCulpableActionPerformed(evt);
+            }
+        });
+        PanelComponentes.add(rbPresuntoCulpable);
+        rbPresuntoCulpable.setBounds(320, 640, 120, 23);
+
+        rbInocente.setBackground(new java.awt.Color(255, 255, 255));
+        rbInocente.setText("Inocente");
+        rbInocente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbInocenteActionPerformed(evt);
+            }
+        });
+        PanelComponentes.add(rbInocente);
+        rbInocente.setBounds(470, 640, 70, 23);
+
         jScrollPane4.setViewportView(PanelComponentes);
 
         add(jScrollPane4);
@@ -612,6 +706,7 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             rbEnProceso.setEnabled(false);
             rbFinalizado.setEnabled(true);
             rbFinalizado.setSelected(false);
+            this.estadoProceso = "En proceso";
         }
     }//GEN-LAST:event_rbEnProcesoActionPerformed
 
@@ -620,15 +715,12 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             rbFinalizado.setEnabled(false);
             rbEnProceso.setEnabled(true);
             rbEnProceso.setSelected(false);
+            this.estadoProceso = "Finalizado";
         }
     }//GEN-LAST:event_rbFinalizadoActionPerformed
 
     private void IconoBorrarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoBorrarArchivoMouseClicked
-        IconoBorrarArchivo.setVisible(false);
-        lbIconoArchivo.setVisible(false);
-        lbNombreArchivo.setVisible(false);
-        lbNombreArchivo.setText("");
-        fichero = null;
+        borrarArchivo();
     }//GEN-LAST:event_IconoBorrarArchivoMouseClicked
 
     private void botonSubirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSubirMouseClicked
@@ -644,28 +736,41 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     }//GEN-LAST:event_botonSubirMouseClicked
 
     private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
-        Persona aux = (Persona) UtilAgreGesAnt.obtenerEntidad(txtCedula.getText(), listaPersonas, "cedula");
-        if (aux != null) {
-            txtNombreApellido.setText(aux.getNombre() + " " + aux.getApellido());
+        auxPer = (Persona) UtilAgreGesAnt.obtenerEntidad(txtCedula.getText(), listaPersonas, "cedula");
+        if (auxPer != null) {
+            txtNombreApellido.setText(auxPer.getNombre() + " " + auxPer.getApellido());
         } else {
             JOptionPane.showMessageDialog(null, "No existe registro de esa persona");
         }
     }//GEN-LAST:event_botonBuscarMouseClicked
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
-        System.out.println(dcFechaInicioAudiencia.getDate());
-        dcFechaFinalizacionAudiencia.setDate(dcFechaInicioAudiencia.getDate());
-        JOptionPane.showMessageDialog(null, "Se ha guardado con éxito");
-        if (txtCedula.getText().length() > 0 && txtNombreApellido.getText().length() > 0 && cbDelito.getSelectedIndex() > 0
-                && cbJuzgados.getSelectedIndex() > 0 && dcFechaInicioAudiencia.getDate() != null && txtIntancia.getText().length() > 0
+        if (auxPer != null && txtCedula.getText().length() > 0 && txtNombreApellido.getText().length() > 0
+                && cbDelito.getSelectedIndex() > 0 && cbJuzgados.getSelectedIndex() > 0
+                && dcFechaInicioAudiencia.getDate() != null && txtIntancia.getText().length() > 0
                 && fichero != null) {
             try {
                 byte[] pdf = new byte[(int) fichero.length()];
                 InputStream input = new FileInputStream(fichero);
                 input.read(pdf);
+                Delito auxD = listaDelito.get(cbDelito.getSelectedIndex() - 1);
+                Juzgado auxJ = listaJuzgado.get(cbJuzgados.getSelectedIndex() - 1);
+                Condena auxC = new Condena(Long.valueOf(listaProcesos.size() + 1), "Penal", txtSentencia.getText(), 
+                        (!txtSentencia.getText().equalsIgnoreCase("")?"Dictada":"Sin Dictar"));
+                Proceso auxP = new Proceso(Long.valueOf(listaProcesos.size() + 1), "TipoProceso", Integer.parseInt(txtIntancia.getText()),
+                        fecha.getFecha(dcFechaInicioAudiencia), fecha.getFecha(dcFechaFinalizacionAudiencia), 
+                        (!txtNrAudiencia.getText().equalsIgnoreCase(""))?Integer.parseInt(txtNrAudiencia.getText()):0,
+                        pdf, fichero.getName(), estadoVictimario, estadoProceso, auxD.getIdDelito(), auxPer.getIdPersona(), 
+                        auxC.getIdCondena(), auxJ.getIdJuzgado());
+                cd.create(auxC);
+                prcd.create(auxP);
+                listaProcesos = prcd.findProcesoEntities(true);
+                limpiarCampos();
             } catch (IOException ex) {
-                Logger.getLogger(AgregarAntecedentes.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex);
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Pro favor llene todos los campos");
         }
     }//GEN-LAST:event_botonGuardarMouseClicked
 
@@ -710,6 +815,43 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_lbIconoArchivoMouseClicked
 
+    private void cbJuzgadosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbJuzgadosItemStateChanged
+
+    }//GEN-LAST:event_cbJuzgadosItemStateChanged
+
+    private void rbCulpableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCulpableActionPerformed
+        if (rbCulpable.isSelected()) {
+            rbCulpable.setEnabled(false);
+            rbPresuntoCulpable.setEnabled(true);
+            rbPresuntoCulpable.setSelected(false);
+            rbInocente.setEnabled(true);
+            rbInocente.setSelected(false);
+            this.estadoVictimario = "Culpable";
+        }
+    }//GEN-LAST:event_rbCulpableActionPerformed
+
+    private void rbPresuntoCulpableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPresuntoCulpableActionPerformed
+        if (rbPresuntoCulpable.isSelected()) {
+            rbPresuntoCulpable.setEnabled(false);
+            rbCulpable.setEnabled(true);
+            rbCulpable.setSelected(false);
+            rbInocente.setEnabled(true);
+            rbInocente.setSelected(false);
+            this.estadoVictimario = "Presunto Culpable";
+        }
+    }//GEN-LAST:event_rbPresuntoCulpableActionPerformed
+
+    private void rbInocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbInocenteActionPerformed
+        if (rbInocente.isSelected()) {
+            rbInocente.setEnabled(false);
+            rbCulpable.setEnabled(true);
+            rbCulpable.setSelected(false);
+            rbPresuntoCulpable.setEnabled(true);
+            rbPresuntoCulpable.setSelected(false);
+            this.estadoVictimario = "Inocente";
+        }
+    }//GEN-LAST:event_rbInocenteActionPerformed
+
     public void cambiarColor(JPanel panel, Color color) {
         panel.setBackground(color);
     }
@@ -744,6 +886,7 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
@@ -757,6 +900,7 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     private javax.swing.JLabel lbDescripcionDelito1;
     private javax.swing.JLabel lbDuracionAudiencia;
     private javax.swing.JLabel lbEstadoProceso;
+    private javax.swing.JLabel lbEstadoProceso1;
     private javax.swing.JLabel lbFechaInicioAudiencia;
     private javax.swing.JLabel lbFechaInicioAudiencia1;
     private javax.swing.JLabel lbGuardar;
@@ -773,8 +917,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     private javax.swing.JLabel lbSubirArchivo;
     private javax.swing.JLabel lbTipoCondena;
     private javax.swing.JLabel lbTipoDelito;
+    private javax.swing.JRadioButton rbCulpable;
     private javax.swing.JRadioButton rbEnProceso;
     private javax.swing.JRadioButton rbFinalizado;
+    private javax.swing.JRadioButton rbInocente;
+    private javax.swing.JRadioButton rbPresuntoCulpable;
     private javax.swing.JTextField txArt;
     private javax.swing.JTextField txDuracionAudiencia;
     private javax.swing.JTextField txtCedula;

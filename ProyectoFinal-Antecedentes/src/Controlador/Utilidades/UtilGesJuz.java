@@ -6,6 +6,7 @@
 package Controlador.Utilidades;
 
 import Modelo.Juzgado;
+import Vista.Utiles.TablaJuzgados.UtilidadesTablaJuzgado;
 import java.util.ArrayList;
 
 /**
@@ -23,5 +24,25 @@ public class UtilGesJuz {
             }
         }
        return pos;
+    }
+    
+    public static Object[][] obtenerMatrizDatos(ArrayList<String> titulosList, ArrayList<Juzgado> listaJuzgado) {
+
+        /*se crea la matriz donde las filas son dinamicas pues corresponde
+		 * a todos los usuarios, mientras que las columnas son estaticas
+		 * correspondiendo a las columnas definidas por defecto
+         */
+        String informacion[][] = new String[listaJuzgado.size()][titulosList.size()];
+        for (int x = 0; x < informacion.length; x++) {
+
+            informacion[x][UtilidadesTablaJuzgado.NOMBRE] = listaJuzgado.get(x).getNombre() + "";
+            informacion[x][UtilidadesTablaJuzgado.DIRECCION] = listaJuzgado.get(x).getDireccionJuzgado() + "";
+            informacion[x][UtilidadesTablaJuzgado.ESTADO] = listaJuzgado.get(x).getEstadoJuzgado() + "";
+            //se asignan las plabras clave para que en la clase GestionCeldas se use para asignar el icono correspondiente
+            informacion[x][UtilidadesTablaJuzgado.BORRAR] = "PERFIL";
+            informacion[x][UtilidadesTablaJuzgado.EDITAR] = "EVENTO";
+        }
+
+        return informacion;
     }
 }

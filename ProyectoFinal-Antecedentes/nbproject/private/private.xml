@@ -3,22 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Vista/Cuenta.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Controlador/ControladorCuenta.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Vista/GestionarPersonas.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Vista/GestionarAntecedentes.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Vista/Inicio.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Modelo/Cuenta.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Vista/Acces/ControlAcceso.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Controlador/MantenerCokie.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Controlador/ControladorPersona.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Controlador/Cokie.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/ControlAdminDatos/PersonaDao.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Vista/Acces/InicioSesion.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Vista/AgregarPersonas.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Vista/Acces/Registro.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Vista/VistaPrincipal.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Proyectos/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Modelo/Persona.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/ProyectoAntecedentes/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Controlador/ControladorPersona.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/ProyectoAntecedentes/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/ProyectoFinal-Antecedentes/src/Controlador/Utilidades/UtilAgreGesAnt.java</file>
         </group>
     </open-files>
 </project-private>

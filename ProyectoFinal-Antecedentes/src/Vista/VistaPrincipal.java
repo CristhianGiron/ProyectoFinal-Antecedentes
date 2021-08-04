@@ -1179,7 +1179,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         if (panelMenuL.getSize().width == 0) {
             jButton1.setVisible(true);
 
-        } else if (panelMenuL.getSize().width == 230) {
+        } else{
             jButton1.setVisible(false);
 
             System.out.println("false");

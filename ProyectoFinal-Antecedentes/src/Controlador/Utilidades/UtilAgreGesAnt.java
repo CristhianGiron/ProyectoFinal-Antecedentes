@@ -5,7 +5,17 @@
  */
 package Controlador.Utilidades;
 
+import ControlAdminDatos.PersonaDao;
 import ControlAdminDatos.Utiles.Utiles;
+import Controlador.CondenaDao;
+import Controlador.DelitoDao;
+import Controlador.JuzgadoDao;
+import Modelo.Condena;
+import Modelo.Delito;
+import Modelo.Juzgado;
+import Modelo.Persona;
+import Modelo.Proceso;
+import Vista.Utiles.TablaAntecedentes.UtilidadesTablaAntecedentes;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,6 +25,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -68,41 +79,6 @@ public class UtilAgreGesAnt {
     }
 
     /**
-     * El siguiente método permite extraer un dato
-     *
-     * @param obj
-     * @param atributoClase
-     * @return
-     */
-    public static String extraccionDato(Object obj, String atributoClase) {
-        Class clase = obj.getClass();
-        Field atributo = null;
-        Object informacion = null;
-        for (Field f : clase.getDeclaredFields()) {
-            if (f.getName().toString().equalsIgnoreCase(atributoClase)) {
-                atributo = f;
-            }
-        }
-        if (atributo != null) {
-            //  Method metodo = null;
-            for (Method metodoAux : clase.getMethods()) {
-                if (metodoAux.getName().startsWith("get")) {
-                    if (metodoAux.getName().toLowerCase().endsWith(atributo.getName())) {
-                        try {
-                            informacion = metodoAux.invoke(obj);
-
-                            break;
-                        } catch (Exception e) {
-                            System.out.println("Error de metodo " + e);
-                        }
-                    }
-                }
-            }
-        }
-        return (informacion != null) ? informacion.toString() : null;
-    }
-
-    /**
      * El siguiente método permite descargar un archivo pdf
      *
      * @param archivo
@@ -121,5 +97,69 @@ public class UtilAgreGesAnt {
             bais.close();
         } catch (Exception e) {
         }
+    }
+    
+    public static ArrayList<Persona> listaPersona(ArrayList<Proceso> listaProceso, PersonaDao pd) throws SQLException{
+        ArrayList<Persona> listaPersona = new ArrayList<>();
+        for (int i = 0; i < listaProceso.size(); i++) {
+            Proceso tmp = listaProceso.get(i);
+            String id = tmp.getIdPersona() + "";
+            listaPersona.add(pd.obtenerPersona(id, "id"));
+        }
+        return listaPersona;
+    }
+    
+    public static ArrayList<Delito> listaDelito(ArrayList<Proceso> listaProceso, DelitoDao dd) throws SQLException{
+        ArrayList<Delito> listaDelito = new ArrayList<>();
+        for (int i = 0; i < listaProceso.size(); i++) {
+            Proceso tmp = listaProceso.get(i);
+            Long id = tmp.getIdDelito();
+            System.out.println(dd.find(id).toString());
+            listaDelito.add(dd.find(id));
+        }
+        return listaDelito;
+    }
+    
+    public static ArrayList<Juzgado> listaJuzgado(ArrayList<Proceso> listaProceso, JuzgadoDao jd) throws SQLException{
+        ArrayList<Juzgado> listaJuzgado = new ArrayList<>();
+        for (int i = 0; i < listaProceso.size(); i++) {
+            Proceso tmp = listaProceso.get(i);
+            Long id = tmp.getIdJuzgado();
+            listaJuzgado.add(jd.find(id));
+        }
+        return listaJuzgado;
+    }
+    
+    public static ArrayList<Condena> listaCondena(ArrayList<Proceso> listaProceso, CondenaDao cd) throws SQLException{
+        ArrayList<Condena> listaCondena = new ArrayList<>();
+        for (int i = 0; i < listaProceso.size(); i++) {
+            Proceso tmp = listaProceso.get(i);
+            Long id = tmp.getIdCondena();
+            listaCondena.add(cd.find(id));
+        }
+        return listaCondena;
+    }
+    
+    public static Object[][] obtenerMatrizDatos(ArrayList<String> titulosList, ArrayList<Proceso> listaProceso, ArrayList<Juzgado> listaJuzgado, ArrayList<Delito> listaDelito, ArrayList<Condena> listaCondena) {
+
+        /*se crea la matriz donde las filas son dinamicas pues corresponde
+		 * a todos los usuarios, mientras que las columnas son estaticas
+		 * correspondiendo a las columnas definidas por defecto
+         */
+        String informacion[][] = new String[listaJuzgado.size()][titulosList.size()];
+        for (int x = 0; x < informacion.length; x++) {
+
+            informacion[x][UtilidadesTablaAntecedentes.DELITO] = listaDelito.get(x).getNombre()+ "";
+            informacion[x][UtilidadesTablaAntecedentes.ART] = listaDelito.get(x).getArticulo()+ "";
+            informacion[x][UtilidadesTablaAntecedentes.CONDENA] = listaCondena.get(x).getSentencia()+ "";
+            informacion[x][UtilidadesTablaAntecedentes.FECHAINICIO] = listaProceso.get(x).getFechaInicio() + "";
+            informacion[x][UtilidadesTablaAntecedentes.FECHAFINALIZACION] = listaProceso.get(x).getFechaFinal() + "";
+            informacion[x][UtilidadesTablaAntecedentes.JUZGADO] = listaJuzgado.get(x).getNombre( )+ "";
+            //se asignan las plabras clave para que en la clase GestionCeldas se use para asignar el icono correspondiente
+            informacion[x][UtilidadesTablaAntecedentes.BORRAR] = "PERFIL";
+            informacion[x][UtilidadesTablaAntecedentes.EDITAR] = "EVENTO";
+        }
+
+        return informacion;
     }
 }

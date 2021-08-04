@@ -10,23 +10,23 @@ package Modelo;
  * @author hp
  */
 public class Condena {
-   int idCondena;
-   String tipoCondena;
-   String sentencia;
-   String estadoCondena;
+   private Long idCondena;
+   private String tipoCondena;
+   private String sentencia;
+   private String estadoCondena;
 
-    public Condena(int idCondena, String tipoCondena, String sentencia, String estadoCondena) {
+    public Condena(Long idCondena, String tipoCondena, String sentencia, String estadoCondena) {
         this.idCondena = idCondena;
         this.tipoCondena = tipoCondena;
         this.sentencia = sentencia;
         this.estadoCondena = estadoCondena;
     }
 
-    public int getIdCondena() {
+    public Long getIdCondena() {
         return idCondena;
     }
 
-    public void setIdCondena(int idCondena) {
+    public void setIdCondena(Long idCondena) {
         this.idCondena = idCondena;
     }
 

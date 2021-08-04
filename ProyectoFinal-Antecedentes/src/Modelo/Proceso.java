@@ -13,32 +13,36 @@ import java.util.Date;
  * @author ASUS
  */
 public class Proceso {
-    Long idProceso;
-    String tipoProceso;
-    String delito;
-    int instancia;
-    Date fechaInicio;
-    Date fechaFinal;
-    int nrAudiencias;
-    String duracion;
-    byte[] text;
-    String estadoVictimario;
-    String estadoDemanda;
-    String nombreDocumento;
+    private Long idProceso;
+    private String tipoProceso;
+    private int instancia;
+    private String fechaInicio;
+    private String fechaFinal;
+    private int nrAudiencias;
+    private byte[] text;
+    private String nombreDocumento;
+    private String estadoVictimario;
+    private String estadoDemanda;
+    private Long idDelito;
+    private Long idPersona;
+    private Long idCondena;
+    private Long idJuzgado;
 
-    public Proceso(Long idProceso, String tipoProceso, String delito, int instancia, Date fechaInicio, Date fechaFinal, int nrAudiencias, String duracion, byte[] text, String estadoVictimario, String estadoDemanda, String nombreDocumento) {
+    public Proceso(Long idProceso, String tipoProceso, int instancia, String fechaInicio, String fechaFinal, int nrAudiencias, byte[] text, String nombreDocumento, String estadoVictimario, String estadoDemanda, Long idDelito, Long idPersona, Long idCondena, Long idJuzgado) {
         this.idProceso = idProceso;
         this.tipoProceso = tipoProceso;
-        this.delito = delito;
         this.instancia = instancia;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
         this.nrAudiencias = nrAudiencias;
-        this.duracion = duracion;
         this.text = text;
+        this.nombreDocumento = nombreDocumento;
         this.estadoVictimario = estadoVictimario;
         this.estadoDemanda = estadoDemanda;
-        this.nombreDocumento = nombreDocumento;
+        this.idDelito = idDelito;
+        this.idPersona = idPersona;
+        this.idCondena = idCondena;
+        this.idJuzgado = idJuzgado;
     }
 
     public Long getIdProceso() {
@@ -57,14 +61,6 @@ public class Proceso {
         this.tipoProceso = tipoProceso;
     }
 
-    public String getDelito() {
-        return delito;
-    }
-
-    public void setDelito(String delito) {
-        this.delito = delito;
-    }
-
     public int getInstancia() {
         return instancia;
     }
@@ -73,19 +69,19 @@ public class Proceso {
         this.instancia = instancia;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFinal() {
+    public String getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(Date fechaFinal) {
+    public void setFechaFinal(String fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 
@@ -97,20 +93,20 @@ public class Proceso {
         this.nrAudiencias = nrAudiencias;
     }
 
-    public String getDuracion() {
-        return duracion;
-    }
-
-    public void setDuracion(String duracion) {
-        this.duracion = duracion;
-    }
-
     public byte[] getText() {
         return text;
     }
 
     public void setText(byte[] text) {
         this.text = text;
+    }
+
+    public String getNombreDocumento() {
+        return nombreDocumento;
+    }
+
+    public void setNombreDocumento(String nombreDocumento) {
+        this.nombreDocumento = nombreDocumento;
     }
 
     public String getEstadoVictimario() {
@@ -129,11 +125,35 @@ public class Proceso {
         this.estadoDemanda = estadoDemanda;
     }
 
-    public String getNombreDocumento() {
-        return nombreDocumento;
+    public Long getIdDelito() {
+        return idDelito;
     }
 
-    public void setNombreDocumento(String nombreDocumento) {
-        this.nombreDocumento = nombreDocumento;
+    public void setIdDelito(Long idDelito) {
+        this.idDelito = idDelito;
+    }
+
+    public Long getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(Long idPersona) {
+        this.idPersona = idPersona;
+    }
+
+    public Long getIdCondena() {
+        return idCondena;
+    }
+
+    public void setIdCondena(Long idCondena) {
+        this.idCondena = idCondena;
+    }
+
+    public Long getIdJuzgado() {
+        return idJuzgado;
+    }
+
+    public void setIdJuzgado(Long idJuzgado) {
+        this.idJuzgado = idJuzgado;
     }
 }

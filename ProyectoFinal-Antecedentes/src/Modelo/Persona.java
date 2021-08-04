@@ -137,9 +137,9 @@ public class Persona {
     public void setIdRol(Long idRol){
        this.idRol=idRol; 
     }
-    
-	
-	
-	
 
+    @Override
+    public String toString() {
+        return "Persona{" + "idPersona=" + idPersona + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento + ", direccion=" + direccion + ", estadoCivil=" + estadoCivil + ", sexo=" + sexo + ", telefono=" + telefono + ", mail=" + mail + ", estado=" + estado + ", imagen=" + imagen + ", idRol=" + idRol + '}';
+    }
 }

@@ -5,18 +5,31 @@
  */
 package Vista;
 
+import ControlAdminDatos.PersonaDao;
+import Controlador.CondenaDao;
+import Controlador.DelitoDao;
+import Controlador.JuzgadoDao;
+import Controlador.ProcesoDao;
+import Controlador.Utilidades.UtilAgreGesAnt;
 import Modelo.Condena;
+import Modelo.Delito;
 import Modelo.Juzgado;
+import Modelo.Persona;
 import Modelo.Proceso;
 import Vista.Utiles.GestionCeldas;
 import Vista.Utiles.GestionEncabezadoTabla;
 import Vista.Utiles.TablaAntecedentes.UtilidadesTablaAntecedentes;
 import Vista.Utiles.ModeloTabla;
+import Vista.Utiles.UtilesFecha;
 import java.io.File;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -27,18 +40,30 @@ import javax.swing.table.JTableHeader;
  * @author hp
  */
 public class GestionarAntecedentes extends javax.swing.JPanel {
+
     /**
      * Creates new form GestionarAntecedentes
      */
-    
-    File fichero;
-    ArrayList<Proceso> listaProceso;
-    ArrayList<Condena> listaCondena;
-    ArrayList<Juzgado> listaJuzgado;
     ModeloTabla modelo;
     private int filasTabla;
     private int columnasTabla;
-    
+    File fichero = null;
+    String rutaArchivo;
+    ArrayList<Delito> listaDelito;
+    DelitoDao dd = new DelitoDao();
+    ArrayList<Juzgado> listaJuzgado;
+    JuzgadoDao jd = new JuzgadoDao();
+    ArrayList<Persona> listaPersonas;
+    PersonaDao pd = new PersonaDao();
+    ArrayList<Proceso> listaProcesos;
+    ProcesoDao prcd = new ProcesoDao();
+    ArrayList<Condena> listaCondena;
+    CondenaDao cd = new CondenaDao();
+    Persona auxPer = null;
+    String estadoProceso;
+    String estadoVictimario;
+    UtilesFecha fecha = new UtilesFecha();
+
     public GestionarAntecedentes() {
         initComponents();
         IconoBorrarArchivo.setVisible(false);
@@ -49,11 +74,18 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         //construirTabla();
     }
 
-    private void construirTabla() {
+    public void cargarListas() {
+        listaProcesos = prcd.listaProcesoPersona(auxPer.getIdPersona());
+        try {
+            listaDelito = UtilAgreGesAnt.listaDelito(listaProcesos, dd);
+            listaJuzgado = UtilAgreGesAnt.listaJuzgado(listaProcesos, jd);
+            listaCondena = UtilAgreGesAnt.listaCondena(listaProcesos, cd);
+        } catch (SQLException e) {
+        }
+        construirTabla();
+    }
 
-        listaProceso = consultarListaProcesos();
-        listaCondena = consultarListaCondena();
-        listaJuzgado = consultarListaJuzgado();
+    private void construirTabla() {
 
         ArrayList<String> titulosList = new ArrayList<>();
 
@@ -74,58 +106,21 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         /*obtenemos los datos de la lista y los guardamos en la matriz
 		 * que luego se manda a construir la tabla
          */
-        Object[][] data = obtenerMatrizDatos(titulosList);
+        Object[][] data = UtilAgreGesAnt.obtenerMatrizDatos(titulosList, listaProcesos, listaJuzgado, listaDelito, listaCondena);
         construirTabla(titulos, data);
 
     }
-    
-    private ArrayList<Proceso> consultarListaProcesos(){
-        ArrayList<Proceso> lista = new ArrayList<>();
 
-
-        return lista;
-    }
-    
-    public Date pasarStringDate(String s){
-        Date fecha = null;
-        try {
-            SimpleDateFormat aux = new SimpleDateFormat("dd-MM-yyyy");            
-            fecha = aux.parse(s);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-        return fecha;
-    }
-    
-    private ArrayList<Condena> consultarListaCondena(){
-        ArrayList<Condena> lista = new ArrayList<>();
-        lista.add(new Condena(111, "Monetaria", "Que pague mil triños de berris", "si"));
-        lista.add(new Condena(222, "Monetaria", "Que pague mil triños de berris", "si"));
-        lista.add(new Condena(333, "Monetaria", "Que pague mil triños de berris", "si"));
-        lista.add(new Condena(333, "Monetaria", "Que pague mil triños de berris", "si"));
-
-        return lista;
-    }
-    
-    private ArrayList<Juzgado> consultarListaJuzgado(){
-        ArrayList<Juzgado> lista = new ArrayList<>();
-        
-
-        return lista;
-    }
-    
     private void construirTabla(String[] titulos, Object[][] data) {
+        modelo = new ModeloTabla(data, titulos);
+        modelo.setRowCount(0);
         modelo = new ModeloTabla(data, titulos);
         //se asigna el modelo a la tabla
         tablaAntecedentes.setModel(modelo);
 
-        filasTabla = tablaAntecedentes.getRowCount();
-        columnasTabla = tablaAntecedentes.getColumnCount();
-
         //se asigna el tipo de dato que tendrón las celdas de cada columna definida respectivamente para validar su personalización;
-        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.PERFIL).setCellRenderer(new GestionCeldas("icono"));
-        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.EVENTO).setCellRenderer(new GestionCeldas("icono"));
+        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.BORRAR).setCellRenderer(new GestionCeldas("icono"));
+        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.EDITAR).setCellRenderer(new GestionCeldas("icono"));
 
         //se recorre y asigna el resto de celdas que serian las que almacenen datos de tipo texto
         for (int i = 0; i < titulos.length - 2; i++) {//se resta 2 porque las ultimas 2 columnas se definen arriba
@@ -137,13 +132,13 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         tablaAntecedentes.setGridColor(new java.awt.Color(0, 0, 0));
         //Se define el tamaño de largo para cada columna y su contenido
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.DELITO).setPreferredWidth(130);
+        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.ART).setPreferredWidth(100);
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.CONDENA).setPreferredWidth(450);
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.FECHAINICIO).setPreferredWidth(100);
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.FECHAFINALIZACION).setPreferredWidth(100);
         tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.JUZGADO).setPreferredWidth(180);
-        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.PERFIL).setPreferredWidth(35);
-        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.EVENTO).setPreferredWidth(35);
-        
+        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.BORRAR).setPreferredWidth(35);
+        tablaAntecedentes.getColumnModel().getColumn(UtilidadesTablaAntecedentes.EDITAR).setPreferredWidth(35);
 
         //personaliza el encabezado
         JTableHeader jtableHeader = tablaAntecedentes.getTableHeader();
@@ -151,32 +146,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         tablaAntecedentes.setTableHeader(jtableHeader);
 
     }
-    
-    
-    
-    private Object[][] obtenerMatrizDatos(ArrayList<String> titulosList) {
 
-        /*se crea la matriz donde las filas son dinamicas pues corresponde
-		 * a todos los usuarios, mientras que las columnas son estaticas
-		 * correspondiendo a las columnas definidas por defecto
-         */
-        String informacion[][] = new String[listaProceso.size()][titulosList.size()];
-        for (int x = 0; x < informacion.length ; x++) {
-
-            informacion[x][UtilidadesTablaAntecedentes.DELITO] = listaProceso.get(x).getDelito()+ "";
-            informacion[x][UtilidadesTablaAntecedentes.CONDENA] = listaCondena.get(x).getSentencia()+ "";
-            informacion[x][UtilidadesTablaAntecedentes.FECHAINICIO] = (new SimpleDateFormat("dd-MM-yyyy").format(listaProceso.get(x).getFechaInicio())) + "";
-            String ff = (listaProceso.get(x).getFechaFinal() != null)?(new SimpleDateFormat("dd-MM-yyyy").format(listaProceso.get(x).getFechaFinal())):"Sin fecha";
-            informacion[x][UtilidadesTablaAntecedentes.FECHAFINALIZACION] =  ff + "";
-            informacion[x][UtilidadesTablaAntecedentes.JUZGADO] = listaJuzgado.get(x).getNombre()+ "";
-            //se asignan las plabras clave para que en la clase GestionCeldas se use para asignar el icono correspondiente
-            informacion[x][UtilidadesTablaAntecedentes.PERFIL] = "PERFIL";
-            informacion[x][UtilidadesTablaAntecedentes.EVENTO] = "EVENTO";
-        }
-        
-        return informacion;
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -230,7 +200,9 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaAntecedentes = new javax.swing.JTable();
         jLabel23 = new javax.swing.JLabel();
+        foto = new javax.swing.JLabel();
 
+        setMinimumSize(new java.awt.Dimension(1000, 610));
         setPreferredSize(new java.awt.Dimension(1000, 610));
         setLayout(null);
 
@@ -247,10 +219,10 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         PanelComponentes.setLayout(null);
 
         LabelTitulo.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 24)); // NOI18N
-        LabelTitulo.setText("AGREGAR ANTECEDENTES");
+        LabelTitulo.setText("Gestionar ANTECEDENTES");
         LabelTitulo.setToolTipText("");
         PanelComponentes.add(LabelTitulo);
-        LabelTitulo.setBounds(233, 11, 274, 32);
+        LabelTitulo.setBounds(233, 11, 270, 32);
 
         txtCedula.setBackground(new java.awt.Color(240, 240, 240));
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
@@ -268,9 +240,9 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             }
         });
         PanelComponentes.add(txtNombreApellido);
-        txtNombreApellido.setBounds(465, 90, 319, 30);
+        txtNombreApellido.setBounds(340, 90, 319, 30);
 
-        lbLinea.setText("___________________________________________________________________________________________________________________");
+        lbLinea.setText("_________________________________________________________________________________________________________________________________________________________________");
         lbLinea.setMaximumSize(new java.awt.Dimension(600, 14));
         lbLinea.setPreferredSize(new java.awt.Dimension(600, 14));
         PanelComponentes.add(lbLinea);
@@ -280,13 +252,13 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         lbNombreApellido.setText("Nombre y Apellido");
         lbNombreApellido.setToolTipText("");
         PanelComponentes.add(lbNombreApellido);
-        lbNombreApellido.setBounds(465, 50, 114, 20);
+        lbNombreApellido.setBounds(340, 50, 114, 20);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 0, 0));
         jLabel5.setText("*");
         PanelComponentes.add(jLabel5);
-        jLabel5.setBounds(451, 52, 8, 17);
+        jLabel5.setBounds(330, 50, 8, 17);
 
         lbCedula.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbCedula.setText("Cédula");
@@ -586,6 +558,8 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         jLabel23.setText("*");
         PanelComponentes.add(jLabel23);
         jLabel23.setBounds(60, 622, 10, 17);
+        PanelComponentes.add(foto);
+        foto.setBounds(730, 20, 130, 130);
 
         jScrollPane4.setViewportView(PanelComponentes);
 
@@ -602,7 +576,18 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     }//GEN-LAST:event_botonGuardarMouseClicked
 
     private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
-
+        try {
+            auxPer = pd.obtenerPersona(txtCedula.getText(), "cedula");
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionarAntecedentes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (auxPer != null) {
+            cargarListas();
+            txtNombreApellido.setText(auxPer.getNombre() + " " + auxPer.getApellido());
+            foto.setIcon(new ImageIcon(auxPer.getFile().getAbsolutePath()));
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe registro de esa persona");
+        }
     }//GEN-LAST:event_botonBuscarMouseClicked
 
     private void botonSubirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSubirMouseClicked
@@ -662,20 +647,21 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCedulaActionPerformed
 
     private void tablaAntecedentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAntecedentesMouseClicked
-        System.out.println("*****Ejecutando evento");
-        //capturo fila o columna dependiendo de mi necesidad
         int fila = tablaAntecedentes.rowAtPoint(evt.getPoint());
         int columna = tablaAntecedentes.columnAtPoint(evt.getPoint());
 
         /*uso la columna para valiar si corresponde a la columna de perfil garantizando
-		 * que solo se produzca algo si selecciono una fila de esa columna
-         */
-        if (columna == UtilidadesTablaAntecedentes.PERFIL) {
-            //sabiendo que corresponde a la columna de perfil, envio la posicion de la fila seleccionada
-            validarSeleccionMouse(fila);
-        } else if (columna == UtilidadesTablaAntecedentes.EVENTO) {//se valida que sea la columna del otro evento
-            JOptionPane.showMessageDialog(null, "Evento del otro icono");
+        * que solo se produzca algo si selecciono una fila de esa columna
+        */
+        if (columna == UtilidadesTablaAntecedentes.BORRAR) {
+            Juzgado aux = listaJuzgado.get(fila);
+            jd.destroy(aux.getIdJuzgado());
+        } else if (columna == UtilidadesTablaAntecedentes.EDITAR) {//se valida que sea la columna del otro evento
+            Juzgado aux = listaJuzgado.get(fila);
+
         }
+        listaJuzgado = jd.findJuzgadoEntities(true);
+        cargarListas();
     }//GEN-LAST:event_tablaAntecedentesMouseClicked
 
     private void lbIconoGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbIconoGuardarMouseClicked
@@ -697,7 +683,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
 
         JOptionPane.showMessageDialog(null, info);*/
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IconoBorrarArchivo;
@@ -709,6 +695,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     private javax.swing.JPanel botonSubir;
     private javax.swing.JComboBox<String> cbxTipoCondena;
     private com.toedter.calendar.JDateChooser dcFechaFinalizacionAudiencia;
+    private javax.swing.JLabel foto;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;

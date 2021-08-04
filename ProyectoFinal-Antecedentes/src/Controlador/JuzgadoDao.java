@@ -123,6 +123,7 @@ public class JuzgadoDao implements Dao<Juzgado> {
         Juzgado juzgado = null;
         try {
             //Cargar la lista de cuentas
+            stmt = (Statement) cnx.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.juzgados where idjuzgados = " + id);
             if (rs.next()) {
                 juzgado = new Juzgado(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4));

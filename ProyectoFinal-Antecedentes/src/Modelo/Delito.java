@@ -76,4 +76,9 @@ public class Delito {
     public void setEstadoDelito(String estadoDelito) {
         this.estadoDelito = estadoDelito;
     }
+
+    @Override
+    public String toString() {
+        return "Delito{" + "idDelito=" + idDelito + ", nombre=" + nombre + ", articulo=" + articulo + ", descripcion=" + descripcion + ", tipoSancion=" + tipoSancion + ", estadoDelito=" + estadoDelito + '}';
+    }
 }
