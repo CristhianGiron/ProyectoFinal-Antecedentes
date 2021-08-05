@@ -146,11 +146,12 @@ public class GestionarPersonas extends javax.swing.JPanel {
 
     private void validarSeleccionMouse2(int fila) throws IOException {
         Utilidades.filaSeleccionada = fila;
-        ctr.setPersona(ctr.getListComun().get(tablaPersonas.getSelectedRow()));
+        ctr.setPersona(ctr.getListTemporal().get(tablaPersonas.getSelectedRow()));
         txtEmail.setText(ctr.agregarPersona().getMail());
         txtTelefono.setText(ctr.agregarPersona().getTelefono());
         txtDireccion.setText(ctr.agregarPersona().getDireccion());
         cbEstadoCivil.setSelectedItem(ctr.agregarPersona().getEstadoCivil());
+        foto.setImagenDefault(icoVacio);
         if (ctr.agregarPersona().getFile() != null) {
             ImageIcon ico = new ImageIcon(ctr.agregarPersona().getFile().getAbsolutePath());
             foto.setImagenDefault(ico);

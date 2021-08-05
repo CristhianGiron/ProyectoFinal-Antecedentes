@@ -168,7 +168,7 @@ public class PersonaDao implements Dao<Persona> {
                     System.out.println("Revision estado");
                     Bool = true;
                 }
-                persona = new Persona(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),rs.getString(8), rs.getString(9), rs.getString(10), Bool,uti.imagen(rs.getBlob(12),rs.getString(2)),rs.getLong(13));
+                persona = new Persona(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),rs.getString(8), rs.getString(9), rs.getString(10), Bool,uti.imagen(rs.getBlob(12),rs.getString(2)+"33ghj"),rs.getLong(13));
                 return persona;
             }
             isValid=true;

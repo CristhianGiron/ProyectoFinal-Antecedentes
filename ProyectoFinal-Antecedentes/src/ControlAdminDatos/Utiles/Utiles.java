@@ -171,13 +171,21 @@ public class Utiles {
         if (input != null) {
             long size = input.length();
             FileOutputStream output = null;
-            File file = new File(nombre.hashCode() + ".png");
-            output = new FileOutputStream(file);
+            File file = new File(nombre.hashCode() + cant + ".png");// el cant era con fines
+            // didacticos para poder hacer pruebas por que usamos la misma cedula para probar
+            // el software ya que usamos el numero de cedula como nombre de la imagen
+            //ya que es unica nunca se repetira
+            if (file.exists()) {
+                file.delete();
+            }
+            output = new FileOutputStream(file);// le especifico la carpeta en que quiero 
+            //que almacene la imagenes
             byte[] buffer = input.getBytes(1, Integer.parseInt(String.valueOf(size)));
             output.write(buffer);
             output.flush();
-            System.out.println("Guardar en: " + file.getAbsolutePath());
+            System.out.println("Guardar en: " + file.getAbsolutePath() + "Original: " + nombre);
             return file;
+
         }
         return null;
 
@@ -348,16 +356,18 @@ public class Utiles {
 
     public Boolean validarDireccionCorreoElectronico(String correo) {
         Pattern pattern = Pattern
-        .compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+                .compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
         Matcher mather = pattern.matcher(correo);
         return mather.find();
 
     }
+
     /**
-     * El siguiente método permite extraer un dato 
+     * El siguiente método permite extraer un dato
+     *
      * @param obj
      * @param atributoClase
-     * @return 
+     * @return
      */
     public static String extraccionDato(Object obj, String atributoClase) {
         Class clase = obj.getClass();
@@ -375,7 +385,7 @@ public class Utiles {
                     if (metodoAux.getName().toLowerCase().endsWith(atributo.getName())) {
                         try {
                             informacion = metodoAux.invoke(obj);
-                            
+
                             break;
                         } catch (Exception e) {
                             System.out.println("Error de metodo " + e);
