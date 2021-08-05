@@ -21,6 +21,7 @@ import Vista.Utiles.GestionEncabezadoTabla;
 import Vista.Utiles.TablaAntecedentes.UtilidadesTablaAntecedentes;
 import Vista.Utiles.ModeloTabla;
 import Vista.Utiles.UtilesFecha;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -89,7 +91,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         txtSentencia.setText("");
         borrarArchivo();
     }
-    
+
     public void borrarArchivo() {
         IconoBorrarArchivo.setVisible(false);
         lbIconoArchivo.setVisible(false);
@@ -101,12 +103,9 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
 
     public void cargarListas() {
         listaProcesos = prcd.listaProcesoPersona(auxPer.getIdPersona());
-        try {
-            listaDelito = UtilAgreGesAnt.listaDelito(listaProcesos, dd);
-            listaJuzgado = UtilAgreGesAnt.listaJuzgado(listaProcesos, jd);
-            listaCondena = UtilAgreGesAnt.listaCondena(listaProcesos, cd);
-        } catch (SQLException e) {
-        }
+        listaDelito = UtilAgreGesAnt.listaDelito(listaProcesos, dd);
+        listaJuzgado = UtilAgreGesAnt.listaJuzgado(listaProcesos, jd);
+        listaCondena = UtilAgreGesAnt.listaCondena(listaProcesos, cd);
         construirTabla();
     }
 
@@ -680,7 +679,10 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         if (auxPer != null) {
             cargarListas();
             txtNombreApellido.setText(auxPer.getNombre() + " " + auxPer.getApellido());
-            foto.setIcon(new ImageIcon(auxPer.getFile().getAbsolutePath()));
+            ImageIcon icon = new ImageIcon(auxPer.getFile().getAbsolutePath());
+            Image imgEscalada = icon.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+            Icon imgIcon = new ImageIcon(imgEscalada);
+            foto.setIcon(imgIcon);
         } else {
             JOptionPane.showMessageDialog(null, "No existe registro de esa persona");
         }
@@ -922,7 +924,6 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;

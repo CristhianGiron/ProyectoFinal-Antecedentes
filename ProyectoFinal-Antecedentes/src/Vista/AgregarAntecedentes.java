@@ -20,6 +20,7 @@ import Vista.Utiles.UtilesFecha;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,6 +30,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -99,6 +101,7 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         txtIntancia.setText("");
         txtNrAudiencia.setText("");
         txtSentencia.setText("");
+        foto.setText("");
         borrarArchivo();
     }
 
@@ -721,7 +724,10 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         auxPer = (Persona) UtilAgreGesAnt.obtenerEntidad(txtCedula.getText(), listaPersonas, "cedula");
         if (auxPer != null) {
             txtNombreApellido.setText(auxPer.getNombre() + " " + auxPer.getApellido());
-            foto.setIcon(new ImageIcon(auxPer.getFile().getAbsolutePath()));
+            ImageIcon icon = new ImageIcon(auxPer.getFile().getAbsolutePath());
+            Image imgEscalada = icon.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+            Icon imgIcon = new ImageIcon(imgEscalada);
+            foto.setIcon(imgIcon);
         } else {
             JOptionPane.showMessageDialog(null, "No existe registro de esa persona");
         }
