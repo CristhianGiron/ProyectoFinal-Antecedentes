@@ -86,7 +86,8 @@ public class DelitoDao implements Dao<Delito>{
         Delito delito = null;
         try {
             //Cargar la lista de cuentas
-            ResultSet rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.juzgados where idjuzgados = " + id);
+            stmt = (Statement) cnx.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.delito where iddelito = " + id);
             if (rs.next()) {
                 delito = new Delito(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getNString(4), rs.getNString(5), rs.getNString(6));
                 return delito;

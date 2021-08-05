@@ -27,7 +27,7 @@ public class GestionarJuzgados extends javax.swing.JPanel {
     /**
      * Creates new form AgregarJuzgados
      */
-    ArrayList<Juzgado> listaJuzgado;
+    ArrayList<Juzgado> listaJuzgado = new ArrayList<>();
     ModeloTabla modelo;
 
     private JuzgadoDao jd = new JuzgadoDao();
@@ -38,16 +38,14 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         initComponents();
         listaJuzgado = jd.findJuzgadoEntities(true);
         sePuedeEditar = false;
-        if (listaJuzgado.size() > 0) {
-            construirTabla();
-        }
+        construirTabla();
     }
 
     public void vaciarTxt() {
         txtNombreJuzgado.setText("");
         txtDireccion.setText("");
     }
-    
+
     private void construirTabla() {
         ArrayList<String> titulosList = new ArrayList<>();
 
@@ -65,12 +63,14 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         /*obtenemos los datos de la lista y los guardamos en la matriz
 		 * que luego se manda a construir la tabla
          */
-        Object[][] data = obtenerMatrizDatos(titulosList);
+        Object[][] data = UtilGesJuz.obtenerMatrizDatos(titulosList, listaJuzgado);
         construirTabla(titulos, data);
 
     }
 
     private void construirTabla(String[] titulos, Object[][] data) {
+        modelo = new ModeloTabla(data, titulos);
+        modelo.setRowCount(0);
         modelo = new ModeloTabla(data, titulos);
         //se asigna el modelo a la tabla
         tablaJuzgados.setModel(modelo);
@@ -98,27 +98,6 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         JTableHeader jtableHeader = tablaJuzgados.getTableHeader();
         jtableHeader.setDefaultRenderer(new GestionEncabezadoTabla());
         tablaJuzgados.setTableHeader(jtableHeader);
-        tablaJuzgados.setAutoscrolls(true);
-    }
-
-    private Object[][] obtenerMatrizDatos(ArrayList<String> titulosList) {
-
-        /*se crea la matriz donde las filas son dinamicas pues corresponde
-		 * a todos los usuarios, mientras que las columnas son estaticas
-		 * correspondiendo a las columnas definidas por defecto
-         */
-        String informacion[][] = new String[listaJuzgado.size()][titulosList.size()];
-        for (int x = 0; x < informacion.length; x++) {
-
-            informacion[x][UtilidadesTablaJuzgado.NOMBRE] = listaJuzgado.get(x).getNombre() + "";
-            informacion[x][UtilidadesTablaJuzgado.DIRECCION] = listaJuzgado.get(x).getDireccionJuzgado() + "";
-            informacion[x][UtilidadesTablaJuzgado.ESTADO] = listaJuzgado.get(x).getEstadoJuzgado() + "";
-            //se asignan las plabras clave para que en la clase GestionCeldas se use para asignar el icono correspondiente
-            informacion[x][UtilidadesTablaJuzgado.BORRAR] = "PERFIL";
-            informacion[x][UtilidadesTablaJuzgado.EDITAR] = "EVENTO";
-        }
-
-        return informacion;
     }
 
     /**
@@ -261,9 +240,10 @@ public class GestionarJuzgados extends javax.swing.JPanel {
                 .addGap(0, 0, 0))
         );
 
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+
         tablaJuzgados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
@@ -272,11 +252,15 @@ public class GestionarJuzgados extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tablaJuzgados.setAutoscrolls(false);
-        tablaJuzgados.setPreferredSize(new java.awt.Dimension(200, 100));
         tablaJuzgados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaJuzgadosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tablaJuzgadosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tablaJuzgadosMouseExited(evt);
             }
         });
         jScrollPane1.setViewportView(tablaJuzgados);
@@ -285,6 +269,10 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(311, 311, 311))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -310,13 +298,11 @@ public class GestionarJuzgados extends javax.swing.JPanel {
                                         .addComponent(txtNombreJuzgado, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(61, 61, 61)
                                         .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lbNombreJuzgado)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(101, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(311, 311, 311))
+                                    .addComponent(lbNombreJuzgado)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,8 +312,8 @@ public class GestionarJuzgados extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNombreJuzgado)
                     .addComponent(jLabel11))
@@ -359,16 +345,16 @@ public class GestionarJuzgados extends javax.swing.JPanel {
     private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
         if ((txtNombreJuzgado.getText().length() > 0 && txtDireccion.getText().length() > 0) || (txtDireccion.getText().length() > 0)) {
             JOptionPane.showMessageDialog(null, "Solo se puede buscar por el nombre del Juzgado");
-        }else if(txtNombreJuzgado.getText().length() > 0){
+        } else if (txtNombreJuzgado.getText().length() > 0) {
             int pos = UtilGesJuz.obtenerJuzgadoContenido(listaJuzgado, txtNombreJuzgado.getText());
             Juzgado aux = listaJuzgado.get(pos);
             jzEditar = jd.find(aux.getIdJuzgado());
             txtNombreJuzgado.setText(jzEditar.getNombre());
             txtDireccion.setText(jzEditar.getDireccionJuzgado());
             sePuedeEditar = true;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Debe llenar el campo del Nombre");
-        }  
+        }
     }//GEN-LAST:event_botonBuscarMouseClicked
 
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
@@ -377,20 +363,35 @@ public class GestionarJuzgados extends javax.swing.JPanel {
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
         if (txtNombreJuzgado.getText().length() > 0 && txtDireccion.getText().length() > 0) {
+            boolean esValido = false;
             if (sePuedeEditar) {
                 sePuedeEditar = false;
                 Juzgado aux = new Juzgado(jzEditar.getIdJuzgado(), txtNombreJuzgado.getText(), txtDireccion.getText(), jzEditar.getEstadoJuzgado());
                 System.out.println(aux.toString());
-                jd.edit(aux); 
+                jd.edit(aux);
                 jzEditar = new Juzgado();
+                if (jd.isSeGuardo()) {
+                    JOptionPane.showMessageDialog(null, "Se ha modificado con exito");
+                    esValido = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al modificar");
+                }
             } else {
                 Juzgado aux = new Juzgado(Long.valueOf(listaJuzgado.size() + 1), txtNombreJuzgado.getText(), txtDireccion.getText(), "Activado");
                 jd.create(aux);
+                if (jd.isSeGuardo()) {
+                    JOptionPane.showMessageDialog(null, "Se ha guardado con exito");
+                    esValido = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al guardar");
+                }
             }
-            listaJuzgado = jd.findJuzgadoEntities(true);
-            vaciarTxt();
-            construirTabla();
-        }else{
+            if (esValido) {
+                listaJuzgado = jd.findJuzgadoEntities(true);
+                vaciarTxt();
+                construirTabla();
+            }
+        } else {
             JOptionPane.showMessageDialog(null, "Llene todos los parametros");
         }
     }//GEN-LAST:event_botonGuardarMouseClicked
@@ -401,11 +402,16 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         int columna = tablaJuzgados.columnAtPoint(evt.getPoint());
 
         /*uso la columna para valiar si corresponde a la columna de perfil garantizando
-		 * que solo se produzca algo si selecciono una fila de esa columna
+        * que solo se produzca algo si selecciono una fila de esa columna
          */
         if (columna == UtilidadesTablaJuzgado.BORRAR) {
             Juzgado aux = listaJuzgado.get(fila);
             jd.destroy(aux.getIdJuzgado());
+            if (jd.isSeGuardo()) {
+                JOptionPane.showMessageDialog(null, "Se ha modificado el estado correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al modificar el estado correctamente");
+            }
         } else if (columna == UtilidadesTablaJuzgado.EDITAR) {//se valida que sea la columna del otro evento
             Juzgado aux = listaJuzgado.get(fila);
             jzEditar = jd.find(aux.getIdJuzgado());
@@ -416,6 +422,14 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         listaJuzgado = jd.findJuzgadoEntities(true);
         construirTabla();
     }//GEN-LAST:event_tablaJuzgadosMouseClicked
+
+    private void tablaJuzgadosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJuzgadosMouseEntered
+
+    }//GEN-LAST:event_tablaJuzgadosMouseEntered
+
+    private void tablaJuzgadosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJuzgadosMouseExited
+
+    }//GEN-LAST:event_tablaJuzgadosMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

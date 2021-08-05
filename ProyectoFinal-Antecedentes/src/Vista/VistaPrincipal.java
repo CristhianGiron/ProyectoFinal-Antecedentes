@@ -736,6 +736,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         cortina();
         Contenedor.remove(inicio);
         Contenedor.remove(agregarAntecedentes);
+        Contenedor.remove(cuenta);
         Contenedor.remove(agregarPersonas);
         Contenedor.remove(gestionarAntecedentes);
         Contenedor.remove(gestionarJuzgados);
@@ -795,6 +796,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Contenedor.remove(agregarPersonas);
         Contenedor.remove(gestionarJuzgados);
         Contenedor.remove(gestionarAntecedentes);
+        Contenedor.remove(cuenta);
         repaint();
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(gestionarPersonas, 3);
@@ -818,6 +820,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Contenedor.remove(gestionarJuzgados);
         Contenedor.remove(gestionarAntecedentes);
         Contenedor.remove(gestionarPersonas);
+        Contenedor.remove(cuenta);
         repaint();
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(agregarPersonas, 3);
@@ -870,6 +873,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Contenedor.remove(gestionarJuzgados);
         Contenedor.remove(gestionarPersonas);
         Contenedor.remove(agregarPersonas);
+        Contenedor.remove(cuenta);
         repaint();
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(gestionarAntecedentes, 3);
@@ -893,6 +897,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Contenedor.remove(agregarPersonas);
         Contenedor.remove(gestionarAntecedentes);
         Contenedor.remove(gestionarPersonas);
+        Contenedor.remove(cuenta);
         repaint();
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(agregarAntecedentes, 3);
@@ -955,6 +960,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Contenedor.remove(gestionarJuzgados);
             Contenedor.remove(agregarPersonas);
             Contenedor.remove(gestionarPersonas);
+            Contenedor.remove(cuenta);
             repaint();
             animacion.animacionPanelMenu(panelMenuL, btnMenu);
             Contenedor.add(inicio, 3);
@@ -997,6 +1003,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Contenedor.remove(gestionarJuzgados);
         Contenedor.remove(gestionarPersonas);
         Contenedor.remove(agregarAntecedentes);
+        Contenedor.remove(cuenta);
         repaint();
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(cuenta, 3);
@@ -1196,7 +1203,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         if (panelMenuL.getSize().width == 0) {
             jButton1.setVisible(true);
 
-        } else if (panelMenuL.getSize().width == 230) {
+        } else{
             jButton1.setVisible(false);
 
             System.out.println("false");

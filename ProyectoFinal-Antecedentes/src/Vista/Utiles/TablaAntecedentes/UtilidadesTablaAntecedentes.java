@@ -16,8 +16,11 @@ public class UtilidadesTablaAntecedentes {
     public static final int FECHAINICIO = 3;
     public static final int FECHAFINALIZACION = 4;
     public static final int JUZGADO = 5;
-    public static final int PERFIL = 6;
-    public static final int EVENTO = 7;
+    public static final int ESTADOVICTIMARIO = 6;
+    public static final int ESTADODEMANDA = 7;
+    public static final int ESTADOPROCESO = 8;
+    public static final int BORRAR = 9;
+    public static final int EDITAR = 10;
     
     public static int filaSeleccionada;
 }
