@@ -67,8 +67,8 @@ public class ProcesoDao implements Dao<Proceso> {
             if (rs.next()) {
                 do {
                     lista.add(new Proceso(rs.getLong(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5),
-                            rs.getBytes(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(14), rs.getLong(10), rs.getLong(11),
-                            rs.getLong(12), rs.getLong(13)));//aqui estabas mal bro el orden es importante
+                            rs.getBytes(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getLong(11), rs.getLong(12),
+                            rs.getLong(13), rs.getLong(14)));//aqui estabas mal bro el orden es importante
                             // en la base de datos estadoproceso es el atributo 14 y tu lo has puesto en distinta posicion y numero
                             //no se apreciaba porque la exepcion la anulaba pero estaba persistente
                 } while (rs.next());
@@ -164,11 +164,16 @@ public class ProcesoDao implements Dao<Proceso> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public ArrayList<Proceso> listaProcesoPersona(Long id) {
+    public ArrayList<Proceso> listaProcesoPersona(Long id, boolean todo) {
         String query;
         ArrayList<Proceso> lista = new ArrayList<>();
-
-        query = "SELECT * FROM sistemaco_penal.proceso where idPersona = " + id;
+        
+        if (todo) {
+            query = "SELECT * FROM sistemaco_penal.proceso where idPersona = " + id;
+        }else{
+            query = "SELECT * FROM sistemaco_penal.proceso where estadoProceso = 'Habilitado' and idPersona = " + id;
+        }
+        
 
         try {
             //Cargar la lista de cuentas

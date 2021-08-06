@@ -102,7 +102,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     }
 
     public void cargarListas() {
-        listaProcesos = prcd.listaProcesoPersona(auxPer.getIdPersona());
+        listaProcesos = prcd.listaProcesoPersona(auxPer.getIdPersona(), true);
         listaDelito = UtilAgreGesAnt.listaDelito(listaProcesos, dd);
         listaJuzgado = UtilAgreGesAnt.listaJuzgado(listaProcesos, jd);
         listaCondena = UtilAgreGesAnt.listaCondena(listaProcesos, cd);
@@ -582,8 +582,10 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         jLabel23.setText("*");
         PanelComponentes.add(jLabel23);
         jLabel23.setBounds(60, 670, 10, 17);
+
+        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"))); // NOI18N
         PanelComponentes.add(foto);
-        foto.setBounds(730, 20, 130, 130);
+        foto.setBounds(720, 30, 140, 140);
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(204, 0, 0));
@@ -643,7 +645,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             auxPro.setInstancia(Integer.parseInt(txtIntancia.getText()));
             auxPro.setNrAudiencias(Integer.parseInt(txtNrAudiencia.getText()));
             auxPro.setEstadoVictimario(estadoVictimario);
-            auxPro.setEstadoDemanda(estadoProceso);
+            auxPro.setEstadoDemanda((dcFechaFinalizacionAudiencia != null)?"Finalizado":estadoProceso);
             auxCon.setSentencia(txtSentencia.getText());
             auxCon.setEstadoCondena((!txtSentencia.getText().equalsIgnoreCase("") ? "Dictada" : "Sin Dictar"));
             if (auxByte == null) {
@@ -681,7 +683,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             cargarListas();
             txtNombreApellido.setText(auxPer.getNombre() + " " + auxPer.getApellido());
             ImageIcon icon = new ImageIcon("Perfiles/"+auxPer.getFile().getPath());
-            Image imgEscalada = icon.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+            Image imgEscalada = icon.getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH);
             Icon imgIcon = new ImageIcon(imgEscalada);
             foto.setIcon(imgIcon);
         } else {

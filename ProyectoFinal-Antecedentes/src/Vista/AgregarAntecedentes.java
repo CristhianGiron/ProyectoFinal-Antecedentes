@@ -639,8 +639,10 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         });
         PanelComponentes.add(rbInocente);
         rbInocente.setBounds(470, 640, 70, 23);
+
+        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"))); // NOI18N
         PanelComponentes.add(foto);
-        foto.setBounds(730, 20, 130, 130);
+        foto.setBounds(730, 30, 140, 140);
 
         jScrollPane4.setViewportView(PanelComponentes);
 
@@ -701,8 +703,9 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
                 Proceso auxP = new Proceso(Long.valueOf(listaProcesos.size() + 1), Integer.parseInt(txtIntancia.getText()),
                         fecha.getFecha(dcFechaInicioAudiencia), fecha.getFecha(dcFechaFinalizacionAudiencia),
                         (!txtNrAudiencia.getText().equalsIgnoreCase("")) ? Integer.parseInt(txtNrAudiencia.getText()) : 0,
-                        pdf, fichero.getName(), estadoVictimario, estadoProceso, "Habilitado", auxD.getIdDelito(), auxPer.getIdPersona(),
-                        auxC.getIdCondena(), auxJ.getIdJuzgado());
+                        pdf, fichero.getName(), estadoVictimario, (dcFechaFinalizacionAudiencia != null)?"Finalizado":estadoProceso, 
+                        "Habilitado", auxD.getIdDelito(), auxPer.getIdPersona(), auxC.getIdCondena(), auxJ.getIdJuzgado());
+                
                 cd.create(auxC);
                 prcd.create(auxP);
                 if (cd.isSeGuardo() && prcd.isSeGuardo()) {
@@ -725,7 +728,7 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         if (auxPer != null) {
             txtNombreApellido.setText(auxPer.getNombre() + " " + auxPer.getApellido());
             ImageIcon icon = new ImageIcon(auxPer.getFile().getAbsolutePath());
-            Image imgEscalada = icon.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+            Image imgEscalada = icon.getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH);
             Icon imgIcon = new ImageIcon(imgEscalada);
             foto.setIcon(imgIcon);
         } else {

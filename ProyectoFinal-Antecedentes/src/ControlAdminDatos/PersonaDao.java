@@ -206,9 +206,9 @@ public class PersonaDao implements Dao<Persona> {
         stmt = (Statement) cnx.createStatement();
         ResultSet rs = null;
         if (tipoBusqueda.equalsIgnoreCase("cedula")) {
-            rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.personas where cedula=" + dato);
+            rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.personas where estado='T' and cedula=" + dato);
         }else if(tipoBusqueda.equalsIgnoreCase("id")){
-            rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.personas where idpersona=" + dato);
+            rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.personas where estado='T' and idpersona=" + dato);
         }
         try {
                 if (rs.next()) {
