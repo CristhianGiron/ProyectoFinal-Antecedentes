@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.ScrollPane;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -392,6 +393,11 @@ public class GestionarPersonas extends javax.swing.JPanel {
                 btnGuardarMousePressed(evt);
             }
         });
+        btnGuardar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btnGuardarKeyReleased(evt);
+            }
+        });
         add(btnGuardar);
         btnGuardar.setBounds(620, 500, 120, 40);
 
@@ -482,7 +488,11 @@ public class GestionarPersonas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuardarMouseExited
 
     private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
-        if (validaCampoEmail && validaDireccion && telefonoValido) {
+        guardar();
+
+    }//GEN-LAST:event_btnGuardarMousePressed
+    public void guardar(){
+               if (validaCampoEmail && validaDireccion && telefonoValido) {
             
             int confirm = JOptionPane.showConfirmDialog(null, "Esta seguro de su decision??");
             if (confirm == 0) {
@@ -515,9 +525,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Error datos faltantes o erroneos");
         }
-
-    }//GEN-LAST:event_btnGuardarMousePressed
-
+    }
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_formFocusGained
@@ -610,6 +618,13 @@ public class GestionarPersonas extends javax.swing.JPanel {
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_botonlunaMousePressed
+
+    private void btnGuardarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnGuardarKeyReleased
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+            guardar();
+        }
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarKeyReleased
 
 //vista en desarrollo
     // Variables declaration - do not modify//GEN-BEGIN:variables

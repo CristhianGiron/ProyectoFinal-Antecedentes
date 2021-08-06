@@ -178,7 +178,7 @@ public class Utiles {
             if (file.exists()) {
                 file.delete();
             }
-            output = new FileOutputStream("Perfiles/"+file.getPath());// le especifico la carpeta en que quiero 
+            output = new FileOutputStream("Perfiles/" + file.getPath());// le especifico la carpeta en que quiero 
             //que almacene la imagenes
             byte[] buffer = input.getBytes(1, Integer.parseInt(String.valueOf(size)));
             output.write(buffer);
@@ -234,46 +234,16 @@ public class Utiles {
         String tr = "SELECT * FROM salidaservicio inner join servicio  using (idsalidaServicio) where idDetalle=" + idDetalle;
         return tr;
     }
-
-    /**
-     * retorna una imagen un un tiempo de espera
-     *
-     * @param lb JLabel
-     * @param lb1 JLabel
-     * @param ico ImageIcon
-     */
-    public void retardo(JLabel lb, JLabel lb1, ImageIcon ico[]) {
-        Timer timer;
-        timer = new Timer();
-        TimerTask task = new TimerTask() {
-            int tic = 0;
-            int cont = 0;
-
-            @Override
-            public void run() {
-                lb.setIcon(ico[cont]);
-                lb1.setText(ico[cont].getDescription());
-                cont++;
-                if (cont == ico.length) {
-                    cont = 0;
-                }
-
-            }
-        };
-        // Empezamos dentro de 10ms y luego lanzamos la tarea cada 1000ms
-        timer.schedule(task, 10, 10000);
-    }
-
     /**
      * Retorna un arreglo de File
      *
      * @return File[]
      */
-    public File[] traerDirectorio() {
+    public File[] traerDirectorio(String ruta) {
 
         String path = "./img/";
         String files;
-        File folder = new File(path);
+        File folder = new File(ruta);
         File[] listOfFiles = folder.listFiles();
         System.out.println(listOfFiles.length);
         File img[] = null;

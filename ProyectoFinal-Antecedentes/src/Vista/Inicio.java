@@ -9,6 +9,7 @@ import Controlador.ControladorPersona;
 import Modelo.Persona;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
@@ -36,7 +37,6 @@ public class Inicio extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        LimpiarBuscadorCedula1 = new javax.swing.JLabel();
         btnBuscarCedula = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -52,13 +52,6 @@ public class Inicio extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(1000, 610));
         setLayout(null);
 
-        LimpiarBuscadorCedula1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        LimpiarBuscadorCedula1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LimpiarBuscadorCedula1.setText("X");
-        LimpiarBuscadorCedula1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        add(LimpiarBuscadorCedula1);
-        LimpiarBuscadorCedula1.setBounds(360, 90, 20, 30);
-
         btnBuscarCedula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnBuscarCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/IconoBuscar2.png"))); // NOI18N
         btnBuscarCedula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -68,12 +61,17 @@ public class Inicio extends javax.swing.JPanel {
             }
         });
         add(btnBuscarCedula);
-        btnBuscarCedula.setBounds(380, 90, 20, 30);
+        btnBuscarCedula.setBounds(410, 90, 20, 30);
 
         txtCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 117, 225)));
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCedulaActionPerformed(evt);
+            }
+        });
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyReleased(evt);
             }
         });
         add(txtCedula);
@@ -146,7 +144,12 @@ public class Inicio extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel1MouseExited
     ControladorPersona ctrp = new ControladorPersona();
     private void btnBuscarCedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarCedulaMousePressed
-        ctrp.listaPersonas();
+        buscar();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarCedulaMousePressed
+    public void buscar(){
+              ctrp.listaPersonas();
         ctrp.VaciarTemp();
         String buscar = txtCedula.getText();
         ctrp.buscar(buscar, "CEDULA");
@@ -167,27 +170,24 @@ public class Inicio extends javax.swing.JPanel {
             file = p.getFile();
         }
         if (file != null) {
-            foto.setImagen(new ImageIcon(file.getAbsolutePath()));
+            foto.setImagen(new ImageIcon("Perfiles/"+file.getPath()));
         }
-        txtInformacion.setText(resultado);
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarCedulaMousePressed
-
+        txtInformacion.setText(resultado); 
+    }
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
         Runtime r = Runtime.getRuntime();
         Process p = null;
 
-        String comando[] = {"/C:/Program Files/Google/Chrome/Application/chrome.exe/", "EjemploHelp/index.html"};
+        String comando[] = {"/C:/Program Files/Google/Chrome/Application/chrome.exe/", "/Ayuda/index.html"};
         try {
             p = r.exec(comando);
         } catch (Exception e) {
-            String comando1[] = {"/C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe", "EjemploHelp/index.html"};
+            String comando1[] = {"/C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe", "/Ayuda/index.html"};
             try {
                 p = r.exec(comando1);
 
             } catch (Exception ex) {
-                String comando2[] = {"/C:/Program Files/Mozilla Firefox/firefox.exe", "EjemploHelp/index.html"};
+                String comando2[] = {"/C:/Program Files/Mozilla Firefox/firefox.exe", "/Ayuda/index.html"};
                 try {
                     p = r.exec(comando2);
 
@@ -198,9 +198,15 @@ public class Inicio extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jLabel1MousePressed
 
+    private void txtCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyReleased
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+            buscar();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LimpiarBuscadorCedula1;
     private javax.swing.JLabel btnBuscarCedula;
     private rojerusan.RSPanelCircleImage foto;
     private javax.swing.JLabel jLabel1;

@@ -10,6 +10,7 @@ import Controlador.MantenerCokie;
 import Modelo.Cuenta;
 import Modelo.Persona;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -124,6 +125,11 @@ public class InicioSesion extends javax.swing.JPanel {
                 btnOkMousePressed(evt);
             }
         });
+        btnOk.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btnOkKeyReleased(evt);
+            }
+        });
         add(btnOk);
         btnOk.setBounds(480, 330, 110, 40);
 
@@ -177,7 +183,11 @@ public class InicioSesion extends javax.swing.JPanel {
  // posible idea
 
     private void btnOkMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMousePressed
-        try {
+        ok();
+
+    }//GEN-LAST:event_btnOkMousePressed
+    public void ok(){
+               try {
             //System.out.println("true: "+ ctrc.buscarCuenta(txtUsuario.getText(), ctrc.encriptar(txtContraseña.getPassword())));
             ctrc.buscarCuenta(txtUsuario.getText(), ctrc.encriptar(txtContraseña.getPassword()));
             System.out.println("Pase: "+ctrc.getBuscarPersonaCuenta());
@@ -197,9 +207,7 @@ public class InicioSesion extends javax.swing.JPanel {
 
             Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-    }//GEN-LAST:event_btnOkMousePressed
-
+    }
     private void btnRegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseEntered
         btnRegistrar.setForeground(new Color(102, 102, 102));
         btnRegistrar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
@@ -229,6 +237,13 @@ public class InicioSesion extends javax.swing.JPanel {
     private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed
 
     }//GEN-LAST:event_txtContraseñaActionPerformed
+
+    private void btnOkKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnOkKeyReleased
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+            ok();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOkKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -200,6 +200,11 @@ public class Registro extends javax.swing.JPanel {
                 btnOkMousePressed(evt);
             }
         });
+        btnOk.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btnOkKeyReleased(evt);
+            }
+        });
         add(btnOk);
         btnOk.setBounds(480, 340, 110, 40);
 
@@ -352,6 +357,10 @@ public class Registro extends javax.swing.JPanel {
     Boolean validaCampoCedula;
     Boolean validaCampoEmail;
     private void btnOkMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMousePressed
+        registrar();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOkMousePressed
+    public void registrar() {
         if (validaCampoCedula && validaCampoContraseña && validaCampoEmail && telefonoValido && validaNombre && validaApellido && validaUsuario && validaDireccion && fechaNa.getDate() != null && cbSexo.getSelectedItem() != null) {
 
             try {
@@ -411,9 +420,7 @@ public class Registro extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Datos faltantes o erroneos");
         }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnOkMousePressed
-
+    }
     private void btnRegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseEntered
         btnRegresar.setForeground(new Color(102, 196, 67));// TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarMouseEntered
@@ -568,13 +575,13 @@ public class Registro extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDireccionKeyReleased
 
     private void botonlunaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonlunaMouseEntered
-         botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/botonlunapequeño2.png")));// TODO add your handling code here:
+        botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/botonlunapequeño2.png")));// TODO add your handling code here:
     }//GEN-LAST:event_botonlunaMouseEntered
 
     private void botonlunaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonlunaMouseExited
-         botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/btonlunapequeño.png")));  // TODO add your handling code here:
+        botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/btonlunapequeño.png")));  // TODO add your handling code here:
     }//GEN-LAST:event_botonlunaMouseExited
-    File file=null;
+    File file = null;
     private void botonlunaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonlunaMousePressed
         file = uti.BuscarImagen();
         if (file != null) {
@@ -582,6 +589,10 @@ public class Registro extends javax.swing.JPanel {
             foto.setImagen(ico);
         }// TODO add your handling code here:
     }//GEN-LAST:event_botonlunaMousePressed
+
+    private void btnOkKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnOkKeyReleased
+        registrar();// TODO add your handling code here:
+    }//GEN-LAST:event_btnOkKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

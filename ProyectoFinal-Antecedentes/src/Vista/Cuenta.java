@@ -11,7 +11,9 @@ import Modelo.Persona;
 import java.awt.ComponentOrientation;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.plaf.LabelUI;
 
 /**
@@ -26,11 +28,8 @@ public class Cuenta extends javax.swing.JPanel {
     Utiles uti=new Utiles();
     public Cuenta() {
         initComponents();
-        Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/Ghandi.png"));
-        lblp.setIcon(new ImageIcon(uti.img(img, lblp.getSize())));
         
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,7 +54,8 @@ public class Cuenta extends javax.swing.JPanel {
         txtTelefono = new javax.swing.JLabel();
         txtMail = new javax.swing.JLabel();
         panelDerecho = new javax.swing.JPanel();
-        lblp = new javax.swing.JLabel();
+        Slide = new javax.swing.JLabel();
+        Slide1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1000, 610));
@@ -121,8 +121,10 @@ public class Cuenta extends javax.swing.JPanel {
 
         panelDerecho.setBackground(new java.awt.Color(51, 51, 51));
         panelDerecho.setLayout(null);
-        panelDerecho.add(lblp);
-        lblp.setBounds(30, 50, 390, 120);
+        panelDerecho.add(Slide);
+        Slide.setBounds(250, 200, 400, 230);
+        panelDerecho.add(Slide1);
+        Slide1.setBounds(250, 200, 400, 230);
 
         add(panelDerecho);
         panelDerecho.setBounds(550, 0, 450, 610);
@@ -157,6 +159,8 @@ public class Cuenta extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Slide;
+    private javax.swing.JLabel Slide1;
     private rojerusan.RSPanelCircleImage fotop;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -164,7 +168,6 @@ public class Cuenta extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblp;
     private javax.swing.JPanel panelDerecho;
     private javax.swing.JLabel txtApellidos;
     private javax.swing.JLabel txtCedula;
