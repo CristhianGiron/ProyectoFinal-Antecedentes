@@ -178,7 +178,7 @@ public class Utiles {
             if (file.exists()) {
                 file.delete();
             }
-            output = new FileOutputStream(file);// le especifico la carpeta en que quiero 
+            output = new FileOutputStream("Perfiles/"+file.getPath());// le especifico la carpeta en que quiero 
             //que almacene la imagenes
             byte[] buffer = input.getBytes(1, Integer.parseInt(String.valueOf(size)));
             output.write(buffer);

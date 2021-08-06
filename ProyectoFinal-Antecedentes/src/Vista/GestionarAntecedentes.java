@@ -680,7 +680,7 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         if (auxPer != null) {
             cargarListas();
             txtNombreApellido.setText(auxPer.getNombre() + " " + auxPer.getApellido());
-            ImageIcon icon = new ImageIcon(auxPer.getFile().getAbsolutePath());
+            ImageIcon icon = new ImageIcon("Perfiles/"+auxPer.getFile().getPath());
             Image imgEscalada = icon.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
             Icon imgIcon = new ImageIcon(imgEscalada);
             foto.setIcon(imgIcon);

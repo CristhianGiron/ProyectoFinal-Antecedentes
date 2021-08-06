@@ -141,7 +141,7 @@ public class Cuenta extends javax.swing.JPanel {
         txtTelefono.setText(persona.getTelefono());
         txtMail.setText(persona.getMail());
         txtSexo.setText(persona.getSexo());
-        fotop.setImagen(new ImageIcon(persona.getFile().getAbsolutePath()));
+        fotop.setImagen(new ImageIcon("Perfiles/"+persona.getFile().getPath()));
     }
     public void BorrarPantalla(){
         

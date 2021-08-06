@@ -156,7 +156,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
         cbEstadoCivil.setSelectedItem(ctr.agregarPersona().getEstadoCivil());
         foto.setImagen(icoVacio);
         if (ctr.agregarPersona().getFile() != null) {
-            ImageIcon ico = new ImageIcon(ctr.agregarPersona().getFile().getAbsolutePath());
+            ImageIcon ico = new ImageIcon("Perfiles/"+ctr.agregarPersona().getFile().getPath());
             foto.setImagen(ico);
         } else {
             foto.setImagen(icoVacio);

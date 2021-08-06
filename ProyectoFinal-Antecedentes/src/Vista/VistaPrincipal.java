@@ -1116,7 +1116,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         if (file.exists()) {
             Persona persona = cok.getCokieValue("Cesion");
             inicioCesion.setText(persona.getNombre() + " " + persona.getApellido());
-            fotop.setImagen(new ImageIcon(persona.getFile().getAbsolutePath()));
+            fotop.setImagen(new ImageIcon("Perfiles/"+persona.getFile().getPath()));
 
             for (int i = 0; i < inicioCesion.getMouseListeners().length; i++) {
                 inicioCesion.removeMouseListener(inicioCesion.getMouseListeners()[i]);
