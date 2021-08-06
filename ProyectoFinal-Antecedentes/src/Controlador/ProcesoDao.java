@@ -67,12 +67,14 @@ public class ProcesoDao implements Dao<Proceso> {
             if (rs.next()) {
                 do {
                     lista.add(new Proceso(rs.getLong(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5),
-                            rs.getBytes(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getLong(11), rs.getLong(12),
-                            rs.getLong(13), rs.getLong(14)));
+                            rs.getBytes(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(14), rs.getLong(10), rs.getLong(11),
+                            rs.getLong(12), rs.getLong(13)));//aqui estabas mal bro el orden es importante
+                            // en la base de datos estadoproceso es el atributo 14 y tu lo has puesto en distinta posicion y numero
+                            //no se apreciaba porque la exepcion la anulaba pero estaba persistente
                 } while (rs.next());
             }
         } catch (SQLException ex) {
-            System.out.println("Error en la extaraccion de los datos de la base de datos "
+            System.out.println("Error en la extaraccion de los datos de la base de datos tabla proceso "
                     + "detalles de error: " + ex);
 
         }
@@ -180,8 +182,8 @@ public class ProcesoDao implements Dao<Proceso> {
                 } while (rs.next());
             }
         } catch (SQLException ex) {
-            System.out.println("Error en la extaraccion de los datos de la base de datos "
-                    + "detalles de error: " + ex);
+            System.out.println("Error en la extaraccion de los datos de la base de datos  tabla proceso1 "
+                    + "detalles de error : " + ex);
 
         }
         return lista;

@@ -64,10 +64,13 @@ public class MantenerCokie<T> {
     public Boolean modificar(T o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    boolean estado=false;
     public Boolean RemoveCokie(String ruta) {
         cok.setREPO(ruta);
+        cok.cerrar();
         File fichero = new File(cok.getREPO() + File.separatorChar +ruta + ".json");
-        return fichero.delete();
+        estado=fichero.delete();
+        System.out.println("Estado "+estado);
+        return estado;
     }
 }

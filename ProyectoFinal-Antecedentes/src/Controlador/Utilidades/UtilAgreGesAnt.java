@@ -109,7 +109,7 @@ public class UtilAgreGesAnt {
         return listaPersona;
     }
     
-    public static ArrayList<Delito> listaDelito(ArrayList<Proceso> listaProceso, DelitoDao dd) throws SQLException{
+    public static ArrayList<Delito> listaDelito(ArrayList<Proceso> listaProceso, DelitoDao dd){
         ArrayList<Delito> listaDelito = new ArrayList<>();
         for (int i = 0; i < listaProceso.size(); i++) {
             Proceso tmp = listaProceso.get(i);
@@ -119,7 +119,7 @@ public class UtilAgreGesAnt {
         return listaDelito;
     }
     
-    public static ArrayList<Juzgado> listaJuzgado(ArrayList<Proceso> listaProceso, JuzgadoDao jd) throws SQLException{
+    public static ArrayList<Juzgado> listaJuzgado(ArrayList<Proceso> listaProceso, JuzgadoDao jd){
         ArrayList<Juzgado> listaJuzgado = new ArrayList<>();
         for (int i = 0; i < listaProceso.size(); i++) {
             Proceso tmp = listaProceso.get(i);
@@ -129,7 +129,7 @@ public class UtilAgreGesAnt {
         return listaJuzgado;
     }
     
-    public static ArrayList<Condena> listaCondena(ArrayList<Proceso> listaProceso, CondenaDao cd) throws SQLException{
+    public static ArrayList<Condena> listaCondena(ArrayList<Proceso> listaProceso, CondenaDao cd){
         ArrayList<Condena> listaCondena = new ArrayList<>();
         for (int i = 0; i < listaProceso.size(); i++) {
             Proceso tmp = listaProceso.get(i);

@@ -1029,34 +1029,30 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_inicioCesionMousePressed
 
     private void Menu15MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu15MousePressed
-       cortina();
+
         int accion = JOptionPane.showConfirmDialog(null, "Cerrar Cesión");
-        System.out.println("Acciones al cerrar el sistema: " + accion);
         MantenerCokie<Persona> cok = new MantenerCokie<>();
+        
         if (accion == 0) {
-            cok.RemoveCokie("Cesion");
+            boolean estado = false;
+            while (estado == false) {
+                estado=cok.RemoveCokie("Cesion");
+            }
             inicioCesion.setText("IniciarCesion");
-            inicioCesion.addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    inicioCesionMouseEntered(evt);
-                }
-
-                @Override
-                public void mouseExited(java.awt.event.MouseEvent evt) {
-                    inicioCesionMouseExited(evt);
-                }
-
-                @Override
-                public void mousePressed(java.awt.event.MouseEvent evt) {
-                    inicioCesionMousePressed(evt);
-                }
-            });
-            inicioCesion.updateUI();
             cuenta.BorrarPantalla();
-
             Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"));
-            //Desplega un subitems al presionar un item en el menu y controla su comportamiento
+            fotop.setImagen(new ImageIcon(uti.img(img, fotop.getSize())));
+            eventosCerrarCesion();
+            AnimacionesCerrarCesion();
+            System.out.println("Cerrar cesion");
+
+        } else {
+
+            System.out.println("No hace nada");
+        }
+    }//GEN-LAST:event_Menu15MousePressed
+   public void AnimacionesCerrarCesion(){
+       //Desplega un subitems al presionar un item en el menu y controla su comportamiento
             if (MenuDesplegable2.getSize().height == heightitem - 50) {
                 animacion.colorColapse(Menu4);
             } else if (MenuDesplegable3.getSize().height == heightitem - 50) {
@@ -1078,35 +1074,44 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Contenedor.add(inicio, 3);
             inicio.setBounds(0, 35, 1000, 625);
             indicador = 2;
-
-            fotop.setImagen(new ImageIcon(uti.img(img, fotop.getSize())));
-            for (int i = 0; i < Menu4.getMouseListeners().length; i++) {
-                Menu4.removeMouseListener(Menu4.getMouseListeners()[i]);
-            }
-            for (int i = 0; i < Menu7.getMouseListeners().length; i++) {
-                Menu7.removeMouseListener(Menu7.getMouseListeners()[i]);
-            }
-            for (int i = 0; i < Menu10.getMouseListeners().length; i++) {
-                Menu10.removeMouseListener(Menu10.getMouseListeners()[i]);
-            }
-            for (int i = 0; i < Menu13.getMouseListeners().length; i++) {
-                Menu13.removeMouseListener(Menu13.getMouseListeners()[i]);
+   }
+    public void eventosCerrarCesion() {
+        inicioCesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                inicioCesionMouseEntered(evt);
             }
 
-            System.out.println("Cerrar cesion");
-        } else {
-            
-            System.out.println("No hace nada");
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                inicioCesionMouseExited(evt);
+            }
+
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                inicioCesionMousePressed(evt);
+            }
+        });
+        for (int i = 0; i < Menu4.getMouseListeners().length; i++) {
+            Menu4.removeMouseListener(Menu4.getMouseListeners()[i]);
         }
-    }//GEN-LAST:event_Menu15MousePressed
-
+        for (int i = 0; i < Menu7.getMouseListeners().length; i++) {
+            Menu7.removeMouseListener(Menu7.getMouseListeners()[i]);
+        }
+        for (int i = 0; i < Menu10.getMouseListeners().length; i++) {
+            Menu10.removeMouseListener(Menu10.getMouseListeners()[i]);
+        }
+        for (int i = 0; i < Menu13.getMouseListeners().length; i++) {
+            Menu13.removeMouseListener(Menu13.getMouseListeners()[i]);
+        }
+    }
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_formFocusGained
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         MantenerCokie<Persona> cok = new MantenerCokie<>();
-        
+
         File file = new File("Cesion" + File.separatorChar + "Cesion.json");
         if (file.exists()) {
             Persona persona = cok.getCokieValue("Cesion");
@@ -1179,7 +1184,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 }
             });
             cuenta.actualizarPantalla();
-            
 
         }
         // TODO add your handling code here:
@@ -1203,7 +1207,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         if (panelMenuL.getSize().width == 0) {
             jButton1.setVisible(true);
 
-        } else{
+        } else {
             jButton1.setVisible(false);
 
             System.out.println("false");
@@ -1247,7 +1251,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

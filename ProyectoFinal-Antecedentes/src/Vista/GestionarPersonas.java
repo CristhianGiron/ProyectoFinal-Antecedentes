@@ -17,6 +17,7 @@ import Vista.Utiles.TablaPersonas.ConvertirEnums;
 import Vista.Utiles.TablaPersonas.EstadoCivil;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.ScrollPane;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +29,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.table.JTableHeader;
 
@@ -42,26 +44,27 @@ public class GestionarPersonas extends javax.swing.JPanel {
      */
     private JPanel contentPane;
     private JScrollPane scrollPaneTabla;
-
+    
     ModeloTabla modelo;
     private int filasTabla;
     private int columnasTabla;
     Utiles uti = new Utiles();
     ConvertirEnums enums = new ConvertirEnums();
     ControladorPersona ctr = new ControladorPersona();
-    Icon icoVacio;
-
+    ImageIcon icoVacio;
+    
     public GestionarPersonas() {
         initComponents();
         ctr.listaPersonas();
         ctr.buscar(null, "ALL");
         construirTabla();
-        icoVacio = foto.icono;
+        icoVacio = new ImageIcon("Vista/Acces/Imagenes/UsuarioImg.png");
         jScrollPane1.getViewport().setBackground(Color.white);
+//        jScrollPane1.setVerticalScrollBar(new JScrollBar(JScrollBar.VERTICAL));
         cbEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(enums.convertEstadoCivil(EstadoCivil.values())));
-
+        
     }
-
+    
     public void actualizar() {
         ctr.VaciarListComun();
         ctr.listaPersonas();
@@ -70,9 +73,9 @@ public class GestionarPersonas extends javax.swing.JPanel {
         construirTabla();
         System.out.println("Entro a este metodo");
     }
-
+    
     private void construirTabla() {
-
+        
         ArrayList<String> titulosList = new ArrayList<>();
         titulosList.add("Cedula");
         titulosList.add("Nombre");
@@ -84,16 +87,16 @@ public class GestionarPersonas extends javax.swing.JPanel {
         titulosList.add("E-mail");
         titulosList.add(" ");
         titulosList.add(" ");
-
+        
         String titulos[] = new String[titulosList.size()];
         for (int i = 0; i < titulos.length; i++) {
             titulos[i] = titulosList.get(i);
         }
         Object[][] data = ctr.obtenerMatrizDatos(titulosList);
         construirTabla(titulos, data);
-
+        
     }
-
+    
     private void construirTabla(String[] titulos, Object[][] data) {
         modelo = new ModeloTabla(data, titulos);
         modelo.setRowCount(0);
@@ -105,7 +108,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
         for (int i = 0; i < titulos.length - 2; i++) {
             tablaPersonas.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
         }
-
+        
         tablaPersonas.getTableHeader().setReorderingAllowed(false);
         tablaPersonas.setRowHeight(25);
         tablaPersonas.setGridColor(new java.awt.Color(0, 0, 0));
@@ -122,9 +125,9 @@ public class GestionarPersonas extends javax.swing.JPanel {
         JTableHeader jtableHeader = tablaPersonas.getTableHeader();
         jtableHeader.setDefaultRenderer(new GestionEncabezadoTabla());
         tablaPersonas.setTableHeader(jtableHeader);
-
+        
     }
-
+    
     private void validarSeleccionMouse(int fila) {
         Utilidades.filaSeleccionada = fila;
         Long id = ctr.getListComun().get(tablaPersonas.getSelectedRow()).getIdPersona();
@@ -143,7 +146,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
             }
         }
     }
-
+    
     private void validarSeleccionMouse2(int fila) throws IOException {
         Utilidades.filaSeleccionada = fila;
         ctr.setPersona(ctr.getListTemporal().get(tablaPersonas.getSelectedRow()));
@@ -151,14 +154,14 @@ public class GestionarPersonas extends javax.swing.JPanel {
         txtTelefono.setText(ctr.agregarPersona().getTelefono());
         txtDireccion.setText(ctr.agregarPersona().getDireccion());
         cbEstadoCivil.setSelectedItem(ctr.agregarPersona().getEstadoCivil());
-        foto.setImagenDefault(icoVacio);
+        foto.setImagen(icoVacio);
         if (ctr.agregarPersona().getFile() != null) {
             ImageIcon ico = new ImageIcon(ctr.agregarPersona().getFile().getAbsolutePath());
-            foto.setImagenDefault(ico);
+            foto.setImagen(ico);
         } else {
-            foto.setImagenDefault(icoVacio);
+            foto.setImagen(icoVacio);
         }
-
+        
     }
 
     //versiones
@@ -185,7 +188,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         cbEstadoCivil = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        foto = new rojerusan.RSFotoCircle();
         jLabel9 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
@@ -196,6 +198,8 @@ public class GestionarPersonas extends javax.swing.JPanel {
         lblEmailValid = new javax.swing.JLabel();
         lblTelefono = new javax.swing.JLabel();
         lblDireccion = new javax.swing.JLabel();
+        foto = new rojerusan.RSPanelCircleImage();
+        botonluna = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1000, 610));
@@ -322,10 +326,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
         add(jLabel5);
         jLabel5.setBounds(550, 370, 290, 14);
 
-        foto.setColorBorde(new java.awt.Color(204, 204, 204));
-        add(foto);
-        foto.setBounds(370, 410, 130, 130);
-
         jLabel9.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel9.setText("Gestionar Personas");
         add(jLabel9);
@@ -406,6 +406,28 @@ public class GestionarPersonas extends javax.swing.JPanel {
         lblDireccion.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         add(lblDireccion);
         lblDireccion.setBounds(30, 540, 150, 14);
+
+        foto.setImagen(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"))); // NOI18N
+        foto.setLayout(null);
+
+        botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/botonluna.png"))); // NOI18N
+        botonluna.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonluna.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonlunaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonlunaMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botonlunaMousePressed(evt);
+            }
+        });
+        foto.add(botonluna);
+        botonluna.setBounds(0, 100, 150, 60);
+
+        add(foto);
+        foto.setBounds(370, 390, 150, 150);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablaPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPersonasMouseClicked
@@ -413,7 +435,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
         int columna = tablaPersonas.columnAtPoint(evt.getPoint());
         if (columna == Utilidades.PERFIL) {
             validarSeleccionMouse(fila);
-
+            
         } else if (columna == Utilidades.EVENTO) {
             try {
                 validarSeleccionMouse2(fila);
@@ -461,17 +483,17 @@ public class GestionarPersonas extends javax.swing.JPanel {
 
     private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
         if (validaCampoEmail && validaDireccion && telefonoValido) {
-
+            
             int confirm = JOptionPane.showConfirmDialog(null, "Esta seguro de su decision??");
             if (confirm == 0) {
                 ctr.agregarPersona().setMail(txtEmail.getText());
                 ctr.agregarPersona().setTelefono(txtTelefono.getText());
                 ctr.agregarPersona().setDireccion(txtDireccion.getText());
                 ctr.agregarPersona().setEstadoCivil(cbEstadoCivil.getSelectedItem().toString());
-                ctr.agregarPersona().setFile(new File(foto.getRutaImagen()));
+                ctr.agregarPersona().setFile(file);
                 ctr.Editar(ctr.agregarPersona());
                 if (ctr.isCorrect()) {
-
+                    
                     txtDireccion.setText("");
                     txtEmail.setText("");
                     txtTelefono.setText("");
@@ -479,7 +501,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
                     lblEmailValid.setText("");
                     lblTelefono.setText("");
                     Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"));
-                    foto.setImagenDefault(new ImageIcon(uti.img(img, foto.getSize())));
+                    foto.setImagen(new ImageIcon(uti.img(img, foto.getSize())));
                     JOptionPane.showMessageDialog(null, "Se a modificado correctamente");
                 } else {
                     JOptionPane.showMessageDialog(null, "Se a producido un error mientras intentaba actualizar");
@@ -539,7 +561,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
             telefonoValido = true;
             lblTelefono.setText("Telefono. Valido");
             lblTelefono.setForeground(Color.green);
-
+            
         } else {
             telefonoValido = false;
             lblTelefono.setText("Telefono. Invalido");
@@ -572,11 +594,29 @@ public class GestionarPersonas extends javax.swing.JPanel {
         }         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionKeyReleased
 
+    private void botonlunaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonlunaMouseEntered
+        botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/botonluna2.png"))); // TODO add your handling code here:
+    }//GEN-LAST:event_botonlunaMouseEntered
+
+    private void botonlunaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonlunaMouseExited
+        botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/botonluna.png")));// TODO add your handling code here:
+    }//GEN-LAST:event_botonlunaMouseExited
+    File file = null;
+    private void botonlunaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonlunaMousePressed
+        file = uti.BuscarImagen();
+        if (file != null) {
+            ImageIcon ico = new ImageIcon(file.getAbsolutePath());
+            foto.setImagen(ico);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonlunaMousePressed
+
 //vista en desarrollo
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel botonluna;
     private javax.swing.JLabel btnGuardar;
     private javax.swing.JComboBox<String> cbEstadoCivil;
-    private rojerusan.RSFotoCircle foto;
+    private rojerusan.RSPanelCircleImage foto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

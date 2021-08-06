@@ -8,9 +8,11 @@ package Vista;
 import ControlAdminDatos.Utiles.Utiles;
 import Controlador.MantenerCokie;
 import Modelo.Persona;
+import java.awt.ComponentOrientation;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
+import javax.swing.plaf.LabelUI;
 
 /**
  *
@@ -21,8 +23,12 @@ public class Cuenta extends javax.swing.JPanel {
     /**
      * Creates new form Cuenta
      */
+    Utiles uti=new Utiles();
     public Cuenta() {
         initComponents();
+        Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/Ghandi.png"));
+        lblp.setIcon(new ImageIcon(uti.img(img, lblp.getSize())));
+        
     }
 
     /**
@@ -34,7 +40,6 @@ public class Cuenta extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         fotop = new rojerusan.RSPanelCircleImage();
         txtApellidos = new javax.swing.JLabel();
@@ -49,6 +54,8 @@ public class Cuenta extends javax.swing.JPanel {
         txtDireccion = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JLabel();
         txtMail = new javax.swing.JLabel();
+        panelDerecho = new javax.swing.JPanel();
+        lblp = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1000, 610));
@@ -58,11 +65,6 @@ public class Cuenta extends javax.swing.JPanel {
             }
         });
         setLayout(null);
-
-        jLabel2.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel2.setOpaque(true);
-        add(jLabel2);
-        jLabel2.setBounds(550, 0, 450, 610);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 51));
         jPanel1.setLayout(null);
@@ -116,6 +118,14 @@ public class Cuenta extends javax.swing.JPanel {
         txtTelefono.setBounds(90, 350, 330, 30);
         add(txtMail);
         txtMail.setBounds(90, 400, 330, 30);
+
+        panelDerecho.setBackground(new java.awt.Color(51, 51, 51));
+        panelDerecho.setLayout(null);
+        panelDerecho.add(lblp);
+        lblp.setBounds(30, 50, 390, 120);
+
+        add(panelDerecho);
+        panelDerecho.setBounds(550, 0, 450, 610);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
@@ -134,7 +144,7 @@ public class Cuenta extends javax.swing.JPanel {
         fotop.setImagen(new ImageIcon(persona.getFile().getAbsolutePath()));
     }
     public void BorrarPantalla(){
-        Utiles uti=new Utiles();
+        
         txtNombres.setText("");
         txtApellidos.setText("");
         txtCedula.setText("");
@@ -149,12 +159,13 @@ public class Cuenta extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSPanelCircleImage fotop;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblp;
+    private javax.swing.JPanel panelDerecho;
     private javax.swing.JLabel txtApellidos;
     private javax.swing.JLabel txtCedula;
     private javax.swing.JLabel txtDireccion;

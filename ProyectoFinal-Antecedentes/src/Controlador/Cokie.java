@@ -24,6 +24,9 @@ public class Cokie {
         xtrStream = new XStream(new JettisonMappedXmlDriver());
         xtrStream.setMode(XStream.NO_REFERENCES);
     }
+    public void cerrar(){
+        xtrStream=new XStream(new JettisonMappedXmlDriver());
+    }
 
     /**
      * recibe un String repo

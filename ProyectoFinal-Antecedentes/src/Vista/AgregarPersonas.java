@@ -31,7 +31,7 @@ public class AgregarPersonas extends javax.swing.JPanel {
      */
     UtilesFecha fech = new UtilesFecha();
     Utiles uti = new Utiles();
-
+    
     public AgregarPersonas() {
         initComponents();
         ConvertirEnums enums = new ConvertirEnums();
@@ -66,7 +66,6 @@ public class AgregarPersonas extends javax.swing.JPanel {
         txtCedula = new javax.swing.JTextField();
         cbEstadoCivil = new javax.swing.JComboBox<>();
         cbSexo = new javax.swing.JComboBox<>();
-        foto = new rojerusan.RSFotoCircle();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JLabel();
@@ -76,6 +75,8 @@ public class AgregarPersonas extends javax.swing.JPanel {
         lblEmail = new javax.swing.JLabel();
         lblTelefono = new javax.swing.JLabel();
         lblDireccion = new javax.swing.JLabel();
+        foto = new rojerusan.RSPanelCircleImage();
+        botonluna = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1000, 610));
@@ -232,10 +233,6 @@ public class AgregarPersonas extends javax.swing.JPanel {
         add(cbSexo);
         cbSexo.setBounds(530, 90, 290, 30);
 
-        foto.setColorBorde(new java.awt.Color(204, 204, 204));
-        add(foto);
-        foto.setBounds(590, 210, 130, 130);
-
         jLabel9.setForeground(new java.awt.Color(49, 49, 49));
         jLabel9.setText("Nombres");
         add(jLabel9);
@@ -290,6 +287,28 @@ public class AgregarPersonas extends javax.swing.JPanel {
         lblDireccion.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         add(lblDireccion);
         lblDireccion.setBounds(150, 420, 160, 15);
+
+        foto.setImagen(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"))); // NOI18N
+        foto.setLayout(null);
+
+        botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/botonluna.png"))); // NOI18N
+        botonluna.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonluna.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonlunaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonlunaMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botonlunaMousePressed(evt);
+            }
+        });
+        foto.add(botonluna);
+        botonluna.setBounds(0, 100, 150, 60);
+
+        add(foto);
+        foto.setBounds(590, 200, 150, 150);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidosActionPerformed
@@ -322,7 +341,7 @@ public class AgregarPersonas extends javax.swing.JPanel {
 
     private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
         if (validaCampoCedula && validaCampoEmail && telefonoValido && validaNombre && validaApellido && validaDireccion && dcFechaN.getDate() != null && cbSexo.getSelectedItem() != null && cbEstadoCivil.getSelectedItem() != null) {
-
+            
             ControladorPersona ctr = new ControladorPersona();
             ctr.newPersona();
             SecureRandom sc = new SecureRandom();
@@ -338,11 +357,11 @@ public class AgregarPersonas extends javax.swing.JPanel {
             ctr.agregarPersona().setSexo(cbSexo.getSelectedItem().toString());
             ctr.agregarPersona().setTelefono(txtTelefono.getText());
             ctr.agregarPersona().setMail(txtMail.getText());
-            ctr.agregarPersona().setFile(new File(foto.getRutaImagen()));
+            ctr.agregarPersona().setFile(file);
             ctr.agregarPersona().setEstado(Boolean.TRUE);
             ctr.agregarPersona().setIdRol(2L);
             ctr.guardarPersona();
-
+            
             if (ctr.isCorrect()) {
                 txtApellidos.setText("");
                 txtCedula.setText("");
@@ -357,7 +376,7 @@ public class AgregarPersonas extends javax.swing.JPanel {
                 lblNombre.setText("");
                 lblTelefono.setText("");
                 Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"));
-                foto.setImagenDefault(new ImageIcon(uti.img(img, foto.getSize())));
+                foto.setImagen(new ImageIcon(uti.img(img, foto.getSize())));
                 JOptionPane.showMessageDialog(null, "Persona agregada correctamente");
             } else {
                 JOptionPane.showMessageDialog(null, "A sucedido un error mientras intentaba guardar revise la informacion e intente nuevamente");
@@ -365,14 +384,14 @@ public class AgregarPersonas extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Datos faltantes o erroneos");
         }
-
+        
 
     }//GEN-LAST:event_btnGuardarMousePressed
     boolean validaCampoCedula;
     private void txtCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyReleased
-
+        
         validaCampoCedula = uti.isEcuadorianDocumentValid(txtCedula.getText());
-
+        
         if (validaCampoCedula) {
             lblCedula.setText("CI. Valido");
             lblCedula.setForeground(Color.green);
@@ -430,7 +449,8 @@ public class AgregarPersonas extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Caracteres invalidos no se permiten numeros en el Apellido");
         }        // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidosKeyTyped
-    boolean telefonoValido;    boolean validaNombre;
+    boolean telefonoValido;
+    boolean validaNombre;
     private void txtNombresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyReleased
         if (txtNombres.getText().length() > 7 && txtNombres.getText().contains(" ")) {
             validaNombre = true;
@@ -480,13 +500,31 @@ public class AgregarPersonas extends javax.swing.JPanel {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonoKeyReleased
 
+    private void botonlunaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonlunaMouseEntered
+        botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/botonluna2.png"))); // TODO add your handling code here:
+    }//GEN-LAST:event_botonlunaMouseEntered
+
+    private void botonlunaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonlunaMouseExited
+        botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/botonluna.png")));// TODO add your handling code here:
+    }//GEN-LAST:event_botonlunaMouseExited
+    File file = null;
+    private void botonlunaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonlunaMousePressed
+        file = uti.BuscarImagen();
+        if (file != null) {
+            ImageIcon ico = new ImageIcon(file.getAbsolutePath());
+            foto.setImagen(ico);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonlunaMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel botonluna;
     private javax.swing.JLabel btnGuardar;
     private javax.swing.JComboBox<String> cbEstadoCivil;
     private javax.swing.JComboBox<String> cbSexo;
     private com.toedter.calendar.JDateChooser dcFechaN;
-    private rojerusan.RSFotoCircle foto;
+    private rojerusan.RSPanelCircleImage foto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

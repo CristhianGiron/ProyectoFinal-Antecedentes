@@ -68,7 +68,6 @@ public class Registro extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         btnOk = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JLabel();
-        foto = new rojerusan.RSFotoCircle();
         jLabel12 = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -83,6 +82,8 @@ public class Registro extends javax.swing.JPanel {
         lblApellido = new javax.swing.JLabel();
         lblDireccion = new javax.swing.JLabel();
         lblTelefono = new javax.swing.JLabel();
+        foto = new rojerusan.RSPanelCircleImage();
+        botonluna = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -216,8 +217,6 @@ public class Registro extends javax.swing.JPanel {
         });
         add(btnRegresar);
         btnRegresar.setBounds(560, 10, 21, 30);
-        add(foto);
-        foto.setBounds(440, 30, 80, 80);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
@@ -318,6 +317,28 @@ public class Registro extends javax.swing.JPanel {
         lblTelefono.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         add(lblTelefono);
         lblTelefono.setBounds(310, 280, 150, 14);
+
+        foto.setImagen(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"))); // NOI18N
+        foto.setLayout(null);
+
+        botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/btonlunapequeño.png"))); // NOI18N
+        botonluna.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonluna.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonlunaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonlunaMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botonlunaMousePressed(evt);
+            }
+        });
+        foto.add(botonluna);
+        botonluna.setBounds(-10, 40, 100, 60);
+
+        add(foto);
+        foto.setBounds(430, 20, 80, 80);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseEntered
@@ -349,7 +370,7 @@ public class Registro extends javax.swing.JPanel {
                 ctr.agregarPersona().setSexo(cbSexo.getSelectedItem().toString());
                 ctr.agregarPersona().setTelefono(txtTelefono.getText());
                 ctr.agregarPersona().setMail(txtMail.getText());
-                ctr.agregarPersona().setFile(new File(foto.getRutaImagen()));
+                ctr.agregarPersona().setFile(file);
                 ctr.agregarPersona().setEstado(Boolean.TRUE);
                 ctr.agregarPersona().setIdRol(1L);
                 ctr.guardarPersona();
@@ -377,7 +398,7 @@ public class Registro extends javax.swing.JPanel {
                     lblClaveValid.setText("");
                     lblUsuarioValido.setText("");
                     Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"));
-                    foto.setImagenDefault(new ImageIcon(uti.img(img, foto.getSize())));
+                    foto.setImagen(new ImageIcon(uti.img(img, foto.getSize())));
                     JOptionPane.showMessageDialog(null, "Registro exitoso");
                 } else {
                     JOptionPane.showMessageDialog(null, "Error en el registro");
@@ -546,13 +567,30 @@ public class Registro extends javax.swing.JPanel {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionKeyReleased
 
+    private void botonlunaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonlunaMouseEntered
+         botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/botonlunapequeño2.png")));// TODO add your handling code here:
+    }//GEN-LAST:event_botonlunaMouseEntered
+
+    private void botonlunaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonlunaMouseExited
+         botonluna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/btonlunapequeño.png")));  // TODO add your handling code here:
+    }//GEN-LAST:event_botonlunaMouseExited
+    File file=null;
+    private void botonlunaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonlunaMousePressed
+        file = uti.BuscarImagen();
+        if (file != null) {
+            ImageIcon ico = new ImageIcon(file.getAbsolutePath());
+            foto.setImagen(ico);
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_botonlunaMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel botonluna;
     private javax.swing.JLabel btnOk;
     private javax.swing.JLabel btnRegresar;
     private javax.swing.JComboBox<String> cbSexo;
     private com.toedter.calendar.JDateChooser fechaNa;
-    private rojerusan.RSFotoCircle foto;
+    private rojerusan.RSPanelCircleImage foto;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
