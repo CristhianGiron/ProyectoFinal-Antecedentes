@@ -14,6 +14,12 @@ import java.util.ArrayList;
  * @author ASUS
  */
 public class UtilGesJuz {
+    /**
+     * Obtiene la posición de la lista en el que se encuentra determinado juzgado
+     * @param lista
+     * @param nombre
+     * @return 
+     */
     public static int obtenerJuzgadoContenido(ArrayList<Juzgado> lista, String nombre){
        int pos = -1;
         for (int i = 0; i < lista.size(); i++) {
@@ -25,7 +31,13 @@ public class UtilGesJuz {
         }
        return pos;
     }
-    
+    /**
+     * Obtiene la matriz que llenará la tabla de gestionar juzgados
+     * con los datos de cada juzgado
+     * @param titulosList
+     * @param listaJuzgado
+     * @return 
+     */
     public static Object[][] obtenerMatrizDatos(ArrayList<String> titulosList, ArrayList<Juzgado> listaJuzgado) {
 
         /*se crea la matriz donde las filas son dinamicas pues corresponde

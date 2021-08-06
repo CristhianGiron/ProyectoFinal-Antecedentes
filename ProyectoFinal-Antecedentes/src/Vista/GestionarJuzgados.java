@@ -41,11 +41,17 @@ public class GestionarJuzgados extends javax.swing.JPanel {
         construirTabla();
     }
 
+    /**
+     * Limpia/Vacia todos los campos
+     */
     public void vaciarTxt() {
         txtNombreJuzgado.setText("");
         txtDireccion.setText("");
     }
 
+    /**
+     * Construye la tabla segun los datos y titulos
+     */
     private void construirTabla() {
         ArrayList<String> titulosList = new ArrayList<>();
 
@@ -68,6 +74,12 @@ public class GestionarJuzgados extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Construye la tabla segun los datos y botones
+     *
+     * @param titulos
+     * @param data
+     */
     private void construirTabla(String[] titulos, Object[][] data) {
         modelo = new ModeloTabla(data, titulos);
         modelo.setRowCount(0);
@@ -341,7 +353,11 @@ public class GestionarJuzgados extends javax.swing.JPanel {
     private void txtNombreJuzgadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreJuzgadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreJuzgadoActionPerformed
-
+    /**
+     * Busca la informacion de un Juzgado por el nombre
+     *
+     * @param evt
+     */
     private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
         if ((txtNombreJuzgado.getText().length() > 0 && txtDireccion.getText().length() > 0) || (txtDireccion.getText().length() > 0)) {
             JOptionPane.showMessageDialog(null, "Solo se puede buscar por el nombre del Juzgado");
@@ -360,7 +376,12 @@ public class GestionarJuzgados extends javax.swing.JPanel {
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionActionPerformed
-
+    /**
+     * Permite ingresar un nuevo Juzgado o Editar la infomación de uno
+     * dependiendo de lo que se necesite
+     *
+     * @param evt
+     */
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
         if (txtNombreJuzgado.getText().length() > 0 && txtDireccion.getText().length() > 0) {
             boolean esValido = false;
@@ -395,7 +416,12 @@ public class GestionarJuzgados extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Llene todos los parametros");
         }
     }//GEN-LAST:event_botonGuardarMouseClicked
-
+    /**
+     * Permite realizar las acciones de editar y dar de baja seleccionando los
+     * determinados iconos de la tabla
+     *
+     * @param evt
+     */
     private void tablaJuzgadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJuzgadosMouseClicked
         //capturo fila o columna dependiendo de mi necesidad
         int fila = tablaJuzgados.rowAtPoint(evt.getPoint());

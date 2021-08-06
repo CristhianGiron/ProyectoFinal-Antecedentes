@@ -88,6 +88,9 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         cargarCombos();
     }
 
+    /**
+     * Limpia todos los campos
+     */
     public void limpiarCampos() {
         auxPer = null;
         txtCedula.setText("");
@@ -105,6 +108,9 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         borrarArchivo();
     }
 
+    /**
+     * Borra el archivo temporal que se muestra al usuario
+     */
     public void borrarArchivo() {
         IconoBorrarArchivo.setVisible(false);
         lbIconoArchivo.setVisible(false);
@@ -113,6 +119,9 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
         fichero = null;
     }
 
+    /**
+     * Carga los comboBox con los datos correspondientes
+     */
     public void cargarCombos() {
         listaDelito = dd.findDelitoEntities(false);
         UtilAgreGesAnt.cargarCombo(cbDelito, listaDelito, "nombre");
@@ -653,7 +662,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     private void PanelComponentesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelComponentesMouseExited
         txtNombreApellido.setFocusable(true);        // TODO add your handling code here:
     }//GEN-LAST:event_PanelComponentesMouseExited
-
+    /**
+     * Seleciona el estado Inocente del Victimario
+     *
+     * @param evt
+     */
     private void rbInocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbInocenteActionPerformed
         if (rbInocente.isSelected()) {
             rbInocente.setEnabled(false);
@@ -664,7 +677,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             this.estadoVictimario = "Inocente";
         }
     }//GEN-LAST:event_rbInocenteActionPerformed
-
+    /**
+     * Seleciona el estado Presunto Culpable del Victimario
+     *
+     * @param evt
+     */
     private void rbPresuntoCulpableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPresuntoCulpableActionPerformed
         if (rbPresuntoCulpable.isSelected()) {
             rbPresuntoCulpable.setEnabled(false);
@@ -675,7 +692,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             this.estadoVictimario = "Presunto Culpable";
         }
     }//GEN-LAST:event_rbPresuntoCulpableActionPerformed
-
+    /**
+     * Seleciona el estado Culpable del Victimario
+     *
+     * @param evt
+     */
     private void rbCulpableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCulpableActionPerformed
         if (rbCulpable.isSelected()) {
             rbCulpable.setEnabled(false);
@@ -686,7 +707,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             this.estadoVictimario = "Culpable";
         }
     }//GEN-LAST:event_rbCulpableActionPerformed
-
+    /**
+     * Guarda los datos correspondientes del antecedente o proceso
+     *
+     * @param evt
+     */
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
         if (auxPer != null && txtCedula.getText().length() > 0 && txtNombreApellido.getText().length() > 0
                 && cbDelito.getSelectedIndex() > 0 && cbJuzgados.getSelectedIndex() > 0
@@ -703,9 +728,9 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
                 Proceso auxP = new Proceso(Long.valueOf(listaProcesos.size() + 1), Integer.parseInt(txtIntancia.getText()),
                         fecha.getFecha(dcFechaInicioAudiencia), fecha.getFecha(dcFechaFinalizacionAudiencia),
                         (!txtNrAudiencia.getText().equalsIgnoreCase("")) ? Integer.parseInt(txtNrAudiencia.getText()) : 0,
-                        pdf, fichero.getName(), estadoVictimario, (dcFechaFinalizacionAudiencia != null)?"Finalizado":estadoProceso, 
+                        pdf, fichero.getName(), estadoVictimario, (dcFechaFinalizacionAudiencia != null) ? "Finalizado" : estadoProceso,
                         "Habilitado", auxD.getIdDelito(), auxPer.getIdPersona(), auxC.getIdCondena(), auxJ.getIdJuzgado());
-                
+
                 cd.create(auxC);
                 prcd.create(auxP);
                 if (cd.isSeGuardo() && prcd.isSeGuardo()) {
@@ -722,7 +747,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
         }
     }//GEN-LAST:event_botonGuardarMouseClicked
-
+    /**
+     * Busca los datos de la persona ingresada
+     *
+     * @param evt
+     */
     private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
         auxPer = (Persona) UtilAgreGesAnt.obtenerEntidad(txtCedula.getText(), listaPersonas, "cedula");
         if (auxPer != null) {
@@ -735,7 +764,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "No existe registro de esa persona");
         }
     }//GEN-LAST:event_botonBuscarMouseClicked
-
+    /**
+     * Permite subir un archivo
+     *
+     * @param evt
+     */
     private void botonSubirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSubirMouseClicked
         necesario.RSFileChooser fc = new necesario.RSFileChooser();//Creamos el objeto JFileChooser
         int seleccion = fc.showOpenDialog(this);//Abrimos la ventana, guardamos la opcion seleccionada por el usuario
@@ -747,11 +780,19 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             lbNombreArchivo.setText(fichero.getName());//Escribimos el nombre del archivo
         }
     }//GEN-LAST:event_botonSubirMouseClicked
-
+    /**
+     * Permite borrar el archivo subido
+     *
+     * @param evt
+     */
     private void IconoBorrarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoBorrarArchivoMouseClicked
         borrarArchivo();
     }//GEN-LAST:event_IconoBorrarArchivoMouseClicked
-
+    /**
+     * Permite descargar el archivo
+     *
+     * @param evt
+     */
     private void lbIconoArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbIconoArchivoMouseClicked
         if (evt.getClickCount() == 2) {
             try {
@@ -767,7 +808,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_lbIconoArchivoMouseClicked
-
+    /**
+     * Seleciona el estado Finalizado del Proceso o Jucio
+     *
+     * @param evt
+     */
     private void rbFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFinalizadoActionPerformed
         if (rbFinalizado.isSelected()) {
             rbFinalizado.setEnabled(false);
@@ -776,7 +821,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             this.estadoProceso = "Finalizado";
         }
     }//GEN-LAST:event_rbFinalizadoActionPerformed
-
+    /**
+     * Seleciona el estado En proceso del Proceso o Jucio
+     *
+     * @param evt
+     */
     private void rbEnProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEnProcesoActionPerformed
         if (rbEnProceso.isSelected()) {
             rbEnProceso.setEnabled(false);
@@ -797,7 +846,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     private void cbJuzgadosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbJuzgadosItemStateChanged
 
     }//GEN-LAST:event_cbJuzgadosItemStateChanged
-
+    /**
+     * Carga los datos del delito según la posición
+     *
+     * @param evt
+     */
     private void cbDelitoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbDelitoItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (cbDelito.getSelectedIndex() == 0) {
@@ -822,7 +875,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCedulaActionPerformed
-
+    /**
+     * Solo permite numeros en la cedula
+     *
+     * @param evt
+     */
     private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
         char caracter = evt.getKeyChar();
         if (((caracter < '0')
@@ -831,7 +888,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
             evt.consume();
         }
     }//GEN-LAST:event_txtCedulaKeyTyped
-
+    /**
+     * Solo permite numeros en la instancia
+     *
+     * @param evt
+     */
     private void txtIntanciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIntanciaKeyTyped
         char caracter = evt.getKeyChar();
         if (((caracter < '0')
@@ -839,7 +900,11 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
                 && (caracter != '\b')) {
             evt.consume();
         }    }//GEN-LAST:event_txtIntanciaKeyTyped
-
+    /**
+     * Solo permite numeros en el número de audiencias
+     *
+     * @param evt
+     */
     private void txtNrAudienciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNrAudienciaKeyTyped
         char caracter = evt.getKeyChar();
         if (((caracter < '0')
@@ -847,24 +912,6 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
                 && (caracter != '\b')) {
             evt.consume();
         }    }//GEN-LAST:event_txtNrAudienciaKeyTyped
-
-    //Cambia la imagen de un icono ubicado en un JLabel
-    public void cambiarImagen(JLabel button, String direccionImagen) {
-        ImageIcon img = new ImageIcon(getClass().getResource(direccionImagen));
-        button.setIcon(img);
-    }
-
-    public void cambiarColor(JPanel panel, Color color) {
-        panel.setBackground(color);
-    }
-
-    public void clickmenu(JPanel panel, int numberbool) {
-        if (numberbool == 1) {
-            panel.setBackground(new Color(25, 29, 74));
-        } else {
-            panel.setBackground(new Color(221, 226, 255));
-        }
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

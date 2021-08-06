@@ -35,12 +35,14 @@ public class JuzgadoDao implements Dao<Juzgado> {
         return seGuardo;
     }
 
+    /**
+     * El siguiente método permite extrae un lista de juzgados, pueden ser todos o solo las que estan activas
+     *
+     * @param todo
+     * @return 
+     */
     public ArrayList<Juzgado> findJuzgadoEntities(boolean todo) {
         return findEntities(todo, -1, -1);
-    }
-
-    public ArrayList<Juzgado> findJuzgadoEntities(int maxResult, int firstResult) {
-        return findEntities(false, maxResult, firstResult);
     }
 
     @Override

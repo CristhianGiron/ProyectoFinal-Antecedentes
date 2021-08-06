@@ -64,16 +64,22 @@ public class Inicio extends javax.swing.JPanel {
     public Inicio() {
         initComponents();
         botonDescargar3.setVisible(false);
-        cargarListas();
+        cargarLista();
     }
 
-    public void cargarListas() {
+    /**
+     * Carga la lista necesaria para llenar la tabla
+     */
+    public void cargarLista() {
         if (aux != null) {
             listaProcesos = prcd.listaProcesoPersona(aux.getIdPersona(), false);
         }
         construirTabla();
     }
 
+    /**
+     * Construye la tabla segun los datos y titulos
+     */
     private void construirTabla() {
 
         ArrayList<String> titulosList = new ArrayList<>();
@@ -93,6 +99,12 @@ public class Inicio extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Construye la tabla segun los datos y botones
+     *
+     * @param titulos
+     * @param data
+     */
     private void construirTabla(String[] titulos, Object[][] data) {
         modelo = new ModeloTabla(data, titulos);
         modelo.setRowCount(0);
@@ -435,6 +447,9 @@ public class Inicio extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     ControladorPersona ctrp = new ControladorPersona();
 
+    /**
+     * Busca los datos de la persona ingresada
+     */
     public void buscar() {
         aux = null;
 
@@ -450,9 +465,10 @@ public class Inicio extends javax.swing.JPanel {
             if (file != null) {
                 foto.setImagen(new ImageIcon("Perfiles/" + file.getPath()));
             }
-            cargarListas();
+            cargarLista();
         }
     }
+
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
         Runtime r = Runtime.getRuntime();
         Process p = null;
@@ -486,7 +502,11 @@ public class Inicio extends javax.swing.JPanel {
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 255)));
         jLabel1.setForeground(new Color(0, 0, 255));        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel1MouseEntered
-
+    /**
+     * Llama al metodo buscar()
+     *
+     * @param evt
+     */
     private void txtNombreApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreApellidoKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             buscar();
@@ -497,7 +517,11 @@ public class Inicio extends javax.swing.JPanel {
     private void txtNombreApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreApellidoActionPerformed
 
     }//GEN-LAST:event_txtNombreApellidoActionPerformed
-
+    /**
+     * Llama al metodo buscar()
+     *
+     * @param evt
+     */
     private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
         if (txtCedula.getText().length() > 0) {
             buscar();
@@ -513,7 +537,12 @@ public class Inicio extends javax.swing.JPanel {
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCedulaActionPerformed
-
+    /**
+     * Muestra la informacion del delito por el cual es acusado la persona al
+     * seleccionar dicho delito
+     *
+     * @param evt
+     */
     private void tablaAntecedentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAntecedentesMouseClicked
         int fila = tablaAntecedentes.rowAtPoint(evt.getPoint());
         Proceso tmpPr = listaProcesos.get(fila);
@@ -533,7 +562,11 @@ public class Inicio extends javax.swing.JPanel {
     private void PanelComponentesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelComponentesMouseExited
         txtNombreApellido.setFocusable(true);        // TODO add your handling code here:
     }//GEN-LAST:event_PanelComponentesMouseExited
-
+    /**
+     * Permite descargar el archivo
+     *
+     * @param evt
+     */
     private void botonDescargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonDescargarMouseClicked
         if (auxByte != null) {
             necesario.RSFileChooser guardar = new RSFileChooser();
@@ -541,8 +574,6 @@ public class Inicio extends javax.swing.JPanel {
             guardar.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
             File archivo = guardar.getSelectedFile();
             UtilAgreGesAnt.descargarArchivo(auxByte, archivo);
-        } else {
-            System.out.println("hola");
         }
     }//GEN-LAST:event_botonDescargarMouseClicked
 

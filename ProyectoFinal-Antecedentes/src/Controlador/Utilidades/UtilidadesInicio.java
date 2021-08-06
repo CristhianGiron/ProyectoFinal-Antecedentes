@@ -16,6 +16,13 @@ import java.util.ArrayList;
  * @author ASUS
  */
 public class UtilidadesInicio {
+    /**
+     * Obtiene la matriz que llenará la tabla del inicio con los datos del delito cometido por la persona
+     * @param titulosList
+     * @param listaProceso
+     * @param dd
+     * @return 
+     */
     public static Object[][] obtenerMatrizDatos(ArrayList<String> titulosList, ArrayList<Proceso> listaProceso, DelitoDao dd) {
 
         /*se crea la matriz donde las filas son dinamicas pues corresponde

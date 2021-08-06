@@ -42,12 +42,14 @@ public class ProcesoDao implements Dao<Proceso> {
         return seGuardo;
     }
 
+    /**
+     * El siguiente método permite extrae un lista de procesos, pueden ser todos o solo las que estan activas
+     *
+     * @param todo
+     * @return 
+     */
     public ArrayList<Proceso> findProcesoEntities(boolean todo) {
         return findEntities(todo, -1, -1);
-    }
-
-    public ArrayList<Proceso> findProcesoEntities(int maxResult, int firstResult) {
-        return findEntities(false, maxResult, firstResult);
     }
 
     @Override
@@ -164,6 +166,13 @@ public class ProcesoDao implements Dao<Proceso> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * El siguiente método permite extrae un lista de procesos dependiendo del id de la persona, pueden ser todos o solo las que estan activas
+     *
+     * @param id
+     * @param todo
+     * @return 
+     */
     public ArrayList<Proceso> listaProcesoPersona(Long id, boolean todo) {
         String query;
         ArrayList<Proceso> lista = new ArrayList<>();

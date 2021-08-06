@@ -33,13 +33,14 @@ public class CondenaDao implements Dao<Condena> {
     public boolean isSeGuardo() {
         return seGuardo;
     }
-
+    /**
+     * El siguiente método permite extrae un lista de condenas, pueden ser todas o solo las que estan activas
+     *
+     * @param todo
+     * @return 
+     */
     public ArrayList<Condena> findCondenaEntities(boolean todo) {
         return findEntities(todo, -1, -1);
-    }
-
-    public ArrayList<Condena> findCondenaEntities(int maxResult, int firstResult) {
-        return findEntities(false, maxResult, firstResult);
     }
 
     @Override
