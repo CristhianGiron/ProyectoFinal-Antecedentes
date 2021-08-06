@@ -65,7 +65,9 @@ public class GestionarPersonas extends javax.swing.JPanel {
         cbEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(enums.convertEstadoCivil(EstadoCivil.values())));
         
     }
-    
+    /**
+     * Actuliza los datos de las listas para mostrarlos en la tabla
+     */
     public void actualizar() {
         ctr.VaciarListComun();
         ctr.listaPersonas();
@@ -74,7 +76,9 @@ public class GestionarPersonas extends javax.swing.JPanel {
         construirTabla();
         System.out.println("Entro a este metodo");
     }
-    
+    /**
+     * llama al metodo Construir tabla y lo ejecuta
+     */
     private void construirTabla() {
         
         ArrayList<String> titulosList = new ArrayList<>();
@@ -97,7 +101,11 @@ public class GestionarPersonas extends javax.swing.JPanel {
         construirTabla(titulos, data);
         
     }
-    
+    /**
+     * Construye una tabla ingresandole su data y los datos del encabezado o header
+     * @param titulos Datos que conformaran el Header de la tabla
+     * @param data Informacion que rellenara la tabla
+     */
     private void construirTabla(String[] titulos, Object[][] data) {
         modelo = new ModeloTabla(data, titulos);
         modelo.setRowCount(0);
@@ -128,7 +136,10 @@ public class GestionarPersonas extends javax.swing.JPanel {
         tablaPersonas.setTableHeader(jtableHeader);
         
     }
-    
+    /**
+     * Valida la seleccion de el boton dar de baja de la tabla
+     * @param fila fila en la cual se ejecutara el evento de dar de baja y se encuentra el boton presionado
+     */
     private void validarSeleccionMouse(int fila) {
         Utilidades.filaSeleccionada = fila;
         Long id = ctr.getListComun().get(tablaPersonas.getSelectedRow()).getIdPersona();
@@ -147,7 +158,11 @@ public class GestionarPersonas extends javax.swing.JPanel {
             }
         }
     }
-    
+    /**
+     * Valida la seleccion del boton Editar de la tabla
+     * @param fila fila donde se encuentra el boton de editar presionado
+     * @throws IOException 
+     */
     private void validarSeleccionMouse2(int fila) throws IOException {
         Utilidades.filaSeleccionada = fila;
         ctr.setPersona(ctr.getListTemporal().get(tablaPersonas.getSelectedRow()));
@@ -205,16 +220,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1000, 610));
         setPreferredSize(new java.awt.Dimension(1000, 610));
-        addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                formFocusGained(evt);
-            }
-        });
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                formMouseEntered(evt);
-            }
-        });
         setLayout(null);
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
@@ -233,12 +238,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaPersonasMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                tablaPersonasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                tablaPersonasMouseExited(evt);
-            }
         });
         jScrollPane1.setViewportView(tablaPersonas);
 
@@ -246,11 +245,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
         jScrollPane1.setBounds(26, 124, 956, 200);
 
         txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
-            }
-        });
         txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtEmailKeyReleased(evt);
@@ -265,11 +259,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
         jLabel6.setBounds(30, 370, 290, 14);
 
         txtTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoActionPerformed(evt);
-            }
-        });
         txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTelefonoKeyReleased(evt);
@@ -287,11 +276,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
         jLabel7.setBounds(30, 430, 290, 14);
 
         txtDireccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDireccionActionPerformed(evt);
-            }
-        });
         txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtDireccionKeyReleased(evt);
@@ -340,15 +324,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
         jLabel10.setBounds(25, 65, 290, 10);
 
         txtBucarCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 117, 225)));
-        txtBucarCedula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBucarCedulaActionPerformed(evt);
-            }
-        });
         txtBucarCedula.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtBucarCedulaKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBucarCedulaKeyReleased(evt);
             }
@@ -357,11 +333,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
         txtBucarCedula.setBounds(25, 80, 290, 30);
 
         txtBuscarNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 117, 225)));
-        txtBuscarNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarNombreActionPerformed(evt);
-            }
-        });
         txtBuscarNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarNombreKeyReleased(evt);
@@ -451,34 +422,6 @@ public class GestionarPersonas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tablaPersonasMouseClicked
 
-    private void tablaPersonasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPersonasMouseEntered
-
-    }//GEN-LAST:event_tablaPersonasMouseEntered
-
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-
-    }//GEN-LAST:event_txtEmailActionPerformed
-
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-
-    }//GEN-LAST:event_txtTelefonoActionPerformed
-
-    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
-
-    }//GEN-LAST:event_txtDireccionActionPerformed
-
-    private void txtBucarCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBucarCedulaActionPerformed
-
-    }//GEN-LAST:event_txtBucarCedulaActionPerformed
-
-    private void txtBuscarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarNombreActionPerformed
-
-    }//GEN-LAST:event_txtBuscarNombreActionPerformed
-
-    private void tablaPersonasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPersonasMouseExited
-
-    }//GEN-LAST:event_tablaPersonasMouseExited
-
     private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
         btnGuardar.setBackground(new Color(18, 79, 82));
     }//GEN-LAST:event_btnGuardarMouseEntered
@@ -525,20 +468,7 @@ public class GestionarPersonas extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Error datos faltantes o erroneos");
         }
-    }
-    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formFocusGained
-
-    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formMouseEntered
-    String buscar;
-    private void txtBucarCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBucarCedulaKeyPressed
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBucarCedulaKeyPressed
-
+    }    String buscar;
     private void txtBucarCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBucarCedulaKeyReleased
         ctr.VaciarTemp();
         buscar = txtBucarCedula.getText();

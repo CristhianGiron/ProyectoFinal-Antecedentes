@@ -20,7 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * PersonaDao implementa la interface Dao la cual tiene la funcion de realizar operaciones
+ * a la base de datos
  * @author hp
  */
 public class PersonaDao implements Dao<Persona> {
@@ -30,27 +31,51 @@ public class PersonaDao implements Dao<Persona> {
     Conexion con = new Conexion();
     Utiles uti = new Utiles();
     static Connection cnx;
-
+    /**
+     * Constructor de la clase PersonaDao
+     */
     public PersonaDao() {
         cnx = con.getConexion();
 
     }
     Boolean isValid;
-
+    /**
+     * Confirmacion de transaccion o operacion realizada a la base de datos
+     * @return valor booleano true: operacion o transaccion realizada con exito
+     * false: operacion o transaccion no realizada
+     */
     public Boolean isValidTransaccion() {
 
         return isValid;
 
     }
-
+    /**
+     * Este es un metodo desde el cual se puede hacer uso de el metodo
+     * findEntities(boolean all, int maxResult, int firstResult) pero obiando sus parametros
+     * @return ArrayList<Persona> lista de datos de personas
+     */
     public ArrayList<Persona> findPersonaEntities() {
         return findEntities(true, -1, -1);
     }
-
+    /**
+     * Este es un metodo desde el cual se puede hacer uso de el metodo 
+     * findEntities(boolean all, int maxResult, int firstResult) tomando encuenta todos sus parametros
+     * @param maxResult cantidad maxima de datos que se espera retornar
+     * @param firstResult primer resultado desde el cual se requiere obtener los datos
+     * @return ArrayList<Persona> lista de datos de personas
+     */
     public ArrayList<Persona> findPersonaEntities(int maxResult, int firstResult) {
         return findEntities(false, maxResult, firstResult);
     }
-
+    /**
+     * Lista los datos de la entidad Persona contenidos en la tabla personas de la base de
+     * datos de acuerdo a sus parametros
+     * @param all Valor booleano true: obtiene todos los datos contenidos en la tabla persona
+     * de la base de datos false: obtine los datos de acuerdo a los parametros requeridos
+     * @param maxResult cantidad maxima de datos que se espera retornar
+     * @param firstResult primer resultado desde el cual se requiere obtener los datos
+     * @return ArrayList<Persona> lista de datos de personas
+     */
     @Override
     public ArrayList<Persona> findEntities(boolean all, int maxResult, int firstResult) {
 
@@ -87,7 +112,11 @@ public class PersonaDao implements Dao<Persona> {
         return list;
 
     }
-
+    /**
+     * Implementacion del metodo create para la entidad Persona,
+     * inserta una persona en la tabla persona en la basede datos
+     * @param persona Entidad persona que se insertara en la tabla personas de la base de datos
+     */
     @Override
     public void create(Persona persona) {
         int i = 0;
@@ -119,7 +148,11 @@ public class PersonaDao implements Dao<Persona> {
             Logger.getLogger(PersonaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    /**
+     * Implementacion del metodo edit para la entidad persona el cual permite modificar
+     * los datos de personas en la tabla personas de la base de datos
+     * @param persona Persona con los nuevos datos luego de modificarlos para ser actualizada en la base de datos
+     */
     @Override
     public void edit(Persona persona) {
         int i = 0;
@@ -142,7 +175,11 @@ public class PersonaDao implements Dao<Persona> {
             Logger.getLogger(PersonaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    /**
+     * Im-plementacion del metodo destroy para la entidad Persona la cual inactiva
+     * a una persona y no volvera a aparecer en los listados de el sistema, "Dar de baja a una persona"
+     * @param persona Persona la cual sera dada de baja
+     */
     @Override
     public void destroy(Long id) {
         int i = 0;
@@ -156,7 +193,11 @@ public class PersonaDao implements Dao<Persona> {
             System.out.println("Error al actualizar en la base de datos: " + ex);
         }
     }
-
+    /**
+     * Implementacion del metodo find para la entidad persona, este devuelve una persona de la base datos
+     * @param id Identificador de la persona la cual se desea obtener sus datos 
+     * @return  Persona obtenida de la base datos
+     */
     @Override
     public Persona find(Long id) {
         Persona persona = null;
@@ -183,7 +224,11 @@ public class PersonaDao implements Dao<Persona> {
         }
         return persona;
     }
-
+    /**
+     * Implementacion del metodo getCount para la entidad persona la cual permite
+     * obtenerla cantidad de Personas que existen en la tabla personas de la base de datos
+     * @return Int cantidad de personas
+     */
     @Override
     public int getCount() {
         int count = 0;
@@ -200,7 +245,6 @@ public class PersonaDao implements Dao<Persona> {
         }
         return count;
     }
-
     public Persona obtenerPersona(String dato, String tipoBusqueda) throws SQLException {
         Persona persona = null;
         stmt = (Statement) cnx.createStatement();

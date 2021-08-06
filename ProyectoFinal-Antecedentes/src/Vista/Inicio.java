@@ -64,11 +64,6 @@ public class Inicio extends javax.swing.JPanel {
         btnBuscarCedula.setBounds(410, 90, 20, 30);
 
         txtCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 117, 225)));
-        txtCedula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCedulaActionPerformed(evt);
-            }
-        });
         txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCedulaKeyReleased(evt);
@@ -128,10 +123,6 @@ public class Inicio extends javax.swing.JPanel {
         add(jLabel1);
         jLabel1.setBounds(910, 20, 70, 20);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
-
-    }//GEN-LAST:event_txtCedulaActionPerformed
 
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 255)));

@@ -133,6 +133,9 @@ public class Cuenta extends javax.swing.JPanel {
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_formFocusGained
+    /**
+     * Actuliza los datos de este Frame a los mas recientes 
+     */
     public void actualizarPantalla(){
         MantenerCokie<Persona> cok = new MantenerCokie<>();
         Persona persona=cok.getCokieValue("Cesion"); 
@@ -145,6 +148,9 @@ public class Cuenta extends javax.swing.JPanel {
         txtSexo.setText(persona.getSexo());
         fotop.setImagen(new ImageIcon("Perfiles/"+persona.getFile().getPath()));
     }
+    /**
+     * Metodo que borra o limpia los campos de este Frame
+     */
     public void BorrarPantalla(){
         
         txtNombres.setText("");

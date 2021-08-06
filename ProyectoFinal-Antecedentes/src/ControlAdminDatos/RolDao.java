@@ -18,7 +18,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *
+ * RolDao implementa la clase dao y tiene la funcion de 
+ * de realizar operaciones en la base de datos como por ejemplo obtencion de datos
  * @author hp
  */
 public class RolDao implements Dao<Rol>{
@@ -26,21 +27,41 @@ public class RolDao implements Dao<Rol>{
     PreparedStatement stmt1;
     Conexion con = new Conexion();
     static Connection cnx;
-    
+    /**
+     * Constructor de la clase RolDao
+     */
     public RolDao(){
         cnx=con.getConexion();
     }
     
-    
+    /**
+     * Este es un metodo desde el cual se puede hacer uso de el metodo
+     * findEntities(boolean all, int maxResult, int firstResult) pero obiando sus parametros
+     * @return ArrayList<Rol> lista de datos de Roles de usuarios
+     */
     public ArrayList<Rol> findRolEntities() {
         return findEntities(true, -1, -1);
     }
-
+     /**
+     * Este es un metodo desde el cual se puede hacer uso de el metodo 
+     * findEntities(boolean all, int maxResult, int firstResult) tomando en cuenta todos sus parametros
+     * @param maxResult cantidad maxima de datos que se espera retornar
+     * @param firstResult primer resultado desde el cual se requiere obtener los datos
+     * @return ArrayList<Rol> lista de datos de Rles de usuarios
+     */
     public ArrayList<Rol> findRolEntities(int maxResult, int firstResult) {
         return findEntities(false, maxResult, firstResult);
     }
     
-    
+        /**
+     * Lista los datos de la entidad Rol contenidos en la tabla cuenta de la base de
+     * datos de acuerdo a sus parametros
+     * @param all Valor booleano true: obtiene todos los datos contenidos en la tabla rol
+     * de la base de datos false: obtine los datos de acuerdo a los parametros requeridos
+     * @param maxResult cantidad maxima de datos que se espera retornar
+     * @param firstResult primer resultado desde el cual se requiere obtener los datos
+     * @return ArrayList<Rol> lista de datos de cuentas de usuarios
+     */
     @Override
     public ArrayList<Rol> findEntities(boolean all, int maxResult, int firstResult) {
         String query;
@@ -81,7 +102,11 @@ public class RolDao implements Dao<Rol>{
     public void destroy(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+        /**
+     * Implementacion del metodo find para la entidad persona, este devuelve una Rol de la base datos
+     * @param id Identificador del Rol el la cual se desea obtener 
+     * @return  Rol obtenido de la base datos
+     */
     @Override
     public Rol find(Long id) {
         Rol rol = null;

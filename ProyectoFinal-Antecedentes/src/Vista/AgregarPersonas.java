@@ -31,7 +31,7 @@ public class AgregarPersonas extends javax.swing.JPanel {
      */
     UtilesFecha fech = new UtilesFecha();
     Utiles uti = new Utiles();
-    
+
     public AgregarPersonas() {
         initComponents();
         ConvertirEnums enums = new ConvertirEnums();
@@ -91,11 +91,6 @@ public class AgregarPersonas extends javax.swing.JPanel {
         jLabel1.setBounds(50, 10, 320, 40);
 
         txtApellidos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        txtApellidos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidosActionPerformed(evt);
-            }
-        });
         txtApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtApellidosKeyReleased(evt);
@@ -120,11 +115,6 @@ public class AgregarPersonas extends javax.swing.JPanel {
         txtTelefono.setBounds(150, 330, 290, 30);
 
         txtNombres.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        txtNombres.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombresActionPerformed(evt);
-            }
-        });
         txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombresKeyReleased(evt);
@@ -164,11 +154,6 @@ public class AgregarPersonas extends javax.swing.JPanel {
         jLabel5.setBounds(150, 190, 290, 14);
 
         txtMail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        txtMail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMailActionPerformed(evt);
-            }
-        });
         txtMail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtMailKeyReleased(evt);
@@ -188,11 +173,6 @@ public class AgregarPersonas extends javax.swing.JPanel {
         jLabel7.setBounds(150, 370, 290, 14);
 
         txtDireccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDireccionActionPerformed(evt);
-            }
-        });
         txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtDireccionKeyReleased(evt);
@@ -207,11 +187,6 @@ public class AgregarPersonas extends javax.swing.JPanel {
         jLabel8.setBounds(150, 430, 290, 14);
 
         txtCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        txtCedula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCedulaActionPerformed(evt);
-            }
-        });
         txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCedulaKeyReleased(evt);
@@ -316,26 +291,6 @@ public class AgregarPersonas extends javax.swing.JPanel {
         foto.setBounds(590, 200, 150, 150);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidosActionPerformed
-
-    }//GEN-LAST:event_txtApellidosActionPerformed
-
-    private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
-
-    }//GEN-LAST:event_txtNombresActionPerformed
-
-    private void txtMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMailActionPerformed
-
-    }//GEN-LAST:event_txtMailActionPerformed
-
-    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
-
-    }//GEN-LAST:event_txtDireccionActionPerformed
-
-    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
-
-    }//GEN-LAST:event_txtCedulaActionPerformed
-
     private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
         btnGuardar.setBackground(new Color(18, 79, 82));
     }//GEN-LAST:event_btnGuardarMouseEntered
@@ -346,12 +301,15 @@ public class AgregarPersonas extends javax.swing.JPanel {
 
     private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
         guardar();
-        
+
 
     }//GEN-LAST:event_btnGuardarMousePressed
-    public void guardar(){
-                if (validaCampoCedula && validaCampoEmail && telefonoValido && validaNombre && validaApellido && validaDireccion && dcFechaN.getDate() != null && cbSexo.getSelectedItem() != null && cbEstadoCivil.getSelectedItem() != null) {
-            
+    /**
+     * Metodo que contiene todas las acciones que se ejecutaran al hacer clik o enter sobre el boton Guardar
+     */
+    public void guardar() {
+        if (validaCampoCedula && validaCampoEmail && telefonoValido && validaNombre && validaApellido && validaDireccion && dcFechaN.getDate() != null && cbSexo.getSelectedItem() != null && cbEstadoCivil.getSelectedItem() != null) {
+
             ControladorPersona ctr = new ControladorPersona();
             ctr.newPersona();
             SecureRandom sc = new SecureRandom();
@@ -371,7 +329,7 @@ public class AgregarPersonas extends javax.swing.JPanel {
             ctr.agregarPersona().setEstado(Boolean.TRUE);
             ctr.agregarPersona().setIdRol(2L);
             ctr.guardarPersona();
-            
+
             if (ctr.isCorrect()) {
                 txtApellidos.setText("");
                 txtCedula.setText("");
@@ -397,9 +355,9 @@ public class AgregarPersonas extends javax.swing.JPanel {
     }
     boolean validaCampoCedula;
     private void txtCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyReleased
-        
+
         validaCampoCedula = uti.isEcuadorianDocumentValid(txtCedula.getText());
-        
+
         if (validaCampoCedula) {
             lblCedula.setText("CI. Valido");
             lblCedula.setForeground(Color.green);
@@ -526,7 +484,7 @@ public class AgregarPersonas extends javax.swing.JPanel {
     }//GEN-LAST:event_botonlunaMousePressed
 
     private void btnGuardarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnGuardarKeyReleased
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             guardar();
         }
         // TODO add your handling code here:

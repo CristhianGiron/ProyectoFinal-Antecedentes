@@ -88,11 +88,6 @@ public class InicioSesion extends javax.swing.JPanel {
         jLabel3.setBounds(310, 210, 170, 15);
 
         txtContraseña.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        txtContraseña.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtContraseñaActionPerformed(evt);
-            }
-        });
         add(txtContraseña);
         txtContraseña.setBounds(310, 230, 280, 40);
 
@@ -144,9 +139,6 @@ public class InicioSesion extends javax.swing.JPanel {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnRegistrarMouseExited(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnRegistrarMousePressed(evt);
-            }
         });
         add(btnRegistrar);
         btnRegistrar.setBounds(420, 300, 60, 12);
@@ -164,9 +156,6 @@ public class InicioSesion extends javax.swing.JPanel {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jLabel7MouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel7MousePressed(evt);
             }
         });
         add(jLabel7);
@@ -186,6 +175,9 @@ public class InicioSesion extends javax.swing.JPanel {
         ok();
 
     }//GEN-LAST:event_btnOkMousePressed
+    /**
+     * Contiene todas las operaciones que se ejecutaran al dar click o enter en el boton Ok
+     */
     public void ok(){
                try {
             //System.out.println("true: "+ ctrc.buscarCuenta(txtUsuario.getText(), ctrc.encriptar(txtContraseña.getPassword())));
@@ -218,10 +210,6 @@ public class InicioSesion extends javax.swing.JPanel {
         btnRegistrar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 255)));
     }//GEN-LAST:event_btnRegistrarMouseExited
 
-    private void btnRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMousePressed
-
-    }//GEN-LAST:event_btnRegistrarMousePressed
-
     private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/btn3.png")));
     }//GEN-LAST:event_jLabel7MouseEntered
@@ -229,14 +217,6 @@ public class InicioSesion extends javax.swing.JPanel {
     private void jLabel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseExited
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/btn2.png")));
     }//GEN-LAST:event_jLabel7MouseExited
-
-    private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
-
-    }//GEN-LAST:event_jLabel7MousePressed
-
-    private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed
-
-    }//GEN-LAST:event_txtContraseñaActionPerformed
 
     private void btnOkKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnOkKeyReleased
         if (evt.getKeyCode()==KeyEvent.VK_ENTER) {

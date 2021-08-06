@@ -8,6 +8,7 @@ package Vista;
 import Vista.Acces.ControlAcceso;
 import Vista.Utiles.ControladorAnimaciones;
 import ControlAdminDatos.Utiles.Utiles;
+import Controlador.CrearDirectorios;
 import Controlador.MantenerCokie;
 import Modelo.Persona;
 import java.awt.Color;
@@ -30,6 +31,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VistaPrincipal
      */
+    CrearDirectorios create=new CrearDirectorios();
     ControladorAnimaciones animacion = new ControladorAnimaciones();
     AgregarAntecedentes agregarAntecedentes = new AgregarAntecedentes();
     GestionarJuzgados gestionarJuzgados = new GestionarJuzgados();
@@ -47,6 +49,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     public VistaPrincipal() {
         initComponents();
+      
         cortina();
         Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/IconoTriangulo1.png"));
         setIconImage(iconoPropio);

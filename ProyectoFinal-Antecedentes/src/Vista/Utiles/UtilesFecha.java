@@ -12,13 +12,18 @@ import java.util.Date;
  * and open the template in the editor.
  */
 /**
- *
+ * Clase Utiles que permite dar formato a fechas para que sea posible su ingreso a la base de datos
  * @author hp
  */
 public class UtilesFecha {
 
     SimpleDateFormat Formato = new SimpleDateFormat("yyy-MM-dd");
-
+    //
+    /**
+     * Metodo get que devuelve una fecha
+     * @param jd JDateChoser 
+     * @return Fecha con formato
+     */
     public String getFecha(JDateChooser jd) {
         if (jd.getDate() != null) {
             return Formato.format(jd.getDate());
@@ -26,7 +31,11 @@ public class UtilesFecha {
             return null;
         }
     }
-
+    /**
+     * Permite transformar una fecha en string en un dato tipo Date
+     * @param fecha fecha que se desea transformar
+     * @return  Date fecha obtenida apartir de el string
+     */
     public java.util.Date StringADate(String fecha) {
         SimpleDateFormat formato_del_Texto = new SimpleDateFormat("yyy-MM-dd");
         Date fechaE = null;

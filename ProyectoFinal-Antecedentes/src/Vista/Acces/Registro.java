@@ -290,11 +290,6 @@ public class Registro extends javax.swing.JPanel {
         jLabel15.setBounds(310, 290, 170, 15);
 
         txtClave.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        txtClave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtClaveActionPerformed(evt);
-            }
-        });
         txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtClaveKeyReleased(evt);
@@ -360,6 +355,9 @@ public class Registro extends javax.swing.JPanel {
         registrar();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnOkMousePressed
+    /**
+     * Contiene todas las acciones que se ejecutaran al hacer click o enter sobre el boton Ok
+     */
     public void registrar() {
         if (validaCampoCedula && validaCampoContraseña && validaCampoEmail && telefonoValido && validaNombre && validaApellido && validaUsuario && validaDireccion && fechaNa.getDate() != null && cbSexo.getSelectedItem() != null) {
 
@@ -428,10 +426,6 @@ public class Registro extends javax.swing.JPanel {
     private void btnRegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseExited
         btnRegresar.setForeground(new Color(102, 204, 102));// TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarMouseExited
-
-    private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
-
-    }//GEN-LAST:event_txtClaveActionPerformed
 
     private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
         char caracter = evt.getKeyChar();

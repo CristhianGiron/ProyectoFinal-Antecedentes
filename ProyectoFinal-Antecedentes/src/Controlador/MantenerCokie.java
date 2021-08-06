@@ -64,7 +64,13 @@ public class MantenerCokie<T> {
     public Boolean modificar(T o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+   
     boolean estado=false;
+    /**
+     * Remueve el archivo creado con el framework XtrStream
+     * @param ruta ruta de el archivo
+     * @return Boolean true: archivo borrado con exito false: archivo no se a podido borrar
+     */
     public Boolean RemoveCokie(String ruta) {
         cok.setREPO(ruta);
         cok.cerrar();

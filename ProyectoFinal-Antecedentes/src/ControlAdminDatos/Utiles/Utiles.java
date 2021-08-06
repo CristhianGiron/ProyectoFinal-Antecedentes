@@ -134,7 +134,12 @@ public class Utiles {
         return null;
 
     }
-
+    /**
+     * Metodo que permite scalar una imagen de acuerdo a su contenedor
+     * @param imagen Imagen que ser escalada
+     * @param d dimension que se necesita tenga la imagen
+     * @return Imgen Scalada de acuerdo a la dimension requerida
+     */
     public Image img(Image imagen, Dimension d) {
         if (imagen != null) {
             Image rpta = imagen;
@@ -145,7 +150,11 @@ public class Utiles {
         return null;
 
     }
-
+    /**
+     * Convierte una Imagen de tipo Blod a Image
+     * @param imagen Imgen de tipo Blod
+     * @return Image 
+     */
     public Image img(Blob imagen) {
         if (imagen != null) {
             Image rpta = null;
@@ -165,7 +174,15 @@ public class Utiles {
 
     }
     int cant = 0;
-
+    /**
+     * Convierte una Imagen de tipo Blod a una archivo de tipo File que seran guardados en la carpeta Perfiles
+     * @param input Imgen Blod 
+     * @param nombre Nombre que se desea tenga la imagen
+     * @return File archivo de imagen almacenado en la carpeta Perfiles
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws SQLException 
+     */
     public File imagen(Blob input, String nombre) throws FileNotFoundException, IOException, SQLException {
         cant++;
         if (input != null) {
@@ -190,7 +207,13 @@ public class Utiles {
         return null;
 
     }
-
+    /**
+     * Convierte un archivo File en FileInputStream
+     * @param file Archivo a convertir
+     * @return FileInputStrean archivo de Bytes
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public FileInputStream imagen(File file) throws FileNotFoundException, IOException {
         FileInputStream input = null;
         input = new FileInputStream(file);
@@ -285,7 +308,12 @@ public class Utiles {
             uno[i] = dos[i];
         }
     }
-
+    /**
+     * Metodo que valida un numero de Cedula (Ecuatoriano) sea valido haciendo
+     * uso de los algoritmos de validacion mas comun
+     * @param document String numero de cedula a verificar
+     * @return Boolean true: numero de cedula valido false: numero de cedula invalido
+     */
     public boolean isEcuadorianDocumentValid(String document) {
         byte sum = 0;
         try {
@@ -323,7 +351,12 @@ public class Utiles {
         }
         return false;
     }
-
+    /**
+     * Valida la legitimidad de una direccion de correo electronico, no es totalmente efectivo pero,
+     * pero funciona para la mayoria de Correos
+     * @param correo Correo que se necesita validar
+     * @return Boolean true: Correo valido, false: correo invalido
+     */
     public Boolean validarDireccionCorreoElectronico(String correo) {
         Pattern pattern = Pattern
                 .compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
