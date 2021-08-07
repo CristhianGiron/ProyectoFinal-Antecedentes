@@ -46,7 +46,7 @@ import necesario.RSFileChooser;
  * @author hp
  */
 public class AgregarAntecedentes extends javax.swing.JPanel {
-
+    
     boolean boolPanelMenu = false;
     boolean boolPanelAntecedentes = false;
     boolean boolPanelPersonas = false;
@@ -730,15 +730,19 @@ public class AgregarAntecedentes extends javax.swing.JPanel {
                         (!txtNrAudiencia.getText().equalsIgnoreCase("")) ? Integer.parseInt(txtNrAudiencia.getText()) : 0,
                         pdf, fichero.getName(), estadoVictimario, (dcFechaFinalizacionAudiencia != null) ? "Finalizado" : estadoProceso,
                         "Habilitado", auxD.getIdDelito(), auxPer.getIdPersona(), auxC.getIdCondena(), auxJ.getIdJuzgado());
-
-                cd.create(auxC);
-                prcd.create(auxP);
-                if (cd.isSeGuardo() && prcd.isSeGuardo()) {
-                    JOptionPane.showMessageDialog(null, "Se ha guardado con exito");
-                    listaProcesos = prcd.findProcesoEntities(true);
-                    limpiarCampos();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al guardar");
+                
+                if (!UtilAgreGesAnt.datoRepetido(listaProcesos, auxP)) {
+                    cd.create(auxC);
+                    prcd.create(auxP);
+                    if (cd.isSeGuardo() && prcd.isSeGuardo()) {
+                        JOptionPane.showMessageDialog(null, "Se ha guardado con exito");
+                        listaProcesos = prcd.findProcesoEntities(true);
+                        limpiarCampos();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al guardar");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Este proceso ya se encuentra registrado");
                 }
             } catch (IOException ex) {
                 System.out.println(ex);

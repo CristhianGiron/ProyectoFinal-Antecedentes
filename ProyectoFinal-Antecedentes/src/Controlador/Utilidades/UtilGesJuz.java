@@ -57,4 +57,21 @@ public class UtilGesJuz {
 
         return informacion;
     }
+    /**
+     * Comprueba que el juzgado no se repita
+     * @param listaJuzgado
+     * @param dato
+     * @return 
+     */
+    public static boolean datoRepetido(ArrayList<Juzgado> listaJuzgado, Juzgado dato){
+        boolean seRepite = false;
+        for (int i = 0; i < listaJuzgado.size(); i++) {
+            Juzgado aux = listaJuzgado.get(i);
+            if (aux.getNombre().equalsIgnoreCase(dato.getNombre()) && aux.getDireccionJuzgado().equalsIgnoreCase(dato.getDireccionJuzgado())) {
+                seRepite = true;
+                break;
+            }
+        }
+        return seRepite;
+    }
 }

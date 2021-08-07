@@ -680,15 +680,20 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
                 } catch (Exception e) {
                 }
             }
-            cd.edit(auxCon);
-            prcd.edit(auxPro);
-            if (cd.isSeGuardo() && prcd.isSeGuardo()) {
-                JOptionPane.showMessageDialog(null, "Se ha modificado con exito");
-                limpiarCampos();
-                cargarListas();
+            if (!UtilAgreGesAnt.datoRepetido(listaProcesos, auxPro)) {
+                cd.edit(auxCon);
+                prcd.edit(auxPro);
+                if (cd.isSeGuardo() && prcd.isSeGuardo()) {
+                    JOptionPane.showMessageDialog(null, "Se ha modificado con exito");
+                    limpiarCampos();
+                    cargarListas();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al modificar");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Error al modificar");
+                JOptionPane.showMessageDialog(null, "Este proceso ya se encuentra registrado");
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
         }

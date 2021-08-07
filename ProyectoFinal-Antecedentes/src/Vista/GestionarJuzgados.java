@@ -388,23 +388,30 @@ public class GestionarJuzgados extends javax.swing.JPanel {
             if (sePuedeEditar) {
                 sePuedeEditar = false;
                 Juzgado aux = new Juzgado(jzEditar.getIdJuzgado(), txtNombreJuzgado.getText(), txtDireccion.getText(), jzEditar.getEstadoJuzgado());
-                System.out.println(aux.toString());
-                jd.edit(aux);
-                jzEditar = new Juzgado();
-                if (jd.isSeGuardo()) {
-                    JOptionPane.showMessageDialog(null, "Se ha modificado con exito");
-                    esValido = true;
+                if (!UtilGesJuz.datoRepetido(listaJuzgado, aux)) {
+                    jd.edit(aux);
+                    jzEditar = new Juzgado();
+                    if (jd.isSeGuardo()) {
+                        JOptionPane.showMessageDialog(null, "Se ha modificado con exito");
+                        esValido = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al modificar");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error al modificar");
+                    JOptionPane.showMessageDialog(null, "Este juzgado ya se encuentra registrado");
                 }
             } else {
                 Juzgado aux = new Juzgado(Long.valueOf(listaJuzgado.size() + 1), txtNombreJuzgado.getText(), txtDireccion.getText(), "Activado");
-                jd.create(aux);
-                if (jd.isSeGuardo()) {
-                    JOptionPane.showMessageDialog(null, "Se ha guardado con exito");
-                    esValido = true;
+                if (!UtilGesJuz.datoRepetido(listaJuzgado, aux)) {
+                    jd.create(aux);
+                    if (jd.isSeGuardo()) {
+                        JOptionPane.showMessageDialog(null, "Se ha guardado con exito");
+                        esValido = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al guardar");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error al guardar");
+                    JOptionPane.showMessageDialog(null, "Este juzgado ya se encuentra registrado");
                 }
             }
             if (esValido) {

@@ -207,4 +207,22 @@ public class UtilAgreGesAnt {
 
         return informacion;
     }
+    /**
+     * Comprueba que el proceso no se repita
+     * @param listaProcesos
+     * @param dato
+     * @return 
+     */
+    public static boolean datoRepetido(ArrayList<Proceso> listaProcesos, Proceso dato){
+        boolean seRepite = false;
+        for (int i = 0; i < listaProcesos.size(); i++) {
+            Proceso aux = listaProcesos.get(i);
+            if (aux.getIdDelito() == dato.getIdDelito() && aux.getFechaInicio().equalsIgnoreCase(dato.getFechaInicio()) 
+                    && aux.getFechaFinal().equalsIgnoreCase(dato.getFechaFinal())) {
+                seRepite = true;
+                break;
+            }
+        }
+        return seRepite;
+    }
 }
