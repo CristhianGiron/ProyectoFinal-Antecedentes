@@ -82,6 +82,9 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         construirTabla();
     }
 
+    /**
+     * Limpia todos los campos
+     */
     public void limpiarCampos() {
         Proceso auxPro = null;
         Condena auxCon = null;
@@ -92,6 +95,9 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         borrarArchivo();
     }
 
+    /**
+     * Borra el archivo temporal que se muestra al usuario
+     */
     public void borrarArchivo() {
         IconoBorrarArchivo.setVisible(false);
         lbIconoArchivo.setVisible(false);
@@ -101,14 +107,20 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         auxByte = null;
     }
 
+    /**
+     * Carga las listas necesarias para llenar la tabla
+     */
     public void cargarListas() {
-        listaProcesos = prcd.listaProcesoPersona(auxPer.getIdPersona());
+        listaProcesos = prcd.listaProcesoPersona(auxPer.getIdPersona(), true);
         listaDelito = UtilAgreGesAnt.listaDelito(listaProcesos, dd);
         listaJuzgado = UtilAgreGesAnt.listaJuzgado(listaProcesos, jd);
         listaCondena = UtilAgreGesAnt.listaCondena(listaProcesos, cd);
         construirTabla();
     }
 
+    /**
+     * Construye la tabla segun los datos y titulos
+     */
     private void construirTabla() {
 
         ArrayList<String> titulosList = new ArrayList<>();
@@ -138,6 +150,12 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Construye la tabla segun los datos y botones
+     *
+     * @param titulos
+     * @param data
+     */
     private void construirTabla(String[] titulos, Object[][] data) {
         modelo = new ModeloTabla(data, titulos);
         modelo.setRowCount(0);
@@ -582,8 +600,10 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         jLabel23.setText("*");
         PanelComponentes.add(jLabel23);
         jLabel23.setBounds(60, 670, 10, 17);
+
+        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Acces/Imagenes/UsuarioImg.png"))); // NOI18N
         PanelComponentes.add(foto);
-        foto.setBounds(730, 20, 130, 130);
+        foto.setBounds(720, 30, 140, 140);
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(204, 0, 0));
@@ -636,14 +656,18 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     private void PanelComponentesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelComponentesMouseExited
         txtNombreApellido.setFocusable(true);        // TODO add your handling code here:
     }//GEN-LAST:event_PanelComponentesMouseExited
-
+    /**
+     * Guarda los cambios que se le hizo a un determinado Proceso/Antecedente
+     *
+     * @param evt
+     */
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
         if (txtIntancia.getText().length() > 0 && (auxByte != null || fichero != null)) {
             auxPro.setFechaFinal(fecha.getFecha(dcFechaFinalizacionAudiencia));
             auxPro.setInstancia(Integer.parseInt(txtIntancia.getText()));
             auxPro.setNrAudiencias(Integer.parseInt(txtNrAudiencia.getText()));
             auxPro.setEstadoVictimario(estadoVictimario);
-            auxPro.setEstadoDemanda(estadoProceso);
+            auxPro.setEstadoDemanda((dcFechaFinalizacionAudiencia != null) ? "Finalizado" : estadoProceso);
             auxCon.setSentencia(txtSentencia.getText());
             auxCon.setEstadoCondena((!txtSentencia.getText().equalsIgnoreCase("") ? "Dictada" : "Sin Dictar"));
             if (auxByte == null) {
@@ -656,39 +680,52 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
                 } catch (Exception e) {
                 }
             }
-            cd.edit(auxCon);
-            prcd.edit(auxPro);
-            if (cd.isSeGuardo() && prcd.isSeGuardo()) {
-                JOptionPane.showMessageDialog(null, "Se ha modificado con exito");
-                limpiarCampos();
-                cargarListas();
+            if (!UtilAgreGesAnt.datoRepetido(listaProcesos, auxPro)) {
+                cd.edit(auxCon);
+                prcd.edit(auxPro);
+                if (cd.isSeGuardo() && prcd.isSeGuardo()) {
+                    JOptionPane.showMessageDialog(null, "Se ha modificado con exito");
+                    limpiarCampos();
+                    cargarListas();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al modificar");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Error al modificar");
+                JOptionPane.showMessageDialog(null, "Este proceso ya se encuentra registrado");
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
         }
     }//GEN-LAST:event_botonGuardarMouseClicked
-
+    /**
+     * Busca los datos de la persona ingresada
+     *
+     * @param evt
+     */
     private void botonBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarMouseClicked
         try {
             auxPer = pd.obtenerPersona(txtCedula.getText(), "cedula");
         } catch (SQLException ex) {
             Logger.getLogger(GestionarAntecedentes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Apellido"+auxPer.getApellido());
+        System.out.println("Apellido" + auxPer.getApellido());
         if (auxPer != null) {
             cargarListas();
             txtNombreApellido.setText(auxPer.getNombre() + " " + auxPer.getApellido());
-            ImageIcon icon = new ImageIcon("Perfiles/"+auxPer.getFile().getPath());
-            Image imgEscalada = icon.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+            ImageIcon icon = new ImageIcon("Perfiles/" + auxPer.getFile().getPath());
+            Image imgEscalada = icon.getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH);
             Icon imgIcon = new ImageIcon(imgEscalada);
             foto.setIcon(imgIcon);
         } else {
             JOptionPane.showMessageDialog(null, "No existe registro de esa persona");
         }
     }//GEN-LAST:event_botonBuscarMouseClicked
-
+    /**
+     * Permite subir un archivo
+     *
+     * @param evt
+     */
     private void botonSubirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSubirMouseClicked
         necesario.RSFileChooser fc = new necesario.RSFileChooser();//Creamos el objeto JFileChooser
         int seleccion = fc.showOpenDialog(this);//Abrimos la ventana, guardamos la opcion seleccionada por el usuario
@@ -701,11 +738,19 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             auxByte = null;
         }
     }//GEN-LAST:event_botonSubirMouseClicked
-
+    /**
+     * Permite borrar el archivo subido
+     *
+     * @param evt
+     */
     private void IconoBorrarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoBorrarArchivoMouseClicked
         borrarArchivo();
     }//GEN-LAST:event_IconoBorrarArchivoMouseClicked
-
+    /**
+     * Seleciona el estado Finalizado del Proceso o Jucio
+     *
+     * @param evt
+     */
     private void rbFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFinalizadoActionPerformed
         if (rbFinalizado.isSelected()) {
             rbFinalizado.setEnabled(false);
@@ -714,7 +759,11 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             this.estadoProceso = "Finalizado";
         }
     }//GEN-LAST:event_rbFinalizadoActionPerformed
-
+    /**
+     * Seleciona el estado En proceso del Proceso o Jucio
+     *
+     * @param evt
+     */
     private void rbEnProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEnProcesoActionPerformed
         if (rbEnProceso.isSelected()) {
             rbEnProceso.setEnabled(false);
@@ -744,7 +793,12 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_lbIconoGuardarMouseClicked
-
+    /**
+     * Permite realizar las acciones de editar y dar de baja seleccionando los
+     * determinados iconos de la tabla
+     *
+     * @param evt
+     */
     private void tablaAntecedentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAntecedentesMouseClicked
         int fila = tablaAntecedentes.rowAtPoint(evt.getPoint());
         int columna = tablaAntecedentes.columnAtPoint(evt.getPoint());
@@ -825,7 +879,11 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         }
         cargarListas();
     }//GEN-LAST:event_tablaAntecedentesMouseClicked
-
+    /**
+     * Seleciona el estado Culpable del Victimario
+     *
+     * @param evt
+     */
     private void rbCulpableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCulpableActionPerformed
         if (rbCulpable.isSelected()) {
             rbCulpable.setEnabled(false);
@@ -836,7 +894,11 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             this.estadoVictimario = "Culpable";
         }
     }//GEN-LAST:event_rbCulpableActionPerformed
-
+    /**
+     * Seleciona el estado Presunto Culpable del Victimario
+     *
+     * @param evt
+     */
     private void rbPresuntoCulpableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPresuntoCulpableActionPerformed
         if (rbPresuntoCulpable.isSelected()) {
             rbPresuntoCulpable.setEnabled(false);
@@ -847,7 +909,11 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             this.estadoVictimario = "Presunto Culpable";
         }
     }//GEN-LAST:event_rbPresuntoCulpableActionPerformed
-
+    /**
+     * Seleciona el estado Inocente del Victimario
+     *
+     * @param evt
+     */
     private void rbInocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbInocenteActionPerformed
         if (rbInocente.isSelected()) {
             rbInocente.setEnabled(false);
@@ -858,7 +924,11 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             this.estadoVictimario = "Inocente";
         }
     }//GEN-LAST:event_rbInocenteActionPerformed
-
+    /**
+     * Permite descargar el archivo
+     *
+     * @param evt
+     */
     private void lbIconoArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbIconoArchivoMouseClicked
         if (evt.getClickCount() == 2) {
             if (auxByte != null) {
@@ -882,7 +952,11 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_lbIconoArchivoMouseClicked
-
+    /**
+     * Solo permite numeros en la cedula
+     *
+     * @param evt
+     */
     private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
         char caracter = evt.getKeyChar();
         if (((caracter < '0')
@@ -890,7 +964,11 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
                 && (caracter != '\b')) {
             evt.consume();
         }    }//GEN-LAST:event_txtCedulaKeyTyped
-
+    /**
+     * Solo permite numeros en la instancia
+     *
+     * @param evt
+     */
     private void txtIntanciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIntanciaKeyTyped
         char caracter = evt.getKeyChar();
         if (((caracter < '0')
@@ -898,7 +976,11 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
                 && (caracter != '\b')) {
             evt.consume();
         }    }//GEN-LAST:event_txtIntanciaKeyTyped
-
+    /**
+     * Solo permite numeros en el número de audiencias
+     *
+     * @param evt
+     */
     private void txtNrAudienciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNrAudienciaKeyTyped
         char caracter = evt.getKeyChar();
         if (((caracter < '0')

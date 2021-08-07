@@ -245,14 +245,22 @@ public class PersonaDao implements Dao<Persona> {
         }
         return count;
     }
+    
+    /**
+     * El siguiente método permite consultar o extraer los datos de una persona directo de la base de datos consultando con cedula o id 
+     *
+     * @param dato
+     * @param tipoBusqueda
+     * @return 
+     */
     public Persona obtenerPersona(String dato, String tipoBusqueda) throws SQLException {
         Persona persona = null;
         stmt = (Statement) cnx.createStatement();
         ResultSet rs = null;
         if (tipoBusqueda.equalsIgnoreCase("cedula")) {
-            rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.personas where cedula=" + dato);
+            rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.personas where estado='T' and cedula=" + dato);
         }else if(tipoBusqueda.equalsIgnoreCase("id")){
-            rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.personas where idpersona=" + dato);
+            rs = stmt.executeQuery("SELECT * FROM sistemaco_penal.personas where estado='T' and idpersona=" + dato);
         }
         try {
                 if (rs.next()) {

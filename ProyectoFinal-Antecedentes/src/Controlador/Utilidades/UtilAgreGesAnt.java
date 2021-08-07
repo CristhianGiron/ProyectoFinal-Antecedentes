@@ -99,6 +99,15 @@ public class UtilAgreGesAnt {
         }
     }
     
+    /**
+     * Obtiene una lista de persona dependiendo del id que corresponda al proceso
+     * puede llenar la lista con la misma persona varias veces, esto se hace para que
+     * la lista de procesos y personas tengan el mismo tamaño
+     * @param listaProceso
+     * @param pd
+     * @return
+     * @throws SQLException 
+     */
     public static ArrayList<Persona> listaPersona(ArrayList<Proceso> listaProceso, PersonaDao pd) throws SQLException{
         ArrayList<Persona> listaPersona = new ArrayList<>();
         for (int i = 0; i < listaProceso.size(); i++) {
@@ -109,6 +118,14 @@ public class UtilAgreGesAnt {
         return listaPersona;
     }
     
+    /**
+     * Obtiene una lista de delitos dependiendo del id que corresponda al proceso
+     * puede llenar la lista con el mismo delito varias veces, esto se hace para que
+     * la lista de procesos y delitos tengan el mismo tamaño
+     * @param listaProceso
+     * @param dd
+     * @return 
+     */
     public static ArrayList<Delito> listaDelito(ArrayList<Proceso> listaProceso, DelitoDao dd){
         ArrayList<Delito> listaDelito = new ArrayList<>();
         for (int i = 0; i < listaProceso.size(); i++) {
@@ -119,6 +136,14 @@ public class UtilAgreGesAnt {
         return listaDelito;
     }
     
+    /**
+     * Obtiene una lista de juzgados dependiendo del id que corresponda al proceso
+     * puede llenar la lista con el mismo juzgado varias veces, esto se hace para que
+     * la lista de procesos y juzgados tengan el mismo tamaño
+     * @param listaProceso
+     * @param jd
+     * @return 
+     */
     public static ArrayList<Juzgado> listaJuzgado(ArrayList<Proceso> listaProceso, JuzgadoDao jd){
         ArrayList<Juzgado> listaJuzgado = new ArrayList<>();
         for (int i = 0; i < listaProceso.size(); i++) {
@@ -128,7 +153,15 @@ public class UtilAgreGesAnt {
         }
         return listaJuzgado;
     }
-    
+   
+    /**
+     * Obtiene una lista de condenas dependiendo del id que corresponda al proceso
+     * puede llenar la lista con la misma condena varias veces, esto se hace para que
+     * la lista de procesos y condena tengan el mismo tamaño 
+     * @param listaProceso
+     * @param cd
+     * @return 
+     */
     public static ArrayList<Condena> listaCondena(ArrayList<Proceso> listaProceso, CondenaDao cd){
         ArrayList<Condena> listaCondena = new ArrayList<>();
         for (int i = 0; i < listaProceso.size(); i++) {
@@ -139,6 +172,16 @@ public class UtilAgreGesAnt {
         return listaCondena;
     }
     
+    /**
+     * * Obtiene la matriz que llenará la tabla de la vista gestionar antecedentes con los datos 
+     * del proceso, juzgado, delito y condena que correspondan al proceso de una persona
+     * @param titulosList
+     * @param listaProceso
+     * @param listaJuzgado
+     * @param listaDelito
+     * @param listaCondena
+     * @return 
+     */
     public static Object[][] obtenerMatrizDatos(ArrayList<String> titulosList, ArrayList<Proceso> listaProceso, ArrayList<Juzgado> listaJuzgado, ArrayList<Delito> listaDelito, ArrayList<Condena> listaCondena) {
 
         /*se crea la matriz donde las filas son dinamicas pues corresponde
@@ -163,5 +206,23 @@ public class UtilAgreGesAnt {
         }
 
         return informacion;
+    }
+    /**
+     * Comprueba que el proceso no se repita
+     * @param listaProcesos
+     * @param dato
+     * @return 
+     */
+    public static boolean datoRepetido(ArrayList<Proceso> listaProcesos, Proceso dato){
+        boolean seRepite = false;
+        for (int i = 0; i < listaProcesos.size(); i++) {
+            Proceso aux = listaProcesos.get(i);
+            if (aux.getIdDelito() == dato.getIdDelito() && aux.getFechaInicio().equalsIgnoreCase(dato.getFechaInicio()) 
+                    && aux.getFechaFinal().equalsIgnoreCase(dato.getFechaFinal())) {
+                seRepite = true;
+                break;
+            }
+        }
+        return seRepite;
     }
 }
