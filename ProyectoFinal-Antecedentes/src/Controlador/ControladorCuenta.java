@@ -67,7 +67,7 @@ public class ControladorCuenta {
     /**
      * Metodo get que permite obtener la lista de cuentas
      *
-     * @return ArrayList<Cuenta> lista de cuentas
+     * @return ArrayList Cuenta lista de cuentas
      */
     public ArrayList<Cuenta> getListCuenta() {
         return listCuenta;
@@ -84,7 +84,7 @@ public class ControladorCuenta {
     /**
      * Obtiene los datos de cuentas de la base de datos y las lista
      *
-     * @return ArrayList<Cuentas> lista de cuentas
+     * @return ArrayList Cuentas lista de cuentas
      */
     public ArrayList<Cuenta> listaCuentas() {
         ArrayList<Cuenta> list = dao.findCuentaEntities();
@@ -122,8 +122,8 @@ public class ControladorCuenta {
      *
      * @param Usuario Usuario de la persona a buscar
      * @param Clave Clave o contraseña encriptada para buscar
-     * @throws GeneralSecurityException
-     * @throws IOException
+     * @throws GeneralSecurityException Exepcion 
+     * @throws IOException Excepcion
      */
     public void buscarCuenta(String Usuario, String Clave) throws GeneralSecurityException, IOException {
         listaCuentas();
@@ -178,7 +178,7 @@ public class ControladorCuenta {
      *
      * @param pasword char[] Contraseña o clave a encriptar
      * @return Clave o contraseña encriptada
-     * @throws GeneralSecurityException
+     * @throws GeneralSecurityException Excepcion
      */
     public String encriptar(char[] pasword) throws GeneralSecurityException {
 

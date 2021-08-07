@@ -33,11 +33,16 @@ public class ProcesoDao implements Dao<Proceso> {
     Conexion con = new Conexion();
     static Connection cnx;
     boolean seGuardo;
-
+    /**
+     * Constructor de la clase ProcesoDao
+     */
     public ProcesoDao() {
         cnx = con.getConexion();
     }
-
+    /**
+     * Verificacion de guardao extoso
+     * @return Boolean true: Se a guardado correctamente false: no se guardo
+     */
     public boolean isSeGuardo() {
         return seGuardo;
     }
@@ -45,8 +50,8 @@ public class ProcesoDao implements Dao<Proceso> {
     /**
      * El siguiente método permite extrae un lista de procesos, pueden ser todos o solo las que estan activas
      *
-     * @param todo
-     * @return 
+     * @param todo Boolean true retorna la totalidad de los datos
+     * @return  ArrayList Proceso
      */
     public ArrayList<Proceso> findProcesoEntities(boolean todo) {
         return findEntities(todo, -1, -1);
@@ -169,9 +174,9 @@ public class ProcesoDao implements Dao<Proceso> {
     /**
      * El siguiente método permite extrae un lista de procesos dependiendo del id de la persona, pueden ser todos o solo las que estan activas
      *
-     * @param id
-     * @param todo
-     * @return 
+     * @param id Identificador del proceso que se quire obtener
+     * @param todo Boolena true: retorna la totalidad de los datos
+     * @return ArrayList Proceso
      */
     public ArrayList<Proceso> listaProcesoPersona(Long id, boolean todo) {
         String query;

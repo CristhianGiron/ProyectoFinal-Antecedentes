@@ -34,7 +34,10 @@ public class Registro extends javax.swing.JPanel {
      * Creates new form Registro1
      */
     UtilesFecha fech = new UtilesFecha();
-
+    /**
+     * Constructor de la clase Registro
+     * @param aL Evento pasado por parametro
+     */
     public Registro(MouseListener aL) {
         ConvertirEnums enums = new ConvertirEnums();
         initComponents();

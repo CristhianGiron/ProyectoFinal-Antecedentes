@@ -10,5 +10,9 @@ package Vista.Utiles.TablaAntecedentes;
  * @author ASUS
  */
 public class UtilTablaAnteInicio {
+
+    /**
+     * Delito
+     */
     public static final int DELITO = 0;
 }

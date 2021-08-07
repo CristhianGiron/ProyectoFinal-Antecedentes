@@ -39,7 +39,7 @@ public class CuentaDao implements Dao<Cuenta> {
     /**
      * Este es un metodo desde el cual se puede hacer uso de el metodo
      * findEntities(boolean all, int maxResult, int firstResult) pero obiando sus parametros
-     * @return ArrayList<Cuenta> lista de datos de cuentas de usuario
+     * @return ArrayList Cuenta lista de datos de cuentas de usuario
      */
     public ArrayList<Cuenta> findCuentaEntities() {
         return findEntities(true, -1, -1);
@@ -49,7 +49,7 @@ public class CuentaDao implements Dao<Cuenta> {
      * findEntities(boolean all, int maxResult, int firstResult) tomando encuenta todos sus parametros
      * @param maxResult cantidad maxima de datos que se espera retornar
      * @param firstResult primer resultado desde el cual se requiere obtener los datos
-     * @return ArrayList<Cuenta> lista de datos de cuentas de usuarios
+     * @return ArrayList Cuenta lista de datos de cuentas de usuarios
      */
     public ArrayList<Cuenta> findCuentaEntities(int maxResult, int firstResult) {
         return findEntities(false, maxResult, firstResult);
@@ -81,7 +81,7 @@ public class CuentaDao implements Dao<Cuenta> {
      * de la base de datos false: obtine los datos de acuerdo a los parametros requeridos
      * @param maxResult cantidad maxima de datos que se espera retornar
      * @param firstResult primer resultado desde el cual se requiere obtener los datos
-     * @return ArrayList<Cuenta> lista de datos de cuentas de usuarios
+     * @return ArrayList Cuenta lista de datos de cuentas de usuarios
      */
     @Override
     public ArrayList<Cuenta> findEntities(boolean all, int maxResult, int firstResult) {

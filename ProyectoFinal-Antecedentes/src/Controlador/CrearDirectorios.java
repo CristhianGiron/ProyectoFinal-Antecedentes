@@ -12,7 +12,9 @@ import java.io.File;
  * @author hp
  */
 public class CrearDirectorios {
-
+    /**
+     * Crea los directorios necesarios para el sistema en caso de que no existan
+     */
     public CrearDirectorios() {
          File fileCesion=new File("./Cesion");
         if (fileCesion.exists()==false) {

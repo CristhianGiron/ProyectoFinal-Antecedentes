@@ -20,7 +20,9 @@ public class ControlAcceso extends javax.swing.JFrame {
      */
     InicioSesion sesion = new InicioSesion(new ControlAcceso.eventoCerrar(),new ControlAcceso.eventoCerrar2());
     Registro registro = new Registro(new ControlAcceso.eventoCerrar1());
-
+    /**
+     * Controlador de la clase ControlAcceso
+     */
     public ControlAcceso() {
         //this.addWindowListener(aL);
         initComponents();
@@ -28,27 +30,27 @@ public class ControlAcceso extends javax.swing.JFrame {
         //[609, 400]
         sesion.setBounds(0, 0, 609, 400);
     }
-//    public ControlAcceso() {
-//        initComponents();
-//        this.add(sesion);
-//        //[609, 400]
-//        sesion.setBounds(0, 0, 609, 400);
-//    }
-
+    /**
+     * Metodo para manejo de el panel de inicio de cesion
+     */
     public void remove() {
         this.remove(sesion);
         this.add(registro);
         registro.setBounds(0, 0, 609, 400);
         this.repaint();
     }
-
+    /**
+     * Metodo para el manejo de el panel de registro
+     */
     public void remove1() {
         this.remove(registro);
         this.add(sesion);
         sesion.setBounds(0, 0, 609, 400);
         this.repaint();
     }
-
+    /**
+     * Metodo para cerrar el frame
+     */
     public void salir() {
         this.dispose();
     }

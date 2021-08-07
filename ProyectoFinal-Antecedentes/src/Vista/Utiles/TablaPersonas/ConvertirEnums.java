@@ -13,6 +13,12 @@ import Vista.Utiles.TablaPersonas.Sexo;
  * @author hp
  */
 public class ConvertirEnums {
+
+    /**
+     * Estado civil 
+     * @param arr Arr de estado civil
+     * @return Array de estado civil
+     */
     public String[] convertEstadoCivil(EstadoCivil arr[]){
         String estado[]=new String[arr.length];
         EstadoCivil est[]=EstadoCivil.values();
@@ -22,6 +28,12 @@ public class ConvertirEnums {
         return estado;
         
     }
+
+    /**
+     * Sexo
+     * @param arr Arreglo de generos 
+     * @return array de generos
+     */
     public String[] convertSexo(Sexo arr[]){
         String sexo[]=new String[Sexo.values().length];
         Sexo sx[]=Sexo.values();

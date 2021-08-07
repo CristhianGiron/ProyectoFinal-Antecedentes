@@ -24,8 +24,15 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 import javax.crypto.spec.DESKeySpec;
 
+/**
+ * Clase de encriptacion y desencripracion de claves
+ * @author hp
+ */
 public class Decrypt {
 
+    /**
+     * Clave previa
+     */
     public final static String KEY = "RUYUKEY1";
     private final static String DES = "DES";
     private final static String IV = "RUYUKEY2";
@@ -36,8 +43,8 @@ public class Decrypt {
      * La descripción está encriptada según el valor de la clave
      *
      * @param data Matriz de bytes de clave de cifrado de clave @param
-     * @return
-     * @throws Exception
+     * @param key Clave previa
+     * @return Una clave o key encriptada
      */
     public String encodeString(String data, String key) {
         byte[] bt = null;
@@ -53,9 +60,8 @@ public class Decrypt {
      * Descripción Descifrar según el valor de la clave
      *
      * @param data Matriz de bytes de clave de cifrado de clave @param
-     * @return
-     * @throws IOException
-     * @throws Exception
+     * @param key Clave previa que sera encriptada
+     * @return Clave encriptada
      */
     public String decodeString(String data, String key) {
         if (data == null) {
@@ -76,8 +82,8 @@ public class Decrypt {
      * La descripción está encriptada según el valor de la clave
      *
      * @param data Matriz de bytes de clave de cifrado de clave @param
-     * @return
-     * @throws Exception
+     * @return Clave encriptada
+     * @throws Exception Excepcion
      */
     private static byte[] encrypt(byte[] data, byte[] key) throws Exception {
         // Crea un objeto DESKeySpec a partir de los datos clave originales
@@ -95,7 +101,7 @@ public class Decrypt {
      * Descripción Descifrar según el valor de la clave
      *
      * @param data Matriz de bytes de clave de cifrado de clave @param
-     * @return
+     * @return byte[] arreglo de bytes
      * @throws Exception
      */
     private static byte[] decrypt(byte[] data, byte[] key) throws Exception {

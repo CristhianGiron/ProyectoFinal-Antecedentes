@@ -15,6 +15,9 @@ import java.sql.ResultSet;
 public class Conexion {
     static Connection conexion;
     static boolean estado=true;
+    /**
+     * Constructor de la clase conexion
+     */
     public Conexion() {
         if (estado) {
             IniciarConexion();

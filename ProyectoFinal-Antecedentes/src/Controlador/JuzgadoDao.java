@@ -26,11 +26,16 @@ public class JuzgadoDao implements Dao<Juzgado> {
     Conexion con = new Conexion();
     static Connection cnx;
     boolean seGuardo;
-
+    /**
+     * Constructor de la clase JuzgadoDao
+     */
     public JuzgadoDao() {
         cnx = con.getConexion();
     }
-
+    /**
+     * Comprobacion de guardado exitoso
+     * @return Boolean true: si se a guardado correctamente false: no se guardo
+     */
     public boolean isSeGuardo() {
         return seGuardo;
     }
@@ -38,8 +43,8 @@ public class JuzgadoDao implements Dao<Juzgado> {
     /**
      * El siguiente método permite extrae un lista de juzgados, pueden ser todos o solo las que estan activas
      *
-     * @param todo
-     * @return 
+     * @param todo Boolean true: retorna la totalidad de los datos
+     * @return ArrayList Jusjado
      */
     public ArrayList<Juzgado> findJuzgadoEntities(boolean todo) {
         return findEntities(todo, -1, -1);

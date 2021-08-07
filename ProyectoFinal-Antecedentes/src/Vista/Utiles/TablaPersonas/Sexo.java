@@ -10,5 +10,8 @@ package Vista.Utiles.TablaPersonas;
  * @author hp
  */
 public enum Sexo {
+    /**
+     * Enums de generos o sexos
+     */
     MASCULINO,FEMENINO,OTRO;
 }

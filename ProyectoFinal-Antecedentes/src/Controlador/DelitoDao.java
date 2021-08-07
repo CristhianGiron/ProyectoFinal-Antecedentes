@@ -25,6 +25,9 @@ public class DelitoDao implements Dao<Delito>{
     Conexion con = new Conexion();
     static Connection cnx;
 
+    /**
+     *Constructor de la clase DelitoDao
+     */
     public DelitoDao() {
         cnx = con.getConexion();
     }
@@ -32,8 +35,8 @@ public class DelitoDao implements Dao<Delito>{
     /**
      * El siguiente método permite extrae un lista de delitos, pueden ser todos o solo las que estan activas
      *
-     * @param todo
-     * @return 
+     * @param todo Boolean true return la totalidad de los datos
+     * @return  ArrayLis Delito 
      */
     public ArrayList<Delito> findDelitoEntities(boolean todo) {
         return findEntities(todo, -1, -1);

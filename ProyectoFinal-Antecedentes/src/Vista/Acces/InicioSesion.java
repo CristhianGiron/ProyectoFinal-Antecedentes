@@ -35,7 +35,11 @@ public class InicioSesion extends javax.swing.JPanel {
      * Creates new form InicioCesion
      */
     ControladorCuenta ctrc = new ControladorCuenta();
-
+    /**
+     * Controlador de laclase de InicioCesion
+     * @param aL Evento pasado por parametro
+     * @param aM Evento pasado por parametro
+     */
     public InicioSesion(MouseListener aL, MouseListener aM) {
         initComponents();
         btnRegistrar.addMouseListener(aL);

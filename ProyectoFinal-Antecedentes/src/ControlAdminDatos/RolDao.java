@@ -37,7 +37,7 @@ public class RolDao implements Dao<Rol>{
     /**
      * Este es un metodo desde el cual se puede hacer uso de el metodo
      * findEntities(boolean all, int maxResult, int firstResult) pero obiando sus parametros
-     * @return ArrayList<Rol> lista de datos de Roles de usuarios
+     * @return ArrayList Rol lista de datos de Roles de usuarios
      */
     public ArrayList<Rol> findRolEntities() {
         return findEntities(true, -1, -1);
@@ -47,7 +47,7 @@ public class RolDao implements Dao<Rol>{
      * findEntities(boolean all, int maxResult, int firstResult) tomando en cuenta todos sus parametros
      * @param maxResult cantidad maxima de datos que se espera retornar
      * @param firstResult primer resultado desde el cual se requiere obtener los datos
-     * @return ArrayList<Rol> lista de datos de Rles de usuarios
+     * @return ArrayList Rol lista de datos de Rles de usuarios
      */
     public ArrayList<Rol> findRolEntities(int maxResult, int firstResult) {
         return findEntities(false, maxResult, firstResult);
@@ -60,7 +60,7 @@ public class RolDao implements Dao<Rol>{
      * de la base de datos false: obtine los datos de acuerdo a los parametros requeridos
      * @param maxResult cantidad maxima de datos que se espera retornar
      * @param firstResult primer resultado desde el cual se requiere obtener los datos
-     * @return ArrayList<Rol> lista de datos de cuentas de usuarios
+     * @return ArrayList Rol lista de datos de cuentas de usuarios
      */
     @Override
     public ArrayList<Rol> findEntities(boolean all, int maxResult, int firstResult) {

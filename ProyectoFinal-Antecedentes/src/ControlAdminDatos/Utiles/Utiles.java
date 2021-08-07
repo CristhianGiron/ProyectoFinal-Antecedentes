@@ -179,9 +179,9 @@ public class Utiles {
      * @param input Imgen Blod 
      * @param nombre Nombre que se desea tenga la imagen
      * @return File archivo de imagen almacenado en la carpeta Perfiles
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws SQLException 
+     * @throws FileNotFoundException Excepcion
+     * @throws IOException Excepcion
+     * @throws SQLException  Excepcion
      */
     public File imagen(Blob input, String nombre) throws FileNotFoundException, IOException, SQLException {
         cant++;
@@ -211,8 +211,8 @@ public class Utiles {
      * Convierte un archivo File en FileInputStream
      * @param file Archivo a convertir
      * @return FileInputStrean archivo de Bytes
-     * @throws FileNotFoundException
-     * @throws IOException 
+     * @throws FileNotFoundException Excepcion
+     * @throws IOException  Excepcion
      */
     public FileInputStream imagen(File file) throws FileNotFoundException, IOException {
         FileInputStream input = null;

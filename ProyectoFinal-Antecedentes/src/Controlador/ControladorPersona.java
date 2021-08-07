@@ -59,14 +59,14 @@ public class ControladorPersona {
     }
     /**
      * Metodo get que obtiene la, lista de persona original
-     * @return ArrayList<Persona> lista de personas
+     * @return ArrayList Persona lista de personas
      */
     public ArrayList<Persona> getListComun() {
         return listComun;
     }
     /**
      * Metodo get que obtiene una lista temporal creada apartir de la lista original
-     * @return ArrayList<Persona> lista de personas
+     * @return ArrayList Persona lista de personas
      */
     public ArrayList<Persona> getListTemporal() {
         return temp;
@@ -87,7 +87,7 @@ public class ControladorPersona {
     }
     /**
      * Lista las personas contenidas en la base de datos de acuerdo al rol con el que se le a permitido ingresar
-     * @return ArrayList<Personas> lista de personas
+     * @return ArrayList Personas lista de personas
      */
     public ArrayList<Persona> listaPersonas() {
         PersonaDao pe = new PersonaDao();

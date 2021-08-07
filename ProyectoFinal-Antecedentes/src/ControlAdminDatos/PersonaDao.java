@@ -52,7 +52,7 @@ public class PersonaDao implements Dao<Persona> {
     /**
      * Este es un metodo desde el cual se puede hacer uso de el metodo
      * findEntities(boolean all, int maxResult, int firstResult) pero obiando sus parametros
-     * @return ArrayList<Persona> lista de datos de personas
+     * @return ArrayList Persona lista de datos de personas
      */
     public ArrayList<Persona> findPersonaEntities() {
         return findEntities(true, -1, -1);
@@ -62,7 +62,7 @@ public class PersonaDao implements Dao<Persona> {
      * findEntities(boolean all, int maxResult, int firstResult) tomando encuenta todos sus parametros
      * @param maxResult cantidad maxima de datos que se espera retornar
      * @param firstResult primer resultado desde el cual se requiere obtener los datos
-     * @return ArrayList<Persona> lista de datos de personas
+     * @return ArrayList Persona lista de datos de personas
      */
     public ArrayList<Persona> findPersonaEntities(int maxResult, int firstResult) {
         return findEntities(false, maxResult, firstResult);
@@ -74,7 +74,7 @@ public class PersonaDao implements Dao<Persona> {
      * de la base de datos false: obtine los datos de acuerdo a los parametros requeridos
      * @param maxResult cantidad maxima de datos que se espera retornar
      * @param firstResult primer resultado desde el cual se requiere obtener los datos
-     * @return ArrayList<Persona> lista de datos de personas
+     * @return ArrayList Persona lista de datos de personas
      */
     @Override
     public ArrayList<Persona> findEntities(boolean all, int maxResult, int firstResult) {
@@ -178,7 +178,7 @@ public class PersonaDao implements Dao<Persona> {
     /**
      * Im-plementacion del metodo destroy para la entidad Persona la cual inactiva
      * a una persona y no volvera a aparecer en los listados de el sistema, "Dar de baja a una persona"
-     * @param persona Persona la cual sera dada de baja
+     * @param id Identificador de la Persona la cual sera dada de baja
      */
     @Override
     public void destroy(Long id) {
@@ -249,9 +249,10 @@ public class PersonaDao implements Dao<Persona> {
     /**
      * El siguiente método permite consultar o extraer los datos de una persona directo de la base de datos consultando con cedula o id 
      *
-     * @param dato
-     * @param tipoBusqueda
-     * @return 
+     * @param dato dato buscado
+     * @param tipoBusqueda tipo de busqueda
+     * @return  Persona
+     * @throws java.sql.SQLException Excepcion
      */
     public Persona obtenerPersona(String dato, String tipoBusqueda) throws SQLException {
         Persona persona = null;

@@ -6,9 +6,12 @@
 package Vista.Utiles.TablaPersonas;
 
 /**
- *
+ * Enum
  * @author hp
  */
 public enum EstadoCivil {
+    /**
+     * Enums estado civil
+     */
     CASADO,SOLTERO;
 }

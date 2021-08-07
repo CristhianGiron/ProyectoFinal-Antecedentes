@@ -25,19 +25,24 @@ public class CondenaDao implements Dao<Condena> {
     Conexion con = new Conexion();
     static Connection cnx;
     boolean seGuardo;
-
+    /**
+     * Constructor de la clase CondenaDao
+     */
     public CondenaDao() {
         cnx = con.getConexion();
     }
-    
+    /**
+     * Comprueba si se a guardado o no
+     * @return Boolean true: se guardo correctamente false: no se guardo
+     */
     public boolean isSeGuardo() {
         return seGuardo;
     }
     /**
      * El siguiente método permite extrae un lista de condenas, pueden ser todas o solo las que estan activas
      *
-     * @param todo
-     * @return 
+     * @param todo Boolean true: retorna todos los valores false: no retorna nada
+     * @return  Lista de objetos
      */
     public ArrayList<Condena> findCondenaEntities(boolean todo) {
         return findEntities(todo, -1, -1);

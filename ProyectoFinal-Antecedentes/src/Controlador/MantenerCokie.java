@@ -43,7 +43,7 @@ public class MantenerCokie<T> {
      * Metodo encargado de guardar los datos del usuario que se a logueado en el
      * sistema
      *
-     * @param o generico
+     * @param objeto generico
      * @param ruta ruta de imagen
      * @throws Exception en caso no se guarde los datos no me detenga la
      * ejecucion del programa.
