@@ -51,9 +51,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         initComponents();
       
         cortina();
-        Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/IconoTriangulo1.png"));
+        Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/icono.png"));
         setIconImage(iconoPropio);
-        Image iconoEncabezado = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/IconoTriangulo1.png"));
+        //Image iconoEncabezado = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Vista/Iconos/IconoTriangulo1.png"));
         animacion.animacionPanelMenu(panelMenuL, btnMenu);
         Contenedor.add(inicio, 3);
         inicio.setBounds(0, 35, 1000, 625);
