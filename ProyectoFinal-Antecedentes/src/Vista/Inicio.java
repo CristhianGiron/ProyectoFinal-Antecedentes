@@ -167,6 +167,8 @@ public class Inicio extends javax.swing.JPanel {
         lbJuzgado = new javax.swing.JLabel();
         lbEstJui = new javax.swing.JLabel();
         lbDelito = new javax.swing.JLabel();
+        lbTEsJui1 = new javax.swing.JLabel();
+        lbEstVic = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1000, 610));
@@ -382,17 +384,22 @@ public class Inicio extends javax.swing.JPanel {
 
         lbDelito.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 24)); // NOI18N
 
+        lbTEsJui1.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        lbTEsJui1.setText("Estado del Victimario:");
+
+        lbEstVic.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout panelInformacionLayout = new javax.swing.GroupLayout(panelInformacion);
         panelInformacion.setLayout(panelInformacionLayout);
         panelInformacionLayout.setHorizontalGroup(
             panelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformacionLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbDelito, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
+            .addGroup(panelInformacionLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelInformacionLayout.createSequentialGroup()
-                        .addComponent(lbTEsJui, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(lbEstJui, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelInformacionLayout.createSequentialGroup()
                         .addComponent(lbTCon, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
@@ -406,15 +413,26 @@ public class Inicio extends javax.swing.JPanel {
                         .addComponent(lbTDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
                         .addComponent(botonDescargar3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbDelito, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35))
+                    .addGroup(panelInformacionLayout.createSequentialGroup()
+                        .addComponent(lbTEsJui1)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbEstVic, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelInformacionLayout.createSequentialGroup()
+                        .addComponent(lbTEsJui, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(lbEstJui, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelInformacionLayout.setVerticalGroup(
             panelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInformacionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbDelito, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(panelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbTEsJui1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbEstVic, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(panelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbTEsJui, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbEstJui, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -434,11 +452,11 @@ public class Inicio extends javax.swing.JPanel {
                     .addGroup(panelInformacionLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(botonDescargar3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         PanelComponentes.add(panelInformacion);
-        panelInformacion.setBounds(20, 430, 950, 410);
+        panelInformacion.setBounds(10, 430, 950, 470);
 
         jScrollPane6.setViewportView(PanelComponentes);
 
@@ -553,6 +571,7 @@ public class Inicio extends javax.swing.JPanel {
             Condena tmpCo = cd.find(tmpPr.getIdCondena());
             Juzgado tmpJu = jd.find(tmpPr.getIdJuzgado());
             lbDelito.setText(tmpDe.getNombre());
+            lbEstVic.setText(tmpPr.getEstadoVictimario());
             lbEstJui.setText(tmpPr.getEstadoDemanda());
             taCondena.setText(tmpCo.getSentencia());
             lbJuzgado.setText(tmpJu.getNombre());
@@ -587,8 +606,6 @@ public class Inicio extends javax.swing.JPanel {
     private javax.swing.JLabel IconoBuscar1;
     private javax.swing.JPanel PanelComponentes;
     private javax.swing.JPanel botonBuscar;
-    private javax.swing.JPanel botonDescargar;
-    private javax.swing.JPanel botonDescargar2;
     private javax.swing.JPanel botonDescargar3;
     private rojerusan.RSPanelCircleImage foto;
     private javax.swing.JLabel jLabel1;
@@ -599,18 +616,18 @@ public class Inicio extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lbBuscar;
     private javax.swing.JLabel lbBuscar1;
-    private javax.swing.JLabel lbBuscar4;
     private javax.swing.JLabel lbBuscar5;
     private javax.swing.JLabel lbCedula;
     private javax.swing.JLabel lbDelito;
     private javax.swing.JLabel lbEstJui;
+    private javax.swing.JLabel lbEstVic;
     private javax.swing.JLabel lbJuzgado;
     private javax.swing.JLabel lbNombreApellido;
     private javax.swing.JLabel lbTCon;
     private javax.swing.JLabel lbTDoc;
     private javax.swing.JLabel lbTEsJui;
+    private javax.swing.JLabel lbTEsJui1;
     private javax.swing.JLabel lbTJuz;
     private javax.swing.JPanel panelInformacion;
     private javax.swing.JTextArea taCondena;

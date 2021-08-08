@@ -210,7 +210,6 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         txtNombreApellido = new javax.swing.JTextField();
         lbLinea = new javax.swing.JLabel();
         lbNombreApellido = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         lbCedula = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         lbFechaInicioAudiencia1 = new javax.swing.JLabel();
@@ -307,12 +306,6 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
         lbNombreApellido.setToolTipText("");
         PanelComponentes.add(lbNombreApellido);
         lbNombreApellido.setBounds(340, 50, 114, 20);
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel5.setText("*");
-        PanelComponentes.add(jLabel5);
-        jLabel5.setBounds(330, 50, 8, 17);
 
         lbCedula.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         lbCedula.setText("Cédula");
@@ -1005,7 +998,6 @@ public class GestionarAntecedentes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
