@@ -23,14 +23,14 @@ public class JuzgadoDao implements Dao<Juzgado> {
 
     Statement stmt;
     PreparedStatement stmt1;
-    Conexion con = new Conexion();
+    Conexion con = Conexion.getConexion();
     static Connection cnx;
     boolean seGuardo;
     /**
      * Constructor de la clase JuzgadoDao
      */
     public JuzgadoDao() {
-        cnx = con.getConexion();
+        cnx = con.getConnection();
     }
     /**
      * Comprobacion de guardado exitoso

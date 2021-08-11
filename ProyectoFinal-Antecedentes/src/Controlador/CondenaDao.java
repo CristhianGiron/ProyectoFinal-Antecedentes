@@ -22,14 +22,14 @@ public class CondenaDao implements Dao<Condena> {
 
     Statement stmt;
     PreparedStatement stmt1;
-    Conexion con = new Conexion();
+    Conexion con = Conexion.getConexion();
     static Connection cnx;
     boolean seGuardo;
     /**
      * Constructor de la clase CondenaDao
      */
     public CondenaDao() {
-        cnx = con.getConexion();
+        cnx = con.getConnection();
     }
     /**
      * Comprueba si se a guardado o no

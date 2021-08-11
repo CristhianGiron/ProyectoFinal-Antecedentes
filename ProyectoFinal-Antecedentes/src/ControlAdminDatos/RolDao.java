@@ -25,13 +25,13 @@ import java.util.ArrayList;
 public class RolDao implements Dao<Rol>{
     Statement stmt;
     PreparedStatement stmt1;
-    Conexion con = new Conexion();
+    Conexion con = Conexion.getConexion();
     static Connection cnx;
     /**
      * Constructor de la clase RolDao
      */
     public RolDao(){
-        cnx=con.getConexion();
+        cnx=con.getConnection();
     }
     
     /**

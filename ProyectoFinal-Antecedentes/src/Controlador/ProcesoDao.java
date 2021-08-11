@@ -30,14 +30,14 @@ public class ProcesoDao implements Dao<Proceso> {
 
     Statement stmt;
     PreparedStatement stmt1;
-    Conexion con = new Conexion();
+    Conexion con = Conexion.getConexion();
     static Connection cnx;
     boolean seGuardo;
     /**
      * Constructor de la clase ProcesoDao
      */
     public ProcesoDao() {
-        cnx = con.getConexion();
+        cnx = con.getConnection();
     }
     /**
      * Verificacion de guardao extoso

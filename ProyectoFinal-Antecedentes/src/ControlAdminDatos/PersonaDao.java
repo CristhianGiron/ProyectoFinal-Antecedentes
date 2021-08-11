@@ -28,14 +28,14 @@ public class PersonaDao implements Dao<Persona> {
 
     Statement stmt;
     PreparedStatement stmt1;
-    Conexion con = new Conexion();
+    Conexion con = Conexion.getConexion();
     Utiles uti = new Utiles();
     static Connection cnx;
     /**
      * Constructor de la clase PersonaDao
      */
     public PersonaDao() {
-        cnx = con.getConexion();
+        cnx = con.getConnection();
 
     }
     Boolean isValid;

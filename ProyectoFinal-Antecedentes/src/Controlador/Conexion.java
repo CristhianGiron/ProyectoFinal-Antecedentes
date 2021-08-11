@@ -13,32 +13,33 @@ import java.sql.ResultSet;
  * @author ASUS
  */
 public class Conexion {
-    static Connection conexion;
+    private static Conexion conexion = new Conexion();
+    static Connection cn;
     static boolean estado=true;
     /**
      * Constructor de la clase conexion
      */
-    public Conexion() {
-        if (estado) {
-            IniciarConexion();
-            estado=false;
-        }
+    private Conexion() {
         
     }
-
+    
+    public  static Conexion getConexion(){
+        IniciarConexion();
+        return conexion;
+    }
     /**
-     * Metodo get estatico que permite establecer conexion con la base de datos
+     * Metodo get que permite establecer conexion con la base de datos
      *
      * @return Retiorna una conexion de BDD
      */
-    public Connection getConexion() {
-        return conexion;
+    public Connection getConnection() {
+        return cn;
     }
 
     /**
      * Inicia o establece la coneccion con la base de datos
      */
-    private void IniciarConexion() {
+    private static void IniciarConexion() {
         Connection con = null;
         String Driver = "com.mysql.cj.jdbc.Driver";
         String Usuario = "root";
@@ -56,7 +57,7 @@ public class Conexion {
             System.out.println("Error estableciendo conexion con la base de datos: " + NombreDB
                     + "\nDetalles del error: \n" + e.getMessage());
         }
-        conexion = con;
+        cn = con;
 
     }
 }
