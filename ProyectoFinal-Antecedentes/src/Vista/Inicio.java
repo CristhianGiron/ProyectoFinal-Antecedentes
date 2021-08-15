@@ -177,7 +177,8 @@ public class Inicio extends javax.swing.JPanel {
         jScrollPane6.setPreferredSize(new java.awt.Dimension(1072, 600));
 
         PanelComponentes.setBackground(new java.awt.Color(255, 255, 255));
-        PanelComponentes.setPreferredSize(new java.awt.Dimension(600, 850));
+        PanelComponentes.setMinimumSize(new java.awt.Dimension(600, 1000));
+        PanelComponentes.setPreferredSize(new java.awt.Dimension(600, 1000));
         PanelComponentes.setVerifyInputWhenFocusTarget(false);
         PanelComponentes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {

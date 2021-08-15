@@ -385,7 +385,7 @@ public class Registro extends javax.swing.JPanel {
                 ctr.agregarPersona().setIdRol(1L);
                 ctr.guardarPersona();
                 ctrc.newCuenta();
-                ctrc.agregarCuenta().setIdCuenta(1L);
+                ctrc.agregarCuenta().setIdCuenta(0L);
                 ctrc.agregarCuenta().setClave(ctrc.encriptar(txtClave.getPassword()));
                 ctrc.agregarCuenta().setUsuario(txtUsuario.getText());
                 ctrc.agregarCuenta().setIdPersona(generator);
