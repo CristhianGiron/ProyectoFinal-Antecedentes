@@ -960,6 +960,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             animacion.colorColapse(Menu13);
         } else {
             Contenedor.remove(agregarAntecedentes);
+            Contenedor.remove(gestionarAntecedentes);
             Contenedor.remove(gestionarJuzgados);
             Contenedor.remove(agregarPersonas);
             Contenedor.remove(gestionarPersonas);
