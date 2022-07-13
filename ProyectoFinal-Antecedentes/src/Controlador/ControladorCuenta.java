@@ -132,18 +132,22 @@ public class ControladorCuenta {
         System.out.println("Encriptado campo: " + Clave);
         System.out.println("Desencriptado campo: " + del);
 
-        String clavel = getListCuenta().get(0).getClave();
+        String clavel = getListCuenta().get(1).getClave();
         String de = ctre.decodeString(clavel, ctre.KEY);
         System.out.println("Encriptado bd: " + clavel);
         System.out.println("Desencriptado bd: " + de);
 
         for (int i = 0; i < getListCuenta().size(); i++) {
-
+            System.out.println("lista: "+getListCuenta().get(i).getUsuario()+" "+getListCuenta().get(i).getClave());
             if (getListCuenta().get(i).getUsuario().equals(Usuario) && getListCuenta().get(i).getClave().equals(Clave)) {
-                System.out.println("Entarar alif");
+                
                 ce = getListCuenta().get(i);
+                System.out.println("Entarar alif");
                 pase = true;
                 System.out.println("Contraseña correcta: "+pase);
+                break;
+            } else {
+                pase = false;
             }
         }
 
