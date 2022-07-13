@@ -462,7 +462,7 @@ public class Inicio extends javax.swing.JPanel {
         jScrollPane6.setViewportView(PanelComponentes);
 
         add(jScrollPane6);
-        jScrollPane6.setBounds(0, 0, 1000, 610);
+        jScrollPane6.setBounds(0, 0, 1000, 620);
     }// </editor-fold>//GEN-END:initComponents
 
     ControladorPersona ctrp = new ControladorPersona();
