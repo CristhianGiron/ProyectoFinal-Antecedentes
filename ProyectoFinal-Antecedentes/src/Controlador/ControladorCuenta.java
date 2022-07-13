@@ -115,7 +115,7 @@ public class ControladorCuenta {
         dao.edit(p);
     }
     Decrypt ctre = new Decrypt();
-    Boolean pase;
+    Boolean pase=false;
 
     /**
      * Busca la cuenta que cumpla las condiciones de sus parametros
@@ -143,8 +143,7 @@ public class ControladorCuenta {
                 System.out.println("Entarar alif");
                 ce = getListCuenta().get(i);
                 pase = true;
-            } else {
-                pase = false;
+                System.out.println("Contraseña correcta: "+pase);
             }
         }
 
